@@ -10,5 +10,7 @@ var CartSchema = new mongoose.Schema({
 	}]
 });
 
+//virtual total price?
+
 
 mongoose.model('Cart', CartSchema);
