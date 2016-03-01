@@ -1,4 +1,4 @@
-<nav class="navbar navbar-static-top">
+<!-- <nav class="navbar navbar-static-top">
     <div class="container">
         <div class="navbar-header">
             <fullstack-logo></fullstack-logo>
@@ -14,4 +14,24 @@
             <a ng-click="logout()">Logout</a>
         </div>
     </div>
-</nav>
+</nav> -->
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings">
+            <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
+        </md-button>
+        <h2>
+          <span>Toolbar with Icon Buttons</span>
+        </h2>
+        <span flex></span>
+        <md-button ng-show="!user" ui-sref="login" class="md-raised" aria-label="Learn More">
+          Login
+        </md-button>
+        <md-button class="md-icon-button" ng-click="toggleRight()" ng-hide="isOpenRight()" aria-label="Favorite">
+            <md-icon md-svg-icon="/icons/cart.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+<cart></cart>
