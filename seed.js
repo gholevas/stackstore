@@ -25,26 +25,8 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Box = Promise.promisifyAll(mongoose.model('Box'));
 var Cart = Promise.promisifyAll(mongoose.model('Cart'));
 
-var seedUsers = function() {
-
-    var users = [{
-        email: 'testing@fsa.com',
-        password: 'password',
-        isAdmin: false
-    }, {
-        email: 'obama@gmail.com',
-        password: 'potus',
-        isAdmin: true
-    }];
-
-    return User.createAsync(users);
-
-};
-
-var dropNSeedUsers = function(){
-    return User.remove({}).then(function() {
-        return seedUsers();
-    });
+var dropUsers = function(){
+    return User.remove({});
 };
 
 var removeCartsNBoxes = function (){
@@ -63,7 +45,7 @@ var createBox = function(){
 };
 
 connectToDb
-.then(dropNSeedUsers)
+.then(dropUsers)
 .then(removeCartsNBoxes)
 .then(createBox)
 .then(function(box){
@@ -72,11 +54,34 @@ connectToDb
         boxes: [{ box: box._id, quantity:500 }]
     })
 })
+// .then(function(cart){
+//     return Cart.find({_id: cart._id}).populate("boxes.box").exec()
+// })
+// .then(function(cartPopulated){
+//     console.log(cartPopulated[0].boxes);
+// })
 .then(function(cart){
-    return Cart.find({_id: cart._id}).populate("boxes.box").exec()
+    var users = [{
+        email: 'testing@fsa.com'
+        ,password: 'password'
+        ,isAdmin: false
+        ,orders: [cart]
+        ,currentCart: cart
+    }
+    // , {
+    //     email: 'obama@gmail.com',
+    //     password: 'potus',
+    //     isAdmin: true,
+    //     orders: null}
+    ];
+
+    return User.createAsync(users);
 })
-.then(function(cartPopulated){
-    console.log(cartPopulated[0].boxes);
+.then(function(user){
+    return User.find({_id: user[0]._id}).populate("orders currentCart currentCart.boxes.box").exec()
+})
+.then(function(data){
+    console.log(data[0].currentCart);
 })
 .then(function() {
     console.log(chalk.green('Seed successful!'));
