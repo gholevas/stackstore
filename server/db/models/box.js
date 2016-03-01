@@ -1,14 +1,15 @@
 'use strict';
 var mongoose = require('mongoose');
+var enums = require('./enums.js');
 
 var BoxSchema = new mongoose.Schema({
 
-	name: {type: String, unique: true},
-	imgUrl: String,
-	priceLevel: String,
-	gender: String,	  //["M","F"];
-	ageRange: String, //["0-12","13-20","21-30","31-54","55+"];
-	interest: String //["EDM","VANILLA","JAPANESE","WEIRD","OUTDOORS","VANITY"];
+	name: {type: String, unique: true}
+	,imgUrl: String
+	,priceLevel: {type: String, enum: enums.priceLevel}
+	,gender: {type: String, enum: enums.gender}
+	,ageRange: {type: String, enum: enums.agerange}
+	,interest: {type: String, enum: enums.interest}
 
 }, {
   toObject: {
