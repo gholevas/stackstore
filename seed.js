@@ -41,53 +41,48 @@ var seedUsers = function() {
 
 };
 
-connectToDb.then(function() {
-
-    User.remove({}).then(function() {
-        User.findAsync({}).then(function(users) {
-            if (users.length === 0) {
-                return seedUsers();
-            } else {
-                console.log(chalk.magenta('Seems to already be user data, exiting!'));
-                process.kill(0);
-            }
-        }).then(function() {
-            console.log(chalk.green('Seed successful!'));
-            process.kill(0);
-        }).catch(function(err) {
-            console.error(err);
-            process.kill(1);
-        });
+var dropNSeedUsers = function(){
+    return User.remove({}).then(function() {
+        return seedUsers();
     });
+};
 
-    var gBox;
-
-    Box.remove({})
+var removeCartsNBoxes = function (){
+    return Cart.remove({})
     .then(function(){
-        return Box.createAsync({
-            name: "test_Box",
-            priceLevel: "CheapAF",
-            gender: "whoknowsanymore"
-        })    
+        return Box.remove({});
+    });
+};
+
+var createBox = function(){
+    return Box.createAsync({
+        name: "test_Box",
+        priceLevel: "CheapAF",
+        gender: "whoknowsanymore"
+    });    
+};
+
+connectToDb
+.then(dropNSeedUsers)
+.then(removeCartsNBoxes)
+.then(createBox)
+.then(function(box){
+    return Cart.createAsync({
+        purchased: false,
+        boxes: [{ boxId: box._id, quantity:500 }]
     })
-    .then(function(box){
-        gBox = box;
-        return Cart.remove({});
-    })
-    .then(function(){
-        console.log("removed",gBox._id);
-        return Cart.createAsync({
-            purchased: false,
-            boxes: [{ boxId: gBox._id, quantity:500 }]
-        }).then(function(cart){
-            console.log("HAAY ",cart.populate("boxes.boxId"));
-        })
-    })
-    
-
-    
-
-
-
-
+})
+.then(function(cart){
+    return Cart.find({_id: cart._id}).populate("boxes.boxId").exec()
+})
+.then(function(cartPopulated){
+    console.log(cartPopulated[0].boxes);
+})
+.then(function() {
+    console.log(chalk.green('Seed successful!'));
+    process.kill(0);
+})
+.catch(function(err) {
+    console.error(chalk.red(err));
+    process.kill(1);
 });
