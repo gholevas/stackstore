@@ -69,11 +69,11 @@ connectToDb
 .then(function(box){
     return Cart.createAsync({
         purchased: false,
-        boxes: [{ boxId: box._id, quantity:500 }]
+        boxes: [{ box: box._id, quantity:500 }]
     })
 })
 .then(function(cart){
-    return Cart.find({_id: cart._id}).populate("boxes.boxId").exec()
+    return Cart.find({_id: cart._id}).populate("boxes.box").exec()
 })
 .then(function(cartPopulated){
     console.log(cartPopulated[0].boxes);
