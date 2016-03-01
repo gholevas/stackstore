@@ -26,9 +26,9 @@ var schema = new mongoose.Schema({
         id: String
     },
     isAdmin: Boolean,
-    orders: [{type: mongoose.Schema.ObjectId, ref: "Cart"}],
+    orders: [{type: mongoose.Schema.ObjectId, ref: "Cart"}]
     // currentCart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
-    currentCart: mongoose.Schema('Cart')
+    // currentCart: mongoose.Schema('Cart')
 });
 
 // method to remove sensitive information from user objects before sending them out
