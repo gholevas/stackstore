@@ -39,8 +39,8 @@ var removeCartsNBoxes = function (){
 var createBox = function(){
     return Box.createAsync({
         name: "test_name",
-        priceLevel: "CheapAF",
-        gender: "whoknowsanymore"
+        priceLevel: "cheap",
+        gender: "M"
     });    
 };
 
