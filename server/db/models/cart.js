@@ -8,9 +8,13 @@ var CartSchema = new mongoose.Schema({
 		box: {type: mongoose.Schema.ObjectId, ref: 'Box'},
 		quantity: Number
 	}]
+}, {
+  toObject: {
+  virtuals: true
+  },
+  toJSON: {
+  virtuals: true 
+  }
 });
-
-//virtual total price?
-
 
 mongoose.model('Cart', CartSchema);

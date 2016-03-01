@@ -78,7 +78,7 @@ connectToDb
     return User.createAsync(users);
 })
 .then(function(user){
-    return User.find({_id: user[0]._id}).populate("orders currentCart currentCart.boxes.box").exec()
+    return User.find({_id: user[0]._id}).populate({path: "orders currentCart"}).exec() //"orders currentCart"
 })
 .then(function(data){
     console.log(data[0].currentCart);

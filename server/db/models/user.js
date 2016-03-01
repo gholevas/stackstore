@@ -27,7 +27,6 @@ var schema = new mongoose.Schema({
     },
     isAdmin: Boolean,
     orders: [{type: mongoose.Schema.ObjectId, ref: "Cart"}],
-    // currentCart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
     currentCart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
 });
 
