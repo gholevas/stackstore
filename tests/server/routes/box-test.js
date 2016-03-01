@@ -29,24 +29,13 @@ describe('Box model', function() {
         clearDB(done);
     });
 
-    var createBox = function() {
-        return Box.create({
-            name: "test1",
-            imgUrl: "http://google.com",
-            priceLevel: "TRUMP",
-            gender: "M", //["M","F"];
-            ageRange: "0-12", //["0-12","13-20","21-30","31-54","55+"];
-            interest: "VANILLA", //["EDM","VANILLA","JAPANESE","WEIRD","OUTDOORS","VANITY"];
-        });
-    };
-
     var boxInfo = {
         name: "test1",
         imgUrl: "http://google.com",
-        priceLevel: "TRUMP",
+        priceLevel: "cheap",
         gender: "M",
         ageRange: "0-12",
-        interest: "VANILLA"
+        interest: "EDM"
     }
 
     it('should exist', function() {
