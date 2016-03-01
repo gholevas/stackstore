@@ -25,26 +25,8 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Box = Promise.promisifyAll(mongoose.model('Box'));
 var Cart = Promise.promisifyAll(mongoose.model('Cart'));
 
-var seedUsers = function() {
-
-    var users = [{
-        email: 'testing@fsa.com',
-        password: 'password',
-        isAdmin: false
-    }, {
-        email: 'obama@gmail.com',
-        password: 'potus',
-        isAdmin: true
-    }];
-
-    return User.createAsync(users);
-
-};
-
-var dropNSeedUsers = function(){
-    return User.remove({}).then(function() {
-        return seedUsers();
-    });
+var dropUsers = function(){
+    return User.remove({});
 };
 
 var removeCartsNBoxes = function (){
@@ -56,27 +38,69 @@ var removeCartsNBoxes = function (){
 
 var createBox = function(){
     return Box.createAsync({
-        name: "test_Box",
+        name: "test_name",
         priceLevel: "CheapAF",
         gender: "whoknowsanymore"
     });    
 };
 
 connectToDb
-.then(dropNSeedUsers)
+.then(dropUsers)
 .then(removeCartsNBoxes)
 .then(createBox)
 .then(function(box){
     return Cart.createAsync({
         purchased: false,
-        boxes: [{ box: box._id, quantity:500 }]
+        boxes: [{ box: box._id, quantity:1 }]
     })
 })
+// .then(function(cart){
+//     return Cart.find({_id: cart._id}).populate("boxes.box").exec()
+// })
+// .then(function(cartPopulated){
+//     console.log(cartPopulated[0].boxes);
+// })
 .then(function(cart){
-    return Cart.find({_id: cart._id}).populate("boxes.box").exec()
+    var aBox = new Box({name: "another", interest: "EDM"});
+    
+    return cart.addBox(aBox)
+    .then(function(){
+        cart.addBox(aBox);
+    })
+    .then(function(){
+        return Box.findOne({name:"test_name"}).exec();
+    })
+    .then(function(box){
+        return cart.removeBox(box);
+    });
+
+
+
+    // return cart;
 })
-.then(function(cartPopulated){
-    console.log(cartPopulated[0].boxes);
+.then(function(cart){
+    var users = [{
+        email: 'testing@fsa.com'
+        ,password: 'password'
+        ,isAdmin: false
+        ,orders: [cart]
+        ,currentCart: cart
+    }
+    // , {
+    //     email: 'obama@gmail.com',
+    //     password: 'potus',
+    //     isAdmin: true,
+    //     orders: null}
+    ];
+
+    return User.createAsync(users);
+})
+.then(function(user){
+    return User.find({_id: user[0]._id})
+    .populate({path: "orders currentCart"}).exec() //"orders currentCart"
+})
+.then(function(data){
+    console.log(data[0].currentCart);
 })
 .then(function() {
     console.log(chalk.green('Seed successful!'));
