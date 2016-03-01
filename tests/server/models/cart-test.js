@@ -9,8 +9,9 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 
 var Box = mongoose.model('Box');
+var Cart = mongoose.model('Cart');
 
-describe('Box model', function() {
+describe('Cart model', function() {
 
     beforeEach('Establish DB connection', function(done) {
         if (mongoose.connection.db) return done();
@@ -22,7 +23,7 @@ describe('Box model', function() {
     });
 
     it('should exist', function() {
-        expect(Box).to.be.a('function');
+        expect(Cart).to.be.a('function');
     });
 
     describe('on creation', function() {
@@ -39,22 +40,45 @@ describe('Box model', function() {
                 name: "test1",
                 imgUrl: "http://google.com",
                 priceLevel: "expensive",
-                gender: "M", 
-                ageRange: "0-12", 
+                gender: "M",
+                ageRange: "0-12",
                 interest: "EDM"
             });
         };
+
+        var createCart = function(box) {
+            return Cart.create({
+                purchased: false,
+                boxes: [{ box: box._id, quantity: 1 }]
+            })
+        };
+
+        var aBox = new Box({ name: "another", interest: "EDM" });
 
 
         beforeEach(function() {});
 
         afterEach(function() {});
 
-        it('should create a box with a price', function(done) {
+
+
+        it('should create a valid instance of cart', function(done) {
             createValidBox().then(function(box) {
-                expect(box.price).to.eql(100);
-                done();
-            });
+                createCart(box).then(function(cart) {
+                    expect(cart.addBox).to.be.a('function');
+                    done();
+                })
+            })
+        });
+
+        it('add box should add a box to the cart', function(done) {
+            createValidBox().then(function(box) {
+                createCart(box).then(function(cart) {
+                    cart.addBox(aBox);
+                    expect(cart.boxes.length).to.be.eql(2);
+                    done();
+                })
+            })
         });
 
     });
