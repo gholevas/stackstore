@@ -38,7 +38,7 @@ var removeCartsNBoxes = function (){
 
 var createBox = function(){
     return Box.createAsync({
-        name: "test_Box",
+        name: "test_name",
         priceLevel: "CheapAF",
         gender: "whoknowsanymore"
     });    
@@ -51,7 +51,7 @@ connectToDb
 .then(function(box){
     return Cart.createAsync({
         purchased: false,
-        boxes: [{ box: box._id, quantity:500 }]
+        boxes: [{ box: box._id, quantity:1 }]
     })
 })
 // .then(function(cart){
@@ -60,6 +60,24 @@ connectToDb
 // .then(function(cartPopulated){
 //     console.log(cartPopulated[0].boxes);
 // })
+.then(function(cart){
+    var aBox = new Box({name: "another", interest: "EDM"});
+    
+    return cart.addBox(aBox)
+    .then(function(){
+        cart.addBox(aBox);
+    })
+    .then(function(){
+        return Box.findOne({name:"test_name"}).exec();
+    })
+    .then(function(box){
+        return cart.removeBox(box);
+    });
+
+
+
+    // return cart;
+})
 .then(function(cart){
     var users = [{
         email: 'testing@fsa.com'
@@ -78,7 +96,8 @@ connectToDb
     return User.createAsync(users);
 })
 .then(function(user){
-    return User.find({_id: user[0]._id}).populate({path: "orders currentCart"}).exec() //"orders currentCart"
+    return User.find({_id: user[0]._id})
+    .populate({path: "orders currentCart"}).exec() //"orders currentCart"
 })
 .then(function(data){
     console.log(data[0].currentCart);

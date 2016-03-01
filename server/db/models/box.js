@@ -3,12 +3,12 @@ var mongoose = require('mongoose');
 
 var BoxSchema = new mongoose.Schema({
 
-	name: String,
+	name: {type: String, unique: true},
 	imgUrl: String,
 	priceLevel: String,
 	gender: String,	  //["M","F"];
 	ageRange: String, //["0-12","13-20","21-30","31-54","55+"];
-	interest: String, //["EDM","VANILLA","JAPANESE","WEIRD","OUTDOORS","VANITY"];
+	interest: String //["EDM","VANILLA","JAPANESE","WEIRD","OUTDOORS","VANITY"];
 
 }, {
   toObject: {
@@ -21,7 +21,7 @@ var BoxSchema = new mongoose.Schema({
 
 BoxSchema.virtual('price')
 .get(function () {
-  return priceLevel=="cheap"? 20 : 100;
+  return this.priceLevel=="cheap"? 20 : 100;
 })
 .set(function (price) {
   this.set('price', price);
