@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state,$mdDialog) {
 
     $scope.login = {};
     $scope.error = null;
@@ -8,6 +8,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function () {
+            $mdDialog.cancel();
             $state.go('home');
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
