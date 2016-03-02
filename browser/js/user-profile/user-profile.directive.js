@@ -1,7 +1,7 @@
 app.directive('userProfile', function () {
     return {
         restrict: 'E',
-        templateUrl: 'js/members-only/user-profile.directive.html',
+        templateUrl: 'js/user-profile/user-profile.directive.html',
         controller: function($scope, $mdDialog){
         	$scope.showTabDialog = function(ev) {
 			    $mdDialog.show({
