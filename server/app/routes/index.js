@@ -16,7 +16,15 @@ router.get('/user/:userId', function (req, res) {
     mongoose.model('User').findById(req.params.userId)
     .then(function(info){
         res.send(info);
-    })
+    });
+});
+
+// update a user
+router.put('/user/:userId', function(req,res) {
+	mongoose.model('User').findByIdAndUpdate(req.params.userId, req.body, {new:true},function(err,data){
+		if(err) console.log(err);
+		res.send(data);
+	});
 });
 
 
