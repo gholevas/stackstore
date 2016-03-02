@@ -57,6 +57,17 @@
             return data.user;
         }
 
+        // saves user
+
+        this.saveUser = function(user){
+            console.log("Yo!");
+            $http.put('/api/user/'+user._id, user)
+            .then(function(data){
+                console.log(data);
+                return data;
+            });
+        };
+
         // Uses the session factory to see if an
         // authenticated user is currently registered.
         this.isAuthenticated = function () {
