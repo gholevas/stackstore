@@ -1,12 +1,11 @@
 'use strict';
 var mongoose = require('mongoose');
 var enums = require("./enums.js");
-var BoxWrapper = require("./boxwrapper.js");
 
 var CartSchema = new mongoose.Schema({
 	status: {type: String, enum: enums.orderStatus, default: "unpaid"}
 	,totalPaid: Number
-	,boxes: [BoxWrapper]
+	,boxes: [mongoose.model('BoxWrapper').schema]
 }, {
   toObject: {
   virtuals: true

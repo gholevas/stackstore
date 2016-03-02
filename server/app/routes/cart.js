@@ -10,7 +10,7 @@ var BoxWrapper = mongoose.model('BoxWrapper')
 router.get('/', function (req, res, next) {
     Cart.findById(req.query.cartId)
     .then(function(info){
-        res.send(info);
+        res.json(info);
     })
     .then(null,next);
 });

@@ -54,8 +54,9 @@ connectToDb
 .then(createBox)
 .then(function(box){
     return BoxWrapper.createAsync({
-        box: box,
-        isPremium: false
+        box: [box]
+        ,isPremium: true
+        ,quantity: 3
     });
 })
 .then(function(bw){
@@ -67,27 +68,29 @@ connectToDb
 //     return Cart.find({_id: cart._id}).populate("boxes.box").exec()
 // })
 .then(function(cart){
+    console.log("cartId " , cart._id)
     var users = [{
         email: 'testing@fsa.com'
         ,password: 'password'
         ,isAdmin: false
         ,currentCart: cart._id
     }
-    , {
-        email: 'obama@gmail.com',
-        password: 'potus',
-        isAdmin: true}
+    // , {
+    //     email: 'obama@gmail.com'
+    //     ,password: 'potus'
+    //     ,isAdmin: true
+    //     ,currentCart: null}
     ];
 
     return User.createAsync(users);
 })
-.then(function(user){
-    return User.find({_id: user[0]._id})
-    .populate({path: "orders currentCart"}).exec() //"orders currentCart"
-})
-.then(function(data){
-    // console.log(data[0].currentCart);
-})
+// .then(function(user){
+//     return User.find({_id: user[0]._id})
+//     .populate({path: "orders currentCart"}).exec() //"orders currentCart"
+// })
+// .then(function(data){
+//     // console.log(data[0].currentCart);
+// })
 .then(function() {
     console.log(chalk.green('Seed successful!'));
     process.kill(0);

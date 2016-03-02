@@ -1,11 +1,10 @@
 'use strict';
 var mongoose = require('mongoose');
 var enums = require('./enums.js');
-var Box = require("./box.js");
 
 var BoxWrapperSchema = new mongoose.Schema({
 
-	box: Box
+	box: [mongoose.model('Box').schema]
   ,quantity: {type: Number, default: 1}
   ,pricePaid: Number
   ,isPremium: Boolean
