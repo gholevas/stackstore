@@ -77,33 +77,40 @@ connectToDb
     return User.createAsync(users);
 })
 .then(function(){ //create another user with a new PAID cart i.e. order (with new bw and bx)
-    Box.createAsync({
+    return Box.createAsync({
         name: "happyBox"
         ,gender: "F"
         ,isActive: true
         ,description: "this box will give you the heebly jeeblies"
         ,ageRange: "0-12"
         ,interest: "EDM"
-    }).then(function(box){
-        return BoxWrapper.createAsync({
-            box: [box]
-            ,isPremium: false
-            ,quantity: 2
-        });
-    }).then(function(bw){
-        return Cart.createAsync({
-            boxes: [bw]
-            ,status:"paid"
-        });
-    }).then(function(cart){
-        User.createAsync({
-            email: 'obama@gmail.com'
-            ,password: 'potus'
-            ,isAdmin: false
-            ,currentCart: null
-            ,orders: [cart]
-        })
+    });
+})
+.then(function(box){
+    console.log("BBB",box);
+    return BoxWrapper.createAsync({
+        box: [box]
+        ,isPremium: false
+        ,quantity: 2
     })
+}).then(function(bw){
+    console.log("BBW",bw);
+    return Cart.createAsync({
+        boxes: [bw]
+        ,status: "paid"
+    })
+}).then(function(cart){
+    console.log("CARRT",cart);
+    return User.createAsync({
+        email: 'obama@gmail.com'
+        ,password: 'potus'
+        ,isAdmin: true
+        ,currentCart: null
+        ,orders: [cart]
+    })
+})
+.then(function(u){
+    console.log("UUU ",u)
 })
 // .then(function(user){
 //     return User.find({_id: user[0]._id})
