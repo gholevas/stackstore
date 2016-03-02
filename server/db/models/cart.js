@@ -25,7 +25,7 @@ CartSchema.virtual("totalToPay")
 CartSchema.methods.addBoxWrapper = function(boxwrapper){
 	var exists = false;
 	this.boxes.forEach(function(bw){
-		if(bw.box.name==boxwrapper.box.name && bw.box.isPremium==boxwrapper.box.isPremium){
+		if(bw.box[0].name==boxwrapper.box[0].name && bw.box[0].isPremium==boxwrapper.box[0].isPremium){
 			exists=true;
 			bw.quantity += boxwrapper.quantity;
 		}
@@ -37,7 +37,7 @@ CartSchema.methods.addBoxWrapper = function(boxwrapper){
 CartSchema.methods.removeBoxWrapper = function(boxwrapper){
 	var self = this;
 	this.boxes.forEach(function(bw,i){
-		if(bw.box.name==boxwrapper.box.name && bw.box.isPremium==boxwrapper.box.isPremium){
+		if(bw.box[0].name==boxwrapper.box[0].name && bw.box[0].isPremium==boxwrapper.box[0].isPremium){
 			bw.quantity--;
 			if(bw.quantity==0){
 				self.boxes.splice(i,1);

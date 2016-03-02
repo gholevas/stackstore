@@ -56,7 +56,7 @@ connectToDb
     return BoxWrapper.createAsync({
         box: [box]
         ,isPremium: true
-        ,quantity: 3
+        ,quantity: 1
     });
 })
 .then(function(bw){

@@ -83,7 +83,6 @@ describe('Box and wrapper models', function() {
         it('should have virtual priceToPay and box', function(done) {
             createValidBoxWrapper().then(function(bw) {
                     expect(bw.priceToPay).to.eql(200);
-                    console.log("BW.bx", bw.box)
                     expect(bw.box[0].name).to.eql("test1");
                     done();
                 })

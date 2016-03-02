@@ -42,7 +42,7 @@ describe('Cart model', function() {
         var createValidBoxWrapper = function() {
             return createValidBox().then(function(box) {
                 return BoxWrapper.create({
-                    box: box,
+                    box: [box],
                     isPremium: true
                 })
             })
@@ -68,7 +68,7 @@ describe('Cart model', function() {
                 expect(cart.addBoxWrapper).to.be.a('function');
                 expect(cart.boxes.length).to.eql(1);
                 BoxWrapper.create({
-                    box: aBox,
+                    box: [aBox],
                     isPremium: false
                 }).then(function(bw){
                     cart.addBoxWrapper(bw);
