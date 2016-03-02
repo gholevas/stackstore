@@ -1,4 +1,4 @@
-app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $timeout, $mdSidenav, $log) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $timeout, $mdSidenav, $log,$mdDialog,$mdMedia) {
 
     return {
         restrict: 'E',
@@ -17,7 +17,31 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $
                         });
                 }
             }
-            
+
+            function DialogController(scope, $mdDialog) {
+                  scope.hide = function() {
+                    $mdDialog.hide();
+                  };
+                  scope.cancel = function() {
+                    $mdDialog.cancel();
+                  };
+                  scope.answer = function(answer) {
+                    $mdDialog.hide(answer);
+                  };
+            }
+
+            scope.showAdvanced = function(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
+                $mdDialog.show({
+                        controller: DialogController,
+                        templateUrl: 'js/login/login.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true,
+                        fullscreen: useFullScreen
+                    })
+            };
+
             scope.items = [
                 { label: 'Home', state: 'home' },
                 { label: 'About', state: 'about' },
