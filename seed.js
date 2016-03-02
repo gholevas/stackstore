@@ -71,7 +71,7 @@ connectToDb
         email: 'testing@fsa.com'
         ,password: 'password'
         ,isAdmin: false
-        ,currentCart: cart
+        ,currentCart: cart._id
     }
     , {
         email: 'obama@gmail.com',
