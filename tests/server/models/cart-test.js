@@ -72,11 +72,18 @@ describe('Cart model', function() {
                     isPremium: false
                 }).then(function(bw){
                     cart.addBoxWrapper(bw);
-                }).then(function(){
-                    expect(cart.boxes.length).to.eql(2);
+                    cart.addBoxWrapper(bw);
+                    return bw
+                }).then(function(bw){
+                    expect(cart.boxes.length).to.eql(2)
+                    expect(cart.boxes[1].quantity).to.eql(2);
+                    cart.removeBoxWrapper(bw);
+                    expect(cart.boxes[1].quantity).to.eql(1)
+                    cart.removeBoxWrapper(bw);
+                    expect(cart.boxes.length).to.eql(1)
+                    done();
                 })
-                
-                done();
+                .catch(done)
             })
             .then(null,done);
 

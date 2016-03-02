@@ -80,14 +80,6 @@ describe('Box and wrapper models', function() {
 
         afterEach(function() {});
 
-        // it('should create a boxwrapper', function(done) {
-        //     createValidBoxWrapper().then(function(bw) {
-        //             expect(bw).to.be.ok;
-        //             done();
-        //         })
-        //         .catch(done);
-        // });
-
         it('should have virtual priceToPay and box', function(done) {
             createValidBoxWrapper().then(function(bw) {
                     expect(bw.priceToPay).to.eql(200);

@@ -35,7 +35,7 @@ CartSchema.methods.addBoxWrapper = function(boxwrapper){
 	return this.save();
 }
 
-CartSchema.methods.removeBox = function(boxwrapper){
+CartSchema.methods.removeBoxWrapper = function(boxwrapper){
 	var self = this;
 	this.boxes.forEach(function(bw,i){
 		if(bw.box.name==boxwrapper.box.name && bw.box.isPremium==boxwrapper.box.isPremium){
