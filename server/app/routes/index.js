@@ -10,6 +10,8 @@ router.use('/boxes', require('./boxes.js'));
 
 router.use('/cart', require('./cart.js'));
 
+router.use('/questions', require('./questions.js'));
+
 
 // get one user
 router.get('/user/:userId', function (req, res) {
