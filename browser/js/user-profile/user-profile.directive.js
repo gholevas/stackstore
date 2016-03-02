@@ -22,7 +22,8 @@ app.directive('userProfile', function () {
 						    $mdDialog.hide(answer);
 						  };
 						  $scope.save = function(user){
-						  	AuthService.saveUser(user);
+						  	AuthService.saveUser(user)
+					  		$scope.cancel();
 						  };
 						},
 
