@@ -108,11 +108,11 @@ connectToDb
         ,orders: [cart]
         ,currentCart: cart
     }
-    // , {
-    //     email: 'obama@gmail.com',
-    //     password: 'potus',
-    //     isAdmin: true,
-    //     orders: null}
+    , {
+        email: 'obama@gmail.com',
+        password: 'potus',
+        isAdmin: true,
+        orders: null}
     ];
 
     return User.createAsync(users);
