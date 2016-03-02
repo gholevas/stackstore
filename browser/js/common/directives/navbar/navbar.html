@@ -1,17 +1,39 @@
-<nav class="navbar navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
-        </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li>
-        </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-menu>
+          <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-icon md-menu-origin md-svg-icon="/icons/menu.svg"></md-icon>
+          </md-button>
+          <md-menu-content width="6">
+            <md-menu-item>
+              <md-button>
+                <md-icon md-menu-align-target md-svg-icon="/icons/cart"></md-icon>
+                Previous Orders 
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button>
+                <md-icon md-menu-align-target md-svg-icon="/icons/cart"></md-icon>
+                Other Shit 
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <h2>
+          <span>LOGO</span>
+        </h2>
+        <span flex></span>
+        <md-button ng-show="!user"ng-click="showAdvanced($event)"   class="md-raised" aria-label="Learn More">
+          Login
+        </md-button>
+        <md-button ng-show="user" ng-click="logout()" class="md-raised" aria-label="Learn More">
+          Logout
+        </md-button>
+        <md-button class="md-icon-button" ng-click="toggleRight()" ng-hide="isOpenRight()" aria-label="Favorite">
+            <md-icon md-svg-icon="/icons/cart.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+
     </div>
-</nav>
+</md-toolbar>
+
+<cart></cart>
