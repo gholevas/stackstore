@@ -69,7 +69,7 @@ describe('Box and wrapper models', function() {
         var createValidBoxWrapper = function() {
             return createValidBox().then(function(box) {
                 return BoxWrapper.create({
-                    box: box,
+                    box: [box],
                     isPremium: true
                 })
             })
@@ -83,7 +83,7 @@ describe('Box and wrapper models', function() {
         it('should have virtual priceToPay and box', function(done) {
             createValidBoxWrapper().then(function(bw) {
                     expect(bw.priceToPay).to.eql(200);
-                    expect(bw.box.name).to.eql("test1");
+                    expect(bw.box[0].name).to.eql("test1");
                     done();
                 })
                 .catch(done);

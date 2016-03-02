@@ -24,32 +24,42 @@ router.post('/', function (req, res, next) {
     //answers should have isPremium
     //now we have a box
     // var box = mappedbox
-    var boxwrapper = new BoxWrapper({
-        box: box
-        ,isPremium: req.body.isPremium
-        ,quantity: req.body.quantity
+
+    BoxWrapper.findOne({box:box, isPremium:isPremium})
+    .then(function(bw){
+        if(!bw) {
+            bw = new BoxWrapper({
+                box: box
+                ,isPremium: req.body.isPremium
+            });
+        }
+        bw.quantity = req.body.quantity;
+
+        return bw;
+    })
+    .then(function(boxwrapper){
+        if(req.query.cartId){
+            Cart.findById(req.query.cartId)
+            .then(function(cart){
+                return cart.addBoxWrapper(boxwrapper);
+            })
+            .then(function(info){
+                res.send(info);
+            })
+            .then(null,next);
+        }else{
+            Cart.create({})
+            .then(function(cart){
+                return cart.addBoxWrapper(boxwrapper)
+            })
+            .then(function(info){
+                res.send(info);
+            })
+            .then(null,next);
+        }
     })
 
 
-    if(req.query.cartId){
-        Cart.findById(req.query.cartId)
-        .then(function(cart){
-            return cart.addBoxWrapper(boxwrapper);
-        })
-        .then(function(info){
-            res.send(info);
-        })
-        .then(null,next);
-    }else{
-        Cart.create({})
-        .then(function(cart){
-            return cart.addBoxWrapper(boxwrapper)
-        })
-        .then(function(info){
-            res.send(info);
-        })
-        .then(null,next);
-    }
 });
 
 // remove a box from a cart

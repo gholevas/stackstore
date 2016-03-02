@@ -13,8 +13,14 @@
                         hjbkn
                     </p>
                 </div>
+                <md-input-container style="margin-right: 10px;">
+                    <label>Quantity</label>
+                    <md-select ng-model="num">
+                        <md-option ng-repeat="a in range(5) track by $index" value="{{$index + 1}}">{{$index + 1}}</md-option>
+                    </md-select>
+                </md-input-container>
             </md-list-item>
-            <md-list-item class="md-3-line">
+             <md-list-item class="md-3-line">
                 <img src="/icons/cart.svg" class="md-avatar" alt="{{message.who}}">
                 <div class="md-list-item-text">
                     <h3>product 1</h3>
@@ -23,9 +29,14 @@
                         hjbkn
                     </p>
                 </div>
+                <md-input-container style="margin-right: 10px;">
+                    <label>Quantity</label>
+                    <md-select ng-model="num">
+                        <md-option ng-repeat="a in range(5) track by $index" value="{{$index + 1}}">{{$index + 1}}</md-option>
+                    </md-select>
+                </md-input-container>
             </md-list-item>
-            
         </md-list>
-    <md-button style="width:100%;"ui-sref="checkout" class="md-raised md-primary">Checkout</md-button>
+        <md-button style="width:100%;" ui-sref="checkout" ng-click="close()"class="md-raised md-primary">Checkout</md-button>
     </md-sidenav>
 </section>

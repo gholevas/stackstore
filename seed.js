@@ -56,7 +56,7 @@ connectToDb
     return BoxWrapper.createAsync({
         box: [box]
         ,isPremium: true
-        ,quantity: 3
+        ,quantity: 1
     });
 })
 .then(function(bw){
@@ -75,11 +75,10 @@ connectToDb
         ,isAdmin: false
         ,currentCart: cart._id
     }
-    // , {
-    //     email: 'obama@gmail.com'
-    //     ,password: 'potus'
-    //     ,isAdmin: true
-    //     ,currentCart: null}
+    , {
+        email: 'obama@gmail.com'
+        ,password: 'potus'
+        ,isAdmin: true}
     ];
 
     return User.createAsync(users);

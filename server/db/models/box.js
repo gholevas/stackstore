@@ -4,7 +4,7 @@ var enums = require('./enums.js');
 
 var BoxSchema = new mongoose.Schema({
 
-    name: { type: String, unique: true, required: true},
+    name: { type: String, required: true},
     description: String,
     imgUrl: String,
     isActive: Boolean,

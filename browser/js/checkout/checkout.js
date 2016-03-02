@@ -1,12 +1,13 @@
 app.config(function($stateProvider) {
-    $stateProvider.state('buildbox', {
-        url: '/buildbox',
-        templateUrl: 'js/buildbox/buildbox.html'
+    $stateProvider.state('checkout', {
+        url: '/checkout',
+        templateUrl: 'js/checkout/checkout.html',
+        controller: 'CheckOutCtrl'
     });
 });
 
 
-app.controller('BuildBoxCtrl', function($scope) {
+app.controller('CheckOutCtrl', function($scope) {
 
     $scope.data = {
         selectedIndex: 0,
