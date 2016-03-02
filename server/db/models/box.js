@@ -1,19 +1,27 @@
 'use strict';
 var mongoose = require('mongoose');
+var enums = require('./enums.js');
 
 var BoxSchema = new mongoose.Schema({
 
-	name: String,
-	imgUrl: String,
-	priceLevel: String,
-	gender: String,	  //["M","F"];
-	ageRange: String, //["0-12","13-20","21-30","31-54","55+"];
-	interest: String, //["EDM","VANILLA","JAPANESE","WEIRD","OUTDOORS","VANITY"];
+    name: { type: String, unique: true, required: true},
+    description: String,
+    imgUrl: String,
+    isActive: Boolean,
+    gender: { type: String, enum: enums.gender },
+    ageRange: { type: String, enum: enums.agerange },
+    interest: { type: String, enum: enums.interest },
+    keywords: [String],
+    items: [String],
+    premiumItems: [String]
 
+}, {
+    toObject: {
+        virtuals: true
+    },
+    toJSON: {
+        virtuals: true
+    }
 });
-
-//pre save hooks? map exact age to agerange
-//virtual price (based on price)
-//BoxSchema.virtuals
 
 mongoose.model('Box', BoxSchema);

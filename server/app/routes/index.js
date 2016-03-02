@@ -8,6 +8,8 @@ router.use('/members', require('./members'));
 
 router.use('/boxes', require('./boxes.js'));
 
+router.use('/cart', require('./cart.js'));
+
 
 // get one user
 router.get('/user/:userId', function (req, res) {

@@ -21,7 +21,7 @@ describe('User model', function () {
         clearDB(done);
     });
 
-    it('should exist', function () {
+    it('should exist', function  () {
         expect(User).to.be.a('function');
     });
 

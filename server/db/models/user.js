@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var Cart = mongoose.model("Cart");
 
 var schema = new mongoose.Schema({
     email: {
@@ -26,9 +27,8 @@ var schema = new mongoose.Schema({
         id: String
     },
     isAdmin: Boolean,
-    orders: [{type: mongoose.Schema.ObjectId, ref: "Cart"}]
-    // currentCart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
-    // currentCart: mongoose.Schema('Cart')
+    orders: [Cart],
+    currentCart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
 });
 
 // method to remove sensitive information from user objects before sending them out

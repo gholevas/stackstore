@@ -23,60 +23,70 @@ var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Box = Promise.promisifyAll(mongoose.model('Box'));
+var BoxWrapper = Promise.promisifyAll(mongoose.model('BoxWrapper'));
 var Cart = Promise.promisifyAll(mongoose.model('Cart'));
 
-var seedUsers = function() {
-
-    var users = [{
-        email: 'testing@fsa.com',
-        password: 'password',
-        isAdmin: false
-    }, {
-        email: 'obama@gmail.com',
-        password: 'potus',
-        isAdmin: true
-    }];
-
-    return User.createAsync(users);
-
-};
-
-var dropNSeedUsers = function(){
-    return User.remove({}).then(function() {
-        return seedUsers();
-    });
+var dropUsers = function(){
+    return User.remove({});
 };
 
 var removeCartsNBoxes = function (){
     return Cart.remove({})
     .then(function(){
         return Box.remove({});
+    })
+    .then(function(){
+        return BoxWrapper.remove({});  
     });
 };
 
 var createBox = function(){
     return Box.createAsync({
-        name: "test_Box",
-        priceLevel: "CheapAF",
-        gender: "whoknowsanymore"
+        name: "test_name",
+        gender: "M",
+        isActive: true
     });    
 };
 
 connectToDb
-.then(dropNSeedUsers)
+.then(dropUsers)
 .then(removeCartsNBoxes)
 .then(createBox)
 .then(function(box){
+    return BoxWrapper.createAsync({
+        box: box,
+        isPremium: false
+    });
+})
+.then(function(bw){
     return Cart.createAsync({
-        purchased: false,
-        boxes: [{ box: box._id, quantity:500 }]
+        boxes: [bw]
     })
 })
+// .then(function(cart){
+//     return Cart.find({_id: cart._id}).populate("boxes.box").exec()
+// })
 .then(function(cart){
-    return Cart.find({_id: cart._id}).populate("boxes.box").exec()
+    var users = [{
+        email: 'testing@fsa.com'
+        ,password: 'password'
+        ,isAdmin: false
+        ,currentCart: cart._id
+    }
+    , {
+        email: 'obama@gmail.com',
+        password: 'potus',
+        isAdmin: true}
+    ];
+
+    return User.createAsync(users);
 })
-.then(function(cartPopulated){
-    console.log(cartPopulated[0].boxes);
+.then(function(user){
+    return User.find({_id: user[0]._id})
+    .populate({path: "orders currentCart"}).exec() //"orders currentCart"
+})
+.then(function(data){
+    // console.log(data[0].currentCart);
 })
 .then(function() {
     console.log(chalk.green('Seed successful!'));
