@@ -1,13 +1,19 @@
 app.config(function($stateProvider) {
     $stateProvider.state('buildbox', {
         url: '/buildbox',
-        templateUrl: 'js/buildbox/buildbox.html'
+        templateUrl: 'js/buildbox/buildbox.html',
+        controller: 'BuildBoxCtrl',
+        resolve: {
+            questions: function(QuestionFactory) {
+                return QuestionFactory.fetchem();
+            }
+        }
     });
 });
 
 
-app.controller('BuildBoxCtrl', function($scope) {
-
+app.controller('BuildBoxCtrl', function($scope,questions) {
+    $scope.questions = questions;
     $scope.data = {
         selectedIndex: 0,
         secondLocked: true,
@@ -22,3 +28,18 @@ app.controller('BuildBoxCtrl', function($scope) {
     };
 
 });
+
+
+
+app.factory('QuestionFactory', function($http) {
+    return {
+        fetchem: function() {
+            return $http.get('/api/questions')
+                .then(function(res) {
+                    return res.data;
+                })
+        }
+    };
+});
+
+
