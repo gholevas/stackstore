@@ -76,13 +76,12 @@
                         <label>Postal Code</label>
                         <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
                                required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-                        <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+                        <div ng-messages="userForm.postalCode.$error" role="alert">
                           <div ng-message="required" class="my-message">You must supply a postal code.</div>
-                          <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
-                            code.
+                          <div ng-message="pattern" class="my-message">Warning: Illegitimate Postal Code Detected
                           </div>
                           <div ng-message="md-maxlength" class="my-message">
-                            Don't use the long version silly...we don't need to be that specific...
+                            Stop please five digits is fine
                           </div>
                         </div>
                       </md-input-container>
@@ -101,7 +100,7 @@
           <md-content class="md-padding">
             <h1 class="md-display-2">Previous Orders</h1>
               <md-list>
-                <md-list-item class="md-3-line" ng-repeat="order in user.orders">
+                <md-list-item class="md-3-line" ng-repeat="order in orders">
                   <md-icon md-svg-icon="/icons/cart.svg" style="color:#000;opacity:.8;" />
                   <div class="md-list-item-text" layout="column">
                     <h3>{{ user.firstName }}</h3>

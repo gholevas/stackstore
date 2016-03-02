@@ -93,12 +93,13 @@ connectToDb
     }).then(function(bw){
         return Cart.createAsync({
             boxes: [bw]
+            ,status:"paid"
         });
     }).then(function(cart){
         User.createAsync({
             email: 'obama@gmail.com'
             ,password: 'potus'
-            ,isAdmin: true
+            ,isAdmin: false
             ,currentCart: null
             ,orders: [cart]
         })
