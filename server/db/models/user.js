@@ -7,6 +7,16 @@ var schema = new mongoose.Schema({
     email: {
         type: String
     },
+    title:String,
+    company:String,
+    firstName: String,
+    lastName: String,
+    address: String,
+    address2: String,
+    city:String,
+    state:String,
+    postalCode:String,
+    biography:String,
     password: {
         type: String
     },
