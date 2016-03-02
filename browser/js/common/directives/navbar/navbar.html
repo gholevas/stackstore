@@ -11,7 +11,7 @@
         <md-button ng-show="user" ng-click="logout()" class="md-raised" aria-label="Learn More">
           Logout
         </md-button>
-        <md-button class="md-icon-button" ng-click="toggleRight()" ng-hide="isOpenRight()" aria-label="Favorite">
+        <md-button ng-hide="state.includes('checkout')" class="md-icon-button" ng-click="toggleRight()" ng-hide="isOpenRight()" aria-label="Favorite">
             <md-icon md-svg-icon="/icons/cart.svg" style="color:greenyellow;"></md-icon>
         </md-button>
 
