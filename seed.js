@@ -92,7 +92,16 @@ connectToDb
 //     // console.log(data[0].currentCart);
 // })
 .then(function(){
-
+    Question.createAsync({
+        questionText: "What's your fav color?"
+        ,answers: [{answerText:"blue",answerCategory:"gender"},{answerText:"red",answerCategory:"gender"},{answerText:"green",answerCategory:"gender"}]
+    }, {
+        questionText: "How old is you be"
+        ,answers: [{answerText:"0-12",answerCategory:"ageRange"},{answerText:"13-20",answerCategory:"ageRange"},{answerText:"21-30",answerCategory:"ageRange"}]
+    }, {
+        questionText: "What are you into?"
+        ,answers: [{answerText:"EDM",answerCategory:"interest"},{answerText:"WEIRD",answerCategory:"interest"},{answerText:"OUTDOORS",answerCategory:"interest"}]
+    })
 })
 .then(function() {
     console.log(chalk.green('Seed successful!'));

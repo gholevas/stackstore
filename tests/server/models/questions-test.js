@@ -29,7 +29,7 @@ describe('Question models', function() {
     it('should create a question with answers (with ans category)', function(done) {
         Question.createAsync({
             questionText: "What's your fav color?"
-            ,answers: [{answerText:"blue",answerCategory:"M/F"},{answerText:"red",answerCategory:"M/F"},{answerText:"green",answerCategory:"M/F"}]
+            ,answers: [{answerText:"blue",answerCategory:"gender"},{answerText:"red",answerCategory:"gender"},{answerText:"green",answerCategory:"gender"}]
         }).then(function(quest){
             expect(quest.questionText).to.eql("What's your fav color?");
             expect(quest.answers[0].answerText).to.eql("blue");
