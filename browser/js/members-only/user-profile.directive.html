@@ -1,0 +1,52 @@
+<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="showTabDialog($event)">
+            <md-icon md-menu-origin md-svg-icon="/icons/cog.svg"></md-icon>
+</md-button>
+
+<script type="text/ng-template" id="tabDialog.tmpl.html"><md-dialog aria-label="Mango (Fruit)">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>User Profile</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="Settings">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Gangsta Profile</h1>
+            <p>Lorem ipsizzle bizzle sit fizzle, ghetto adipiscing bizzle. Fo shizzle sapizzle velizzle, my shizz away, suscipizzle hizzle, gravida vizzle, cool. Mammasay mammasa mamma oo sa eget tortor. Sizzle erizzle. Fusce izzle dolizzle dapibizzle turpis tempus pimpin'. Maurizzle pellentesque nibh et turpizzle. Mofo in tortizzle. Pellentesque fo rhoncizzle nisi. In yo habitasse platea dictumst. Fo shizzle dapibus. Curabitur crunk ma nizzle, pretizzle shiz, mattizzle fo shizzle mah nizzle fo rizzle, mah home g-dizzle, eleifend vitae, ma nizzle. Fo shizzle my nizzle suscipizzle. Pot semper that's the shizzle sizzle fo.</p>
+          </md-content>
+        </md-tab>
+        <md-tab label="Previous Orders">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Still G</h1>
+            <p>Sed you son of a bizzle urna, luctus et, black izzle, sollicitudizzle shiznit, nulla. Donizzle yo mamma, nisi pimpin' facilisizzle malesuada, neque we gonna chung consequizzle velizzle, mollis shizznit mammasay mammasa mamma oo sa erat izzle purus. Class aptent taciti fo shizzle izzle crackalackin torquent cool conubia nostra, pizzle inceptos i'm in the shizzle. Aliquizzle maurizzle orci, scelerisque eget, iaculizzle vel, accumsizzle id, elizzle. Nunc fo shizzle. Gangster velizzle shiz, accumsan eu, feugiat pot, ghetto cool, boom shackalack. Curabitur condimentum. Aenizzle cool nizzle enizzle mammasay mammasa mamma oo sa pimpin'. Integizzle bizzle felis, its fo rizzle own yo', pimpin' quis, nizzle nizzle, ligula. Yo mamma izzle pede. Sizzle nibh. Nulla enizzle. Nulla shizznit. Brizzle metus ma nizzle, check out this non, lobortizzle ut, molestie quis, for sure. Morbi mi go to hizzle, shizzlin dizzle sizzle, dapibizzle shut the shizzle up, pretizzle crunk, get down get down. Morbi dictum black quizzle crazy tempizzle aliquizzle.</p>
+
+            <p>Nunc funky fresh lorem, pulvinar izzle, condimentizzle crackalackin, away id, things. Etizzle sizzle gangster shiz sizzle izzle mattizzle. Pellentesque fo shizzle magna izzle eros commodo fo shizzle mah nizzle fo rizzle, mah home g-dizzle. Etiam lobortizzle fermentizzle shiz. Morbi doggy. Maecenas shit metizzle owned i'm in the shizzle iaculizzle auctor. Its fo rizzle dope ghetto urna. Crackalackin sollicitudizzle dope quizzle own yo'. Morbi venenatis go to hizzle its fo rizzle amizzle hizzle. Sizzle lobortis enizzle boofron arcu. Gangster socizzle natoque penatibizzle et cool ma nizzle boom shackalack montes, nascetizzle boofron mizzle.</p>
+          </md-content>
+        </md-tab>
+        <md-tab label="Disclaimer">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Keep it G</h1>
+            <p>Morbi crackalackin. Suspendisse potenti. Sizzle my shizz. Mammasay mammasa mamma oo sa tellivizzle ante, crunk crazy, ullamcorpizzle izzle, mah nizzle izzle, boom shackalack. Morbi yo neque. Duis fo shizzle. Morbi nonummy, the bizzle vitae own yo' cursus, shizznit mi ass felizzle, bling bling laorizzle shizzlin dizzle enim vel augue. Fo shizzle my nizzle consequizzle we gonna chung doggy elizzle. Bling bling bibendizzle dolizzle nec libero. Cras own yo', mofo fo shizzle mofo lacinia, lorem eros uhuh ... yih! tortizzle, eu luctus phat est pizzle est.</p>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-click="cancel()" target="_blank" md-autofocus>
+        Cancel
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="save()" style="margin-right:20px;" >
+        Save
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+</script>
