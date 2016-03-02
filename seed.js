@@ -53,36 +53,56 @@ connectToDb
 .then(dropUsers)
 .then(removeCartsNBoxes)
 .then(createBox)
-.then(function(box){
+.then(function(box){ //create one wrapper
     return BoxWrapper.createAsync({
         box: [box]
         ,isPremium: true
         ,quantity: 1
     });
 })
-.then(function(bw){
+.then(function(bw){ //create one cart with aforementioned wrapper
     return Cart.createAsync({
         boxes: [bw]
     })
 })
-// .then(function(cart){
-//     return Cart.find({_id: cart._id}).populate("boxes.box").exec()
-// })
-.then(function(cart){
+.then(function(cart){ //create a user with aforementioned cart
     console.log("cartId " , cart._id)
     var users = [{
         email: 'testing@fsa.com'
         ,password: 'password'
         ,isAdmin: false
         ,currentCart: cart._id
-    }
-    , {
-        email: 'obama@gmail.com'
-        ,password: 'potus'
-        ,isAdmin: true}
-    ];
+    }];
 
     return User.createAsync(users);
+})
+.then(function(){ //create another user with a new PAID cart i.e. order (with new bw and bx)
+    Box.createAsync({
+        name: "happyBox"
+        ,gender: "F"
+        ,isActive: true
+        ,description: "this box will give you the heebly jeeblies"
+        ,ageRange: "0-12"
+        ,interest: "EDM"
+    }).then(function(box){
+        return BoxWrapper.createAsync({
+            box: [box]
+            ,isPremium: false
+            ,quantity: 2
+        });
+    }).then(function(bw){
+        return Cart.createAsync({
+            boxes: [bw]
+        });
+    }).then(function(cart){
+        User.createAsync({
+            email: 'obama@gmail.com'
+            ,password: 'potus'
+            ,isAdmin: true
+            ,currentCart: null
+            ,orders: [cart]
+        })
+    })
 })
 // .then(function(user){
 //     return User.find({_id: user[0]._id})
@@ -92,7 +112,7 @@ connectToDb
 //     // console.log(data[0].currentCart);
 // })
 .then(function(){
-    Question.createAsync({
+    return Question.createAsync({
         questionText: "What's your fav color?"
         ,answers: [{answerText:"blue",answerCategory:"gender"},{answerText:"red",answerCategory:"gender"},{answerText:"green",answerCategory:"gender"}]
     }, {
@@ -101,7 +121,7 @@ connectToDb
     }, {
         questionText: "What are you into?"
         ,answers: [{answerText:"EDM",answerCategory:"interest"},{answerText:"WEIRD",answerCategory:"interest"},{answerText:"OUTDOORS",answerCategory:"interest"}]
-    })
+    });
 })
 .then(function() {
     console.log(chalk.green('Seed successful!'));
