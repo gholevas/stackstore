@@ -4,7 +4,7 @@ var enums = require("./enums.js");
 var BoxWrapper = require("./boxwrapper.js");
 
 var CartSchema = new mongoose.Schema({
-	status: {type: String, enum: enums.orderStatus}
+	status: {type: String, enum: enums.orderStatus, default: "unpaid"}
 	,totalPaid: Number
 	,boxes: [BoxWrapper]
 }, {
@@ -23,39 +23,29 @@ CartSchema.virtual("totalToPay")
 	}, 0)
 });
 
-// CartSchema.methods.addBox = function(box){
-// 	var exists = false;
-// 	this.boxes.forEach(function(b){
-// 		if(b.box==box._id){
-// 			exists=true;
-// 			b.quantity++;
-// 		}
-// 	});
-// 	if(!exists) this.boxes.push({box:box._id, quantity:1});
-// 	return this.save();
-// }
+CartSchema.methods.addBoxWrapper = function(boxwrapper){
+	var exists = false;
+	this.boxes.forEach(function(bw){
+		if(bw.box.name==boxwrapper.box.name && bw.box.isPremium==boxwrapper.box.isPremium){
+			exists=true;
+			bw.quantity += boxwrapper.quantity;
+		}
+	});
+	if(!exists) this.boxes.push(boxwrapper);
+	return this.save();
+}
 
-// CartSchema.methods.removeBox = function(box){
-// 	var self = this;
-// 	this.boxes.forEach(function(b,i){
-// 		if(b.box.toString()===box._id.toString()){
-// 			b.quantity--;
-// 			if(b.quantity==0){
-// 				self.boxes.splice(i,1);
-// 			}
-// 		}
-// 	});	
-// 	return this.save();
-// }
-
-// CartSchema.methods.convertToOrder = function(){
-	
-
-
-// 	// new Order({
-// 	// 	purchased: this.purchased
-// 	// 	boxes: []
-// 	// })
-// }
+CartSchema.methods.removeBoxWrapper = function(boxwrapper){
+	var self = this;
+	this.boxes.forEach(function(bw,i){
+		if(bw.box.name==boxwrapper.box.name && bw.box.isPremium==boxwrapper.box.isPremium){
+			bw.quantity--;
+			if(bw.quantity==0){
+				self.boxes.splice(i,1);
+			}
+		}
+	});	
+	return this.save();
+}
 
 mongoose.model('Cart', CartSchema);

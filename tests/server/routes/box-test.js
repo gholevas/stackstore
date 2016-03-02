@@ -32,7 +32,6 @@ describe('Box model', function() {
     var boxInfo = {
         name: "test1",
         imgUrl: "http://google.com",
-        priceLevel: "cheap",
         gender: "M",
         ageRange: "0-12",
         interest: "EDM"
