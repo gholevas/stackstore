@@ -9,17 +9,25 @@ app.config(function($stateProvider) {
 
 app.controller('CheckOutCtrl', function($scope) {
 
-    $scope.data = {
-        selectedIndex: 0,
-        secondLocked: true,
-        secondLabel: "Item Two",
-        bottom: false
-    };
-    $scope.next = function() {
-        $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
-    };
-    $scope.previous = function() {
-        $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
-    };
+    $scope.shippingVis = true;
+    $scope.billingVis = false;
+    $scope.reviewVis = false;
+    $scope.showBilling = function(){
+        $scope.billingVis = true;
+        $scope.shippingVis = false;
+    }
+    $scope.showReview = function(){
+        $scope.reviewVis = true;
+        $scope.billingVis = false;
+    }
+    $scope.backToShipping = function(){
+        $scope.shippingVis = true;
+        $scope.billingVis = false;
+    }
+    $scope.backToBilling = function(){
+        $scope.reviewVis = false;
+        $scope.billingVis = true;
+    }
+
 
 });
