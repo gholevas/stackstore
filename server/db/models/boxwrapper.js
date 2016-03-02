@@ -6,7 +6,7 @@ var Box = require("./box.js");
 var BoxWrapperSchema = new mongoose.Schema({
 
 	box: Box
-  ,quantity: Number
+  ,quantity: {type: Number, default: 1}
   ,pricePaid: Number
   ,isPremium: Boolean
 
@@ -19,9 +19,9 @@ var BoxWrapperSchema = new mongoose.Schema({
   }
 });
 
-BoxSchema.virtual('priceToPay')
+BoxWrapperSchema.virtual('priceToPay')
 .get(function () {
-  return isPremium ? 200 : 10;
+  return this.isPremium ? 200 : 10;
   //TODO: make the price come from price config
 });
 

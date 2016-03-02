@@ -3,7 +3,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Cart = mongoose.model('Cart')
 module.exports = router;
-var BoxWrapper = require("./boxwrapper.js");
+var BoxWrapper = mongoose.model('BoxWrapper')
 
 
 // get a cart
@@ -27,7 +27,7 @@ router.post('/', function (req, res, next) {
     var boxwrapper = new BoxWrapper({
         box: box
         ,isPremium: req.body.isPremium
-        ,quantity: req.body.quantity || 1
+        ,quantity: req.body.quantity
     })
 
 

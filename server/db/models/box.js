@@ -4,11 +4,11 @@ var enums = require('./enums.js');
 
 var BoxSchema = new mongoose.Schema({
 
-    name: { type: String, unique: true },
+    name: { type: String, unique: true, required: true},
     description: String,
     imgUrl: String,
     isActive: Boolean,
-    gender: Boolean,
+    gender: { type: String, enum: enums.gender },
     ageRange: { type: String, enum: enums.agerange },
     interest: { type: String, enum: enums.interest },
     keywords: [String],

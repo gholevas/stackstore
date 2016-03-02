@@ -2,8 +2,8 @@
 // so the rest of the application can simply call mongoose.model('User')
 // anywhere the User model needs to be used.
 require('./box');
+require('./boxwrapper');
 require('./cart');
-require('./order');
 require('./occasion');
 require('./user');
 require('./review');

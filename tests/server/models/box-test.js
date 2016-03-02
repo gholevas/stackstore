@@ -9,8 +9,9 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 
 var Box = mongoose.model('Box');
+var BoxWrapper = mongoose.model('BoxWrapper');
 
-describe('Box model', function() {
+describe('Box and wrapper models', function() {
 
     beforeEach('Establish DB connection', function(done) {
         if (mongoose.connection.db) return done();
@@ -27,22 +28,51 @@ describe('Box model', function() {
 
     describe('on creation', function() {
 
-        // module.exports = {
-        //     gender: "M F".split(" "),
-        //     priceLevel: "cheap expensive".split(" "),
-        //     ageRange: "0-12 13-20 21-30 31-54 55+".split(" "),
-        //     interest: "EDM VANITY OTAKU NORMAL WEIRD OUTDOORS".split(" ")
-        // }
+        var createValidBox = function() {
+            return Box.create({
+                name: "test1",
+                imgUrl: "http://google.com",
+                gender: "M",
+                ageRange: "0-12",
+                interest: "EDM"
+            });
+        };
+
+        beforeEach(function() {});
+
+        afterEach(function() {});
+
+        it('should create a box', function(done) {
+            createValidBox().then(function(box) {
+                    expect(box.name).to.be.ok;
+                    done();
+                })
+                .catch(done);
+        });
+
+    });
+
+
+
+    describe('on creation of wrappers', function() {
 
         var createValidBox = function() {
             return Box.create({
                 name: "test1",
                 imgUrl: "http://google.com",
-                priceLevel: "expensive",
-                gender: "M", 
-                ageRange: "0-12", 
+                gender: "M",
+                ageRange: "0-12",
                 interest: "EDM"
             });
+        };
+
+        var createValidBoxWrapper = function() {
+            return createValidBox().then(function(box) {
+                return BoxWrapper.create({
+                    box: box,
+                    isPremium: true
+                })
+            })
         };
 
 
@@ -50,11 +80,21 @@ describe('Box model', function() {
 
         afterEach(function() {});
 
-        it('should create a box with a price', function(done) {
-            createValidBox().then(function(box) {
-                expect(box.price).to.eql(100);
-                done();
-            });
+        // it('should create a boxwrapper', function(done) {
+        //     createValidBoxWrapper().then(function(bw) {
+        //             expect(bw).to.be.ok;
+        //             done();
+        //         })
+        //         .catch(done);
+        // });
+
+        it('should have virtual priceToPay and box', function(done) {
+            createValidBoxWrapper().then(function(bw) {
+                    expect(bw.priceToPay).to.eql(200);
+                    expect(bw.box.name).to.eql("test1");
+                    done();
+                })
+                .catch(done);
         });
 
     });
