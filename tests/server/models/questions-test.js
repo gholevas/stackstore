@@ -45,6 +45,8 @@ describe('Question models', function() {
         }).then(function(quest){
             expect(quest.questionText).to.eql("What's your fav color?");
             expect(quest.answers[0].answerText).to.eql("blue");
+            console.log(quest.answers[0].mappings[0]);
+            expect(quest.answers[0].mappings[0].sliderCategory).to.eql("M/F");
             done();
         }).catch(done);
 

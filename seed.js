@@ -25,6 +25,7 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Box = Promise.promisifyAll(mongoose.model('Box'));
 var BoxWrapper = Promise.promisifyAll(mongoose.model('BoxWrapper'));
 var Cart = Promise.promisifyAll(mongoose.model('Cart'));
+var Question = Promise.promisifyAll(mongoose.model('Question'));
 
 var dropUsers = function(){
     return User.remove({});
@@ -90,6 +91,9 @@ connectToDb
 // .then(function(data){
 //     // console.log(data[0].currentCart);
 // })
+.then(function(){
+
+})
 .then(function() {
     console.log(chalk.green('Seed successful!'));
     process.kill(0);
