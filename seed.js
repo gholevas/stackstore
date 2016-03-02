@@ -24,6 +24,7 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Box = Promise.promisifyAll(mongoose.model('Box'));
 var Cart = Promise.promisifyAll(mongoose.model('Cart'));
+var Order = Promise.promisifyAll(mongoose.model('Order'));
 
 var dropUsers = function(){
     return User.remove({});
@@ -72,6 +73,27 @@ connectToDb
     })
     .then(function(box){
         return cart.removeBox(box);
+    })
+    .then(function(cart){
+        Order.remove({})
+        .then(function(){
+            var order = new Order({purchased:true, status:"paid"
+                , boxes: [{
+                    box: aBox
+                    ,quantity:1
+                    ,price: 10
+                }]
+            });
+            console.log("o", order)
+            order.save(function(err){
+                if(err) throw Error(err);
+                console.log("o3", order)
+            })
+        });
+            
+
+
+        return cart;
     });
 
 
@@ -100,7 +122,7 @@ connectToDb
     .populate({path: "orders currentCart"}).exec() //"orders currentCart"
 })
 .then(function(data){
-    console.log(data[0].currentCart);
+    // console.log(data[0].currentCart);
 })
 .then(function() {
     console.log(chalk.green('Seed successful!'));

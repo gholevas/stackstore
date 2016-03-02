@@ -3,6 +3,7 @@
 // anywhere the User model needs to be used.
 require('./box');
 require('./cart');
+require('./order');
 require('./occasion');
 require('./user');
 require('./review');

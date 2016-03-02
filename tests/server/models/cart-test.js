@@ -69,6 +69,8 @@ describe('Cart model', function() {
                     done();
                 })
             })
+            .then(null,done);
+
         });
 
         it('add box should add a box to the cart', function(done) {
@@ -79,6 +81,8 @@ describe('Cart model', function() {
                     done();
                 })
             })
+            .then(null,done);
+
         });
 
     });
