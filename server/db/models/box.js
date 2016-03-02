@@ -5,11 +5,15 @@ var enums = require('./enums.js');
 var BoxSchema = new mongoose.Schema({
 
 	name: {type: String, unique: true}
+  ,description: String
 	,imgUrl: String
-	,priceLevel: {type: String, enum: enums.priceLevel}
-	,gender: {type: String, enum: enums.gender}
+  ,isActive: Boolean
+  ,gender: Boolean
 	,ageRange: {type: String, enum: enums.agerange}
 	,interest: {type: String, enum: enums.interest}
+  ,keywords: [String]
+  ,items: [String]
+  ,premiumItems: [String]
 
 }, {
   toObject: {
@@ -18,14 +22,6 @@ var BoxSchema = new mongoose.Schema({
   toJSON: {
   virtuals: true 
   }
-});
-
-BoxSchema.virtual('price')
-.get(function () {
-  return this.priceLevel=="cheap"? 20 : 100;
-})
-.set(function (price) {
-  this.set('price', price);
 });
 
 //pre save hooks? map exact age to agerange
