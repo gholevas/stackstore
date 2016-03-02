@@ -1,4 +1,4 @@
-app.directive('cart', function() {
+app.directive('cart', function($mdSidenav) {
     return {
         restrict: 'E',
         templateUrl: 'js/cart/cart.html',
@@ -7,6 +7,9 @@ app.directive('cart', function() {
                 return new Array(n);
             };
             scope.num = 1;
+            scope.close = function() {
+                $mdSidenav('right').close()
+            };
         }
     };
 });
