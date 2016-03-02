@@ -18,7 +18,7 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $
                 }
             }
 
-            function DialogController(scope, $mdDialog) {
+            function DialogController() {
                   scope.hide = function() {
                     $mdDialog.hide();
                   };
