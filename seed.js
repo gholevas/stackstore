@@ -112,7 +112,7 @@ connectToDb
 //     // console.log(data[0].currentCart);
 // })
 .then(function(){
-    Question.createAsync({
+    return Question.createAsync({
         questionText: "What's your fav color?"
         ,answers: [{answerText:"blue",answerCategory:"gender"},{answerText:"red",answerCategory:"gender"},{answerText:"green",answerCategory:"gender"}]
     }, {
@@ -121,7 +121,7 @@ connectToDb
     }, {
         questionText: "What are you into?"
         ,answers: [{answerText:"EDM",answerCategory:"interest"},{answerText:"WEIRD",answerCategory:"interest"},{answerText:"OUTDOORS",answerCategory:"interest"}]
-    })
+    });
 })
 .then(function() {
     console.log(chalk.green('Seed successful!'));
