@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 
 var Box = mongoose.model('Box');
+var BoxWrapper = mongoose.model('BoxWrapper');
 var Cart = mongoose.model('Cart');
 
 describe('Cart model', function() {
@@ -28,57 +29,64 @@ describe('Cart model', function() {
 
     describe('on creation', function() {
 
-        // module.exports = {
-        //     gender: "M F".split(" "),
-        //     priceLevel: "cheap expensive".split(" "),
-        //     ageRange: "0-12 13-20 21-30 31-54 55+".split(" "),
-        //     interest: "EDM VANITY OTAKU NORMAL WEIRD OUTDOORS".split(" ")
-        // }
-
         var createValidBox = function() {
             return Box.create({
                 name: "test1",
                 imgUrl: "http://google.com",
-                priceLevel: "expensive",
                 gender: "M",
                 ageRange: "0-12",
                 interest: "EDM"
             });
         };
 
-        var createCart = function(box) {
-            return Cart.create({
-                purchased: false,
-                boxes: [{ box: box._id, quantity: 1 }]
+        var createValidBoxWrapper = function() {
+            return createValidBox().then(function(box) {
+                return BoxWrapper.create({
+                    box: box,
+                    isPremium: true
+                })
             })
         };
 
-        var aBox = new Box({ name: "another", interest: "EDM" });
-
+        var createCart = function() {
+            return createValidBoxWrapper().then(function(bw){
+                return Cart.create({
+                    boxes: [bw]
+                });
+            })
+        };
 
         beforeEach(function() {});
 
         afterEach(function() {});
 
-
+        var aBox = new Box({ name: "another", interest: "EDM" });
 
         it('should create a valid instance of cart', function(done) {
-            createValidBox().then(function(box) {
-                createCart(box).then(function(cart) {
-                    expect(cart.addBox).to.be.a('function');
+            
+            createCart().then(function(cart) {
+                expect(cart.addBoxWrapper).to.be.a('function');
+                expect(cart.boxes.length).to.eql(1);
+                BoxWrapper.create({
+                    box: aBox,
+                    isPremium: false
+                }).then(function(bw){
+                    cart.addBoxWrapper(bw);
+                    cart.addBoxWrapper(bw);
+                    return bw
+                }).then(function(bw){
+                    expect(cart.boxes.length).to.eql(2)
+                    expect(cart.boxes[1].quantity).to.eql(2);
+                    cart.removeBoxWrapper(bw);
+                    expect(cart.boxes[1].quantity).to.eql(1)
+                    cart.removeBoxWrapper(bw);
+                    expect(cart.boxes.length).to.eql(1)
                     done();
                 })
+                .catch(done)
             })
-        });
+            .then(null,done);
 
-        it('add box should add a box to the cart', function(done) {
-            createValidBox().then(function(box) {
-                createCart(box).then(function(cart) {
-                    cart.addBox(aBox);
-                    expect(cart.boxes.length).to.be.eql(2);
-                    done();
-                })
-            })
         });
 
     });

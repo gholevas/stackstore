@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var Cart = mongoose.model("Cart");
 
 var schema = new mongoose.Schema({
     email: {
@@ -26,7 +27,7 @@ var schema = new mongoose.Schema({
         id: String
     },
     isAdmin: Boolean,
-    orders: [{type: mongoose.Schema.ObjectId, ref: "Cart"}],
+    orders: [Cart],
     currentCart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
 });
 
