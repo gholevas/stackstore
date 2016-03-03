@@ -8,16 +8,18 @@ var UserSchema = new mongoose.Schema({
     email: {
         type: String
     },
-    profile:{
-        firstName: String,
-        lastName: String,
-        address: {        
+    profile: {
+        name: {
+            first: String,
+            last: String
+        },
+        address: {
             street: String,
             apt: String,
-            city:String,
-            state:String,
-            postalCode:String,
-        },
+            city: String,
+            state: String,
+            zip: Number
+        }
     },
     password: {
         type: String
@@ -39,9 +41,9 @@ var UserSchema = new mongoose.Schema({
     },
     isAdmin: Boolean,
     isSeller: Boolean,
-    store: {type: mongoose.Schema.Types.ObjectId, ref: "Store"},
-    orders: [OrderSchema],
-    cart: {type: mongoose.Schema.Types.ObjectId, ref: "Cart"}
+    store: { type: mongoose.Schema.Types.ObjectId, ref: "Store" },
+    orders: { type: mongoose.Schema.Types.ObjectId, ref: "Order" },
+    cart: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" }
 }, {
     toObject: {
         virtuals: true
@@ -52,30 +54,30 @@ var UserSchema = new mongoose.Schema({
 });
 
 // method to remove sensitive information from user objects before sending them out
-UserSchema.methods.sanitize = function () {
+UserSchema.methods.sanitize = function() {
     return _.omit(this.toJSON(), ['password', 'salt']);
 };
 
 //virtual to get Full Name
 
-UserSchema.virtual('fullName').get(function(){
+UserSchema.virtual('fullName').get(function() {
     return this.firstName + " " + this.lastName;
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
-var generateSalt = function () {
+var generateSalt = function() {
     return crypto.randomBytes(16).toString('base64');
 };
 
-var encryptPassword = function (plainText, salt) {
+var encryptPassword = function(plainText, salt) {
     var hash = crypto.createHash('sha1');
     hash.update(plainText);
     hash.update(salt);
     return hash.digest('hex');
 };
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
 
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
@@ -89,7 +91,7 @@ UserSchema.pre('save', function (next) {
 UserSchema.statics.generateSalt = generateSalt;
 UserSchema.statics.encryptPassword = encryptPassword;
 
-UserSchema.method('correctPassword', function (candidatePassword) {
+UserSchema.method('correctPassword', function(candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
