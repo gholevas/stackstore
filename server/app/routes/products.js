@@ -29,7 +29,7 @@ router.get('/', function (req, res, next) {
 
 });
 
-router.get('/:storeId', function (req, res, next) {
+router.get('/store/:storeId', function (req, res, next) {
     Product.find({store:req.params.storeId})
     .then(function(info){
         res.json(info);
@@ -39,7 +39,7 @@ router.get('/:storeId', function (req, res, next) {
 });
 
 // add a product (only sellers can add new products)
-router.post('/:storeId', ensureAdminOrSeller, function (req, res, next) {
+router.post('/store/:storeId', ensureAdminOrSeller, function (req, res, next) {
     Product.create(req.body)
     .then(function(info){
         res.json(info);
@@ -62,7 +62,7 @@ router.param("id", function(req, res, next, id){
 });
 
 // update a product (only sellers can update products)
-router.put('/:storeId/:id', ensureAdminOrSeller, function (req, res, next) {
+router.put('/store/:storeId/:id', ensureAdminOrSeller, function (req, res, next) {
     req.product.set(req.body).save()
     .then(function(updated){
         res.json(updated);
