@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
     .then(null,next);
 });
 
-// add a boxes
+// add a questions
 router.post('/', function (req, res, next) {
     mongoose.model('Question').create(req.body)
     .then(function(info){

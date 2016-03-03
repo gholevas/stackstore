@@ -12,7 +12,9 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('BuildBoxCtrl', function($scope,questions) {
+
+
+app.controller('BuildBoxCtrl', function($scope,questions,QuestionFactory,$state) {
     $scope.questions = questions;
     $scope.data = {
         selectedIndex: 0,
@@ -20,12 +22,30 @@ app.controller('BuildBoxCtrl', function($scope,questions) {
         secondLabel: "Item Two",
         bottom: false
     };
+
+    var answers = {};
+
+    $scope.selectAnswer = function(question,answer){
+        answers[question._id] = answer;
+        if(question._id === $scope.questions[$scope.questions.length-1]._id){
+            submitAnswers()
+            $state.go('checkout')
+        }
+        $scope.next();
+    }
+
     $scope.next = function() {
         $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
     };
+
+
     $scope.previous = function() {
         $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
     };
+
+    var submitAnswers = function(){
+        return QuestionFactory.sendem(answers)
+    }
 
 });
 
@@ -37,6 +57,12 @@ app.factory('QuestionFactory', function($http) {
             return $http.get('/api/questions')
                 .then(function(res) {
                     return res.data;
+                })
+        },
+        sendem: function(answers) {
+            return $http.post('/api/answers',answers)
+                .then(function(res){
+                    return res.data
                 })
         }
     };
