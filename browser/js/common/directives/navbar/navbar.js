@@ -1,4 +1,4 @@
-app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $timeout, $mdSidenav, $log,$mdDialog,$mdMedia, CartFactory) {
+app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS, $state, $timeout, $mdSidenav, $log,$mdDialog,$mdMedia, CartFactory) {
 
     return {
         restrict: 'E',
@@ -8,13 +8,11 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $
 
             scope.toggleRight = buildToggler('right');
             scope.state = $state;
+
             function buildToggler(navID) {
                 return function() {
                     $mdSidenav(navID)
-                        .toggle()
-                        .then(function() {
-                            $log.debug("toggle " + navID + " is done");
-                        });
+                        .toggle();
                 }
             }
 
@@ -42,13 +40,6 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $
                     })
             };
 
-            scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'About', state: 'about' },
-                { label: 'Documentation', state: 'docs' },
-                { label: 'Members Only', state: 'membersOnly', auth: true }
-            ];
-
             scope.user = null;
 
             scope.isLoggedIn = function() {
@@ -64,11 +55,15 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
                     scope.user = user;
+                    if (user && user.isAdmin) {
+                        // doesn't work without time out
+                        $timeout(function() {
+                          $state.go('admin');
+                        }, 0);
+                    }
                     CartFactory.getUserCart()
                     .then(function(currentCart) {
                         scope.user.currentCart = currentCart
-                    }).then(function () {
-                        console.log(scope.user)
                     })
                 });
             };

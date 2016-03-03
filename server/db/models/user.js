@@ -38,12 +38,25 @@ var schema = new mongoose.Schema({
     isAdmin: Boolean,
     orders: [mongoose.model("Cart").schema],
     currentCart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
+}, {
+    toObject: {
+        virtuals: true
+    },
+    toJSON: {
+        virtuals: true
+    }
 });
 
 // method to remove sensitive information from user objects before sending them out
 schema.methods.sanitize =  function () {
     return _.omit(this.toJSON(), ['password', 'salt']);
 };
+
+//virtual to get Full Name
+
+schema.virtual('fullName').get(function(){
+    return this.firstName + " " + this.lastName;
+});
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
