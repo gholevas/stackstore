@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function ($scope, AuthService, $state,$mdDialog, $location) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state,$mdDialog) {
 
     $scope.login = {};
     $scope.error = null;

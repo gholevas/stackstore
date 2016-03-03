@@ -1,4 +1,4 @@
-app.directive('cart', function($mdSidenav) {
+app.directive('cart', function() {
     return {
         restrict: 'E',
         scope: {

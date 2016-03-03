@@ -6,18 +6,19 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function(scope) {
 
-            scope.toggleRight = buildToggler('right');
-
-            scope.state = $state;
-
-            scope.toggleLeft = buildToggler('left');
-
             function buildToggler(navID) {
                 return function() {
                     $mdSidenav(navID)
                         .toggle();
                 }
             }
+
+            scope.toggleRight = buildToggler('right');
+
+            scope.state = $state;
+
+            scope.toggleLeft = buildToggler('left');
+
 
             function DialogController() {
                   scope.hide = function() {
@@ -32,7 +33,7 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
             }
 
             scope.showAdvanced = function(ev) {
-                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && scope.customFullscreen;
                 $mdDialog.show({
                         controller: DialogController,
                         templateUrl: 'js/login/login.html',
