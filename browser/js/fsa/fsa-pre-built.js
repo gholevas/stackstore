@@ -60,10 +60,8 @@
         // saves user
 
         this.saveUser = function(user){
-            console.log("Yo!");
             $http.put('/api/user/'+user._id, user)
             .then(function(data){
-                console.log(data);
                 return data;
             });
         };
