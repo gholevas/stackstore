@@ -2,7 +2,7 @@
     <md-content>
         <md-tabs class="md-accent buildBox" md-selected="data.selectedIndex" md-align-tabs="top">
             <md-tab ng-repeat="question in questions" id="tab1">
-                <md-tab-label>Item One</md-tab-label>
+                <md-tab-label>Question {{$index+1}}</md-tab-label>
                 <md-tab-body>
                     <div flex-offset="25" flex-gt-xs="50" layout="column">
                         <md-card style="text-align:center;">
