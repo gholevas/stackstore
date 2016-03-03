@@ -9,7 +9,7 @@ var BoxSchema = new mongoose.Schema({
     imgUrl: String,
     isActive: Boolean,
     gender: { type: String, enum: enums.gender },
-    ageRange: { type: String, enum: enums.agerange },
+    ageRange: { type: String, enum: enums.ageRange },
     interest: { type: String, enum: enums.interest },
     keywords: [String],
     items: [String],

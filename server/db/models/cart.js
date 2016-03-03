@@ -30,8 +30,10 @@ CartSchema.methods.addBoxWrapper = function(boxwrapper){
 			bw.quantity += boxwrapper.quantity;
 		}
 	});
+	
 	if(!exists) this.boxes.push(boxwrapper);
-	return this.save();
+	console.log("tryingtosave ",this);
+	this.save();
 }
 
 CartSchema.methods.removeBoxWrapper = function(boxwrapper){
