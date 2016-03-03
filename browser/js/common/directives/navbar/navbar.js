@@ -1,4 +1,4 @@
-app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $timeout, $mdSidenav, $log,$mdDialog,$mdMedia) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $timeout, $mdSidenav, $log,$mdDialog,$mdMedia, CartFactory) {
 
     return {
         restrict: 'E',
@@ -64,6 +64,12 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, $
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
                     scope.user = user;
+                    CartFactory.getUserCart()
+                    .then(function(currentCart) {
+                        scope.user.currentCart = currentCart
+                    }).then(function () {
+                        console.log(scope.user)
+                    })
                 });
             };
 

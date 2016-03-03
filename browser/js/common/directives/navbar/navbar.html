@@ -12,10 +12,10 @@
           Logout
         </md-button>
         <md-button class="md-icon-button" ng-click="toggleRight()" ng-hide="isOpenRight()" aria-label="Favorite">
-            <md-icon md-svg-icon="/icons/cart.svg" style="color:greenyellow;"></md-icon>
+            <md-icon md-svg-icon="/icons/cart.svg"></md-icon>
         </md-button>
 
     </div>
 </md-toolbar>
 
-<cart ng-controller="CartController"></cart>
+<cart cart="user.currentCart"></cart>
