@@ -13,12 +13,39 @@ app.config(function($stateProvider) {
                 return CartFactory.getAll()
             }
         }
+    }).state('adminCarts', {
+        url: '/admin/carts',
+        controller: 'AdminCartsController',
+        templateUrl: 'js/admin/admin-carts.html',
+        resolve: {
+            carts: function (CartFactory) {
+                return CartFactory.getAll()
+            }
+        }
     });
 
 });
 
 app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout, carts) {
     
+    $scope.carts = carts
+
+    $scope.selected = [];
+
+    $scope.getTypes = function() {
+        return ['unpaid', 'shipping info', 'complete'];
+    };
+
+    $scope.loadStuff = function() {
+        $scope.promise = $timeout(function() {
+            // loading
+        }, 2000);
+    }
+
+});
+
+app.controller('AdminCartsController', function($mdEditDialog, $q, $scope, $timeout, carts) {
+    console.log("here")
     $scope.carts = carts
 
     $scope.selected = [];
