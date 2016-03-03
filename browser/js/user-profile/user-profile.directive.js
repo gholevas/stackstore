@@ -11,6 +11,7 @@ app.directive('userProfile', function () {
 			      	AuthService.getLoggedInUser()
 			      	.then(function(user){
 			      		$scope.user = user;
+			      		$scope.orders = user.orders;
 			      	});
 						  $scope.hide = function() {
 						    $mdDialog.hide();
