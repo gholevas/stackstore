@@ -7,7 +7,10 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
         link: function(scope) {
 
             scope.toggleRight = buildToggler('right');
+
             scope.state = $state;
+
+            scope.toggleLeft = buildToggler('left');
 
             function buildToggler(navID) {
                 return function() {
