@@ -1,5 +1,6 @@
 'use strict';
 var router = require('express').Router();
+var mongoose = require('mongoose');
 var Store = mongoose.model("Store");
 
 // get all stores
