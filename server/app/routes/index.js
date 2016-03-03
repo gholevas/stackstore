@@ -14,6 +14,8 @@ router.use('/members', require('./members'));
 
 // router.use('/answers', require('./answers.js'));
 
+router.use('/store', require('./store.js'));
+
 
 // get one user
 router.get('/user/:userId', function (req, res) {
