@@ -6,8 +6,15 @@ app.factory('CartFactory', function ($http) {
         });
     };
 
+    var getAll = function () {
+    	return $http.get('/api/cart/').then(function (response) {
+            return response.data;
+        }); 
+    }
+
     return {
-        getUserCart: getUserCart
+        getUserCart: getUserCart,
+        getAll: getAll
     };
 
 });
