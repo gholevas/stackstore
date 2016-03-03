@@ -1,9 +1,9 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button class="md-fab md-accent" ng-click="toggleLeft()" aria-label="admin">
-          <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
+        <md-button class="md-fab md-accent md-mini md-primary" ng-click="toggleLeft()" aria-label="admin" ng-if="user && user.isAdmin">
+            <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
         </md-button>
-       <user-profile ng-hide="!user || user.isAdmin"></user-profile>
+        <user-profile ng-hide="!user || user.isAdmin"></user-profile>
         <h2>
           <a href="#" ui-sref="home">LOGO</a>
         </h2>
