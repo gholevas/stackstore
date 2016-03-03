@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-var ProductSchema = require('./product');
+var ProductSchema = mongoose.model('Product').schema;
 
 var OrderSchema = new mongoose.Schema({
     totalPrice: Number,
@@ -23,7 +23,7 @@ var OrderSchema = new mongoose.Schema({
         city: String,
         state: String,
         zip: Number
-    }
+    },
     contents: [ProductSchema]
 });
 
