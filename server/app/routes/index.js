@@ -6,13 +6,13 @@ module.exports = router;
 
 router.use('/members', require('./members'));
 
-router.use('/boxes', require('./boxes.js'));
+// router.use('/boxes', require('./boxes.js'));
 
-router.use('/cart', require('./cart.js'));
+// router.use('/cart', require('./cart.js'));
 
-router.use('/questions', require('./questions.js'));
+// router.use('/questions', require('./questions.js'));
 
-router.use('/answers', require('./answers.js'));
+// router.use('/answers', require('./answers.js'));
 
 
 // get one user
