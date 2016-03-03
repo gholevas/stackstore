@@ -1,6 +1,9 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-       <user-profile ng-hide="!user || user.isAdmin"></user-profile>
+        <md-button class="md-fab md-accent md-mini md-primary" ng-click="toggleLeft()" aria-label="admin" ng-if="user && user.isAdmin">
+            <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
+        </md-button>
+        <user-profile ng-hide="!user || user.isAdmin"></user-profile>
         <h2>
           <a href="#" ui-sref="home">LOGO</a>
         </h2>
@@ -20,3 +23,4 @@
 </md-toolbar>
 
 <cart cart="user.currentCart"></cart>
+
