@@ -20,7 +20,7 @@ var StoreSchema = new mongoose.Schema({
 
 StoreSchema.virtual("url")
 .get(function () {
-	return "/store/"+name;
+	return "/store/"+this.name;
 });
 
 mongoose.model('Store', StoreSchema);
