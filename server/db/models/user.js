@@ -7,16 +7,17 @@ var schema = new mongoose.Schema({
     email: {
         type: String
     },
-    title:String,
-    company:String,
-    firstName: String,
-    lastName: String,
-    address: String,
-    address2: String,
-    city:String,
-    state:String,
-    postalCode:String,
-    biography:String,
+    profile:{
+        firstName: String,
+        lastName: String,
+        address: {        
+            street: String,
+            apt: String,
+            city:String,
+            state:String,
+            postalCode:String,
+        },
+    },
     password: {
         type: String
     },
@@ -36,8 +37,10 @@ var schema = new mongoose.Schema({
         id: String
     },
     isAdmin: Boolean,
-    orders: [mongoose.model("Cart").schema],
-    currentCart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
+    isSeller: Boolean,
+    store: {type: mongoose.Schema.ObjectId, ref: "Store"},
+    orders: [mongoose.model("Order").schema],
+    cart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
 }, {
     toObject: {
         virtuals: true

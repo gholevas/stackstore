@@ -22,10 +22,6 @@
               <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
                 <div>
                   <md-input-container>
-                    <label>Title</label>
-                    <input ng-model="user.title">
-                  </md-input-container>
-                  <md-input-container>
                     <label>Email</label>
                     <input ng-model="user.email" type="email">
                   </md-input-container>
@@ -39,8 +35,6 @@
                         <label>Company</label>
                         <input ng-model="user.company">
                       </md-input-container>
-                      <md-datepicker ng-model="user.submissionDate" md-placeholder="Enter date">
-                      </md-datepicker>
                     </div>
                     <div layout-gt-sm="row">
                       <md-input-container class="md-block" flex-gt-sm>
@@ -54,27 +48,27 @@
                     </div>
                     <md-input-container class="md-block">
                       <label>Address</label>
-                      <input ng-model="user.address">
+                      <input ng-model="user.address.street">
                     </md-input-container>
                     <md-input-container md-no-float class="md-block">
-                      <input ng-model="user.address2" placeholder="Address 2">
+                      <input ng-model="user.address.apt" placeholder="Address 2">
                     </md-input-container>
                     <div layout-gt-sm="row">
                       <md-input-container class="md-block" flex-gt-sm>
                         <label>City</label>
-                        <input ng-model="user.city">
+                        <input ng-model="user.address.city">
                       </md-input-container>
                       <md-input-container class="md-block" flex-gt-sm>
                         <label>State</label>
-                        <md-select ng-model="user.state">
-                          <md-option ng-repeat="state in states" value="{{state.abbrev}}">
-                            {{state.abbrev}}
+                        <md-select ng-model="user.address.state">
+                          <md-option ng-repeat="state in states" value="{{state}}">
+                            {{state}}
                           </md-option>
                         </md-select>
                       </md-input-container>
                       <md-input-container class="md-block" flex-gt-sm>
                         <label>Postal Code</label>
-                        <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
+                        <input name="postalCode" ng-model="user.address.postalCode" placeholder="12345"
                                required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
                         <div ng-messages="userForm.postalCode.$error" role="alert">
                           <div ng-message="required" class="my-message">You must supply a postal code.</div>
@@ -118,7 +112,7 @@
         </md-tab>
         <md-tab label="Disclaimer">
           <md-content class="md-padding">
-            <h1 class="md-display-2">Disclaimer</h1>
+            <h1 class="md-display-2">Disclaimer for {{user.fullName}}</h1>
             <h1>Tell her she looks thin.</h1>
             <p>It doesn't look so shiny to me. That's not soon enough! And yet you haven't said what I told you to say! How can any of us trust you? Meh. I usually try to keep my sadness pent up inside where it can fester quietly as a mental illness.</p>
             <p>I don't want to be rescued. <strong> Goodbye, cruel world.</strong> <em> Goodbye, cruel lamp.</em> Goodbye, cruel velvet drapes, lined with what would appear to be some sort of cruel muslin and the cute little pom-pom curtain pull cords.</p>

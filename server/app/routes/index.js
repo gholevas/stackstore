@@ -24,11 +24,11 @@ router.get('/user/:userId', function (req, res) {
 });
 
 // update a user
-router.put('/user/:userId', function(req,res) {
-	mongoose.model('User').findByIdAndUpdate(req.params.userId, req.body, {new:true},function(err,data){
-		if(err) console.log(err);
+router.put('/user/:userId', function(req,res, next) {
+	mongoose.model('User').findByIdAndUpdate(req.params.userId, req.body, {new:true})
+	.then(function(data){
 		res.send(data);
-	});
+	}).catch(next);
 });
 
 
