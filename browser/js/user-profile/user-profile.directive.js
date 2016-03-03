@@ -2,8 +2,7 @@ app.directive('userProfile', function () {
     return {
         restrict: 'E',
         templateUrl: 'js/user-profile/user-profile.directive.html',
-        
-        controller: function($scope, $mdDialog){
+          controller: function($scope, $mdDialog){
         	$scope.showTabDialog = function(ev) {
 
 			    $mdDialog.show({
@@ -12,6 +11,7 @@ app.directive('userProfile', function () {
 			      	.then(function(user){
 			      		$scope.user = user;
 			      		$scope.orders = user.orders;
+			      		$scope.states = "Alabama,Alaska,Arizona,Arkansas,California,Colorado,Connecticut,Delaware,Florida,Georgia,Hawaii,Idaho,Illinois,Indiana,Iowa,Kansas,Kentucky,Louisiana,Maine,Maryland,Massachusetts,Michigan,Minnesota,Mississippi,Missouri,Montana,Nebraska,Nevada,New Hampshire,New Jersey,New Mexico,New York,North Carolina,North Dakota,Ohio,Oklahoma,Oregon,Pennsylvania,Rhode Island,South Carolina,South Dakota,Tennessee,Texas,Utah,Vermont,Virginia,Washington,West Virginia,Wisconsin,Wyoming".split(",");
 			      	});
 						  $scope.hide = function() {
 						    $mdDialog.hide();
@@ -37,3 +37,4 @@ app.directive('userProfile', function () {
     }
   };
 });
+
