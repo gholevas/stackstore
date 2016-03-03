@@ -17,6 +17,7 @@
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="Settings">
           <md-content class="md-padding">
+          <div class="container">
             <h1 class="md-display-2">User Settings</h1>
             <div layout="column" ng-cloak class="md-inline-form">
               <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
@@ -49,7 +50,7 @@
                       </md-input-container>
                       <md-input-container class="md-block" flex-gt-sm>
                         <label>Last Name</label>
-                        <input ng-model="theMax">
+                        <input ng-model="user.lastName">
                       </md-input-container>
                     </div>
                     <md-input-container class="md-block">
@@ -94,21 +95,28 @@
                 </div>
               </md-content>
             </div>
+            </div>
           </md-content>
         </md-tab>
         <md-tab label="Previous Orders">
-          <md-content class="md-padding">
+          <md-content>
             <h1 class="md-display-2">Previous Orders</h1>
               <md-list>
-                <md-list-item class="md-3-line" ng-repeat="order in orders">
-                  <md-icon md-svg-icon="/icons/cart.svg" style="color:#000;opacity:.8;" />
-                  <div class="md-list-item-text" layout="column">
-                    <h3>{{ user.firstName }}</h3>
-                    <h4>{{ user.title }}</h4>
-                    <p>{{ order.purchased }}</p>
+                <md-list-item class="secondary-button-padding" ng-repeat="order in orders">
+                  <div class="container">
+                    <md-icon md-svg-icon="/icons/cart.svg" class="s24"></md-icon>
+                    <div class="md-list-item-text" layout="row" layout-align="space-around">
+                      <h4>Status: {{order.status.toUpperCase()}}</h3>
+                      <h4>Number of Items: {{order.boxes.length}}</p>
+                      <h4>Total Price: ${{order.totalPaid || 0}}</h4>
+                      <div>
+                        <md-button class="md-primary" ng-click="orderDetail()">Order Detail</md-button>
+                      </div>
+                    </div>
                   </div>
                 </md-list-item>
-              </md-icon>
+                 
+              </md-list>
           </md-content>
         </md-tab>
         <md-tab label="Disclaimer">
