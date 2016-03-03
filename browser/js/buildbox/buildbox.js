@@ -14,7 +14,7 @@ app.config(function($stateProvider) {
 
 
 
-app.controller('BuildBoxCtrl', function($scope,questions) {
+app.controller('BuildBoxCtrl', function($scope,questions,QuestionFactory) {
     $scope.questions = questions;
     $scope.data = {
         selectedIndex: 0,
@@ -43,7 +43,7 @@ app.controller('BuildBoxCtrl', function($scope,questions) {
     };
 
     var submitAnswers = function(){
-        console.log(answers);
+        QuestionFactory.sendem(answers)
     }
 
 });
@@ -56,6 +56,12 @@ app.factory('QuestionFactory', function($http) {
             return $http.get('/api/questions')
                 .then(function(res) {
                     return res.data;
+                })
+        },
+        sendem: function(answers) {
+            return $http.post('/api/answers',answers)
+                .then(function(res){
+                    return res.data
                 })
         }
     };
