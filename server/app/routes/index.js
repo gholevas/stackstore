@@ -12,6 +12,8 @@ router.use('/cart', require('./cart.js'));
 
 router.use('/questions', require('./questions.js'));
 
+router.use('/answers', require('./answers.js'));
+
 
 // get one user
 router.get('/user/:userId', function (req, res) {
