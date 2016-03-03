@@ -10,6 +10,7 @@ var OrderSchema = new mongoose.Schema({
             last: String
         },
         street: String,
+        apt: String,
         city: String,
         state: String,
         zip: Number
@@ -20,6 +21,7 @@ var OrderSchema = new mongoose.Schema({
             last: String
         },
         street: String,
+        apt: String,
         city: String,
         state: String,
         zip: Number
