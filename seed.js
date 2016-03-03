@@ -87,33 +87,21 @@ var createCartsFromBoxes = function(boxes){
 // var createCartsFromBoxes = function(boxes){
 //     console.log("creating carts");
 //     var carts = [];
-//     var emptyArray = Array.apply(null, Array(numCarts)).map(function () {});
-
-//     function doo(){
-//         // var cart = 
-//         Cart.createAsync({totalPaid:0})
-//         .then(function(cart){
-//             // for(var j=0; j<numBoxesPerCart; j++){
-//                 cart.addBoxWrapper(new BoxWrapper({
-//                    // box: boxes[chance.integer({min: i*4, max: (i*4)+4})]
-//                    box: boxes[chance.integer({min: 0, max: numBoxes-1})]
-//                    ,isPremium: chance.bool({likelihood: 30}) 
-//                 }));
-//             // }
-//             carts.push(cart);
+    
+//     for(var i=0; i<numCarts; i++){
+//         var cart = new Cart();
+//         for(var j=0; j<numBoxesPerCart; j++){
+//             cart.addBoxWrapper(new BoxWrapper({
+//                box: boxes[chance.integer({min: i*4, max: (i*4)+4})]
+//                ,isPremium: chance.bool({likelihood: 30}) 
+//             }));
+//         }
+//         carts.push(cart);
+//         cart.save(function(err){
+//             console.log(chalk.blue("c",err));
 //         });
-//         // cart.save(function(err){
-//         //     console.log(chalk.blue("c",err));
-//         // });
-        
-//     }
+//     };
 
-//     asyncEach(emptyArray, doo);
-
-
-//     // for(var i=0; i<numCarts; i++){
-        
-//     // }    
 //     // console.log(chalk.yellow(carts))
 //     return Promise.resolve(carts);
 // }
