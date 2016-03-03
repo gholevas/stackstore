@@ -1,38 +1,57 @@
-<md-content layout="column" flex>
-    <md-card>
-        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
-            <div class="md-toolbar-tools">
-                <span>Orders</span>
-                <div flex></div>
-                <md-button ng-click="loadStuff()">Async Operation</md-button>
-            </div>
+<section layout="row" flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" style="height: 1000px" flex> 
+        <md-toolbar class="md-theme-indigo">
+          <h1 class="md-toolbar-tools">Sidenav Left</h1>
         </md-toolbar>
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-            <div class="md-toolbar-tools">
-                <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
-            </div>
-        </md-toolbar>
-        <md-table-container>
-            <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
-                <thead md-head md-order="query.order" md-on-reorder="logOrder">
-                    <tr md-row>
-                        <th md-column md-order-by="id"><span>Order Id</span></th>
-                        <th md-column md-order-by="price"><span>Price</span></th>
-                        <th md-column md-numeric md-order-by="status" md-desc><span>Status</span></th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr md-row md-select="cart" ng-repeat="cart in carts | filter: filter.search | orderBy: query.order">
-                        <td md-cell>{{cart._id}}</td>
-                        <td md-cell>{{cart.totalToPay}}</td>
-                        <td md-cell>
-                            <md-select ng-model="cart.status" placeholder="unpaid">
-                                <md-option ng-value="status" ng-repeat="status in getTypes()">{{status}}</md-option>
-                            </md-select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>
-    </md-card>
-</md-content>
+        <md-content layout-padding>
+          <md-button ng-click="close()" class="md-primary" hide-gt-md>
+            Close Sidenav Left
+          </md-button>
+          <p hide-md show-gt-md>
+            This sidenav is locked open on your device. To go back to the default behavior,
+            narrow your display.
+          </p>
+        </md-content>
+    </md-sidenav>
+
+
+    <md-content layout="column" flex>
+        <md-card>
+            <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+                <div class="md-toolbar-tools">
+                    <span>Orders</span>
+                    <div flex></div>
+                    <md-button ng-click="loadStuff()">Async Operation</md-button>
+                </div>
+            </md-toolbar>
+            <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+                <div class="md-toolbar-tools">
+                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                </div>
+            </md-toolbar>
+            <md-table-container>
+                <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
+                    <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                        <tr md-row>
+                            <th md-column md-order-by="id"><span>Order Id</span></th>
+                            <th md-column md-order-by="price"><span>Price</span></th>
+                            <th md-column md-numeric md-order-by="status" md-desc><span>Status</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-select="cart" ng-repeat="cart in carts | filter: filter.search | orderBy: query.order">
+                            <td md-cell>{{cart._id}}</td>
+                            <td md-cell>{{cart.totalToPay}}</td>
+                            <td md-cell>
+                                <md-select ng-model="cart.status" placeholder="unpaid">
+                                    <md-option ng-value="status" ng-repeat="status in getTypes()">{{status}}</md-option>
+                                </md-select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card>
+        <div flex></div>
+    </md-content>
+</section>
