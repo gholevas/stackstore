@@ -14,7 +14,7 @@ app.config(function($stateProvider) {
 
 
 
-app.controller('BuildBoxCtrl', function($scope,questions,QuestionFactory) {
+app.controller('BuildBoxCtrl', function($scope,questions,QuestionFactory,$state) {
     $scope.questions = questions;
     $scope.data = {
         selectedIndex: 0,
@@ -28,7 +28,8 @@ app.controller('BuildBoxCtrl', function($scope,questions,QuestionFactory) {
     $scope.selectAnswer = function(question,answer){
         answers[question._id] = answer;
         if(question._id === $scope.questions[$scope.questions.length-1]._id){
-            submitAnswers();
+            submitAnswers()
+            $state.go('checkout')
         }
         $scope.next();
     }
@@ -43,7 +44,7 @@ app.controller('BuildBoxCtrl', function($scope,questions,QuestionFactory) {
     };
 
     var submitAnswers = function(){
-        QuestionFactory.sendem(answers)
+        return QuestionFactory.sendem(answers)
     }
 
 });
