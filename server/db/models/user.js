@@ -2,8 +2,9 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var OrderSchema = mongoose.model('Order').schema;
 
-var schema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
     email: {
         type: String
     },
@@ -38,9 +39,9 @@ var schema = new mongoose.Schema({
     },
     isAdmin: Boolean,
     isSeller: Boolean,
-    store: {type: mongoose.Schema.ObjectId, ref: "Store"},
-    orders: [mongoose.model("Order").schema],
-    cart: {type: mongoose.Schema.ObjectId, ref: "Cart"}
+    store: {type: mongoose.Schema.Types.ObjectId, ref: "Store"},
+    orders: [OrderSchema],
+    cart: {type: mongoose.Schema.Types.ObjectId, ref: "Cart"}
 }, {
     toObject: {
         virtuals: true
@@ -51,13 +52,13 @@ var schema = new mongoose.Schema({
 });
 
 // method to remove sensitive information from user objects before sending them out
-schema.methods.sanitize =  function () {
+UserSchema.methods.sanitize = function () {
     return _.omit(this.toJSON(), ['password', 'salt']);
 };
 
 //virtual to get Full Name
 
-schema.virtual('fullName').get(function(){
+UserSchema.virtual('fullName').get(function(){
     return this.firstName + " " + this.lastName;
 });
 
@@ -74,7 +75,7 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-schema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
 
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
@@ -85,11 +86,11 @@ schema.pre('save', function (next) {
 
 });
 
-schema.statics.generateSalt = generateSalt;
-schema.statics.encryptPassword = encryptPassword;
+UserSchema.statics.generateSalt = generateSalt;
+UserSchema.statics.encryptPassword = encryptPassword;
 
-schema.method('correctPassword', function (candidatePassword) {
+UserSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
-mongoose.model('User', schema);
+mongoose.model('User', UserSchema);

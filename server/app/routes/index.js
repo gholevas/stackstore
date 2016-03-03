@@ -8,11 +8,9 @@ router.use('/members', require('./members'));
 
 router.use('/products', require('./products.js'));
 
-router.use('/cart', require('./cart.js'));
+// router.use('/cart', require('./cart.js'));
 
-router.use('/questions', require('./questions.js'));
-
-router.use('/answers', require('./answers.js'));
+router.use('/store', require('./store.js'));
 
 
 // get one user

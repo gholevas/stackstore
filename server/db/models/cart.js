@@ -42,7 +42,7 @@ CartSchema.methods.removeProduct = function(product){
 	this.contents.forEach(function(c,i){
 		if(c.product === product._id){
 			c.quantity--;
-			if(c.quantity==0){
+			if(c.quantity === 0){
 				self.contents.splice(i,1);
 			}
 		}

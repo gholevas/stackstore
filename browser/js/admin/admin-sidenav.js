@@ -3,26 +3,27 @@ app.directive('adminNav', function($mdSidenav, $state) {
         restrict: 'E',
         templateUrl: 'js/admin/admin-nav.html',
         link: function(scope) {
-        	scope.toggleLeft = buildToggler('left');
+            function buildToggler(navID) {
+                return function() {
+                    $mdSidenav(navID)
+                        .toggle();
+                }
+            }
 
-            scope.toAdmin = function(){
+            scope.toggleLeft = buildToggler('left');
+
+            scope.toAdmin = function() {
                 $state.go('admin')
             }
 
-            scope.toBoxes = function(){
+            scope.toBoxes = function() {
                 $state.go('adminBoxes')
             }
 
-            scope.toCarts = function(){
+            scope.toCarts = function() {
                 $state.go('adminCarts')
             }
 
-		    function buildToggler(navID) {
-		        return function() {
-		            $mdSidenav(navID)
-		                .toggle();
-		        }
-		    }
         }
     };
 });

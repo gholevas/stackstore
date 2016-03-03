@@ -11,4 +11,4 @@ var ProductSchema = new mongoose.Schema({
 });
 
 
-mongoose.model('Product', CartSchema);
+mongoose.model('Product', ProductSchema);
