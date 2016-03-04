@@ -13,7 +13,6 @@ app.config(function($stateProvider) {
 
 
 
-
 app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
     $scope.storeInfo = storeInfo;
     $scope.data = {
@@ -23,13 +22,14 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
         bottom: false
     };
 
-    var answers = {};
+    $scope.answers = {};
 
     $scope.selectAnswer = function(question,answer){
-        answers[question._id] = answer;
-        if(question._id === $scope.questions[$scope.questions.length-1]._id){
+        $scope.answers[question._id] = answer;
+        console.log($scope.answers)
+        if(question._id === $scope.storeInfo.questions[$scope.storeInfo.questions.length-1]._id){
             submitAnswers()
-            $state.go('checkout')
+            // $state.go('checkout')
         }
         $scope.next();
     }
@@ -44,11 +44,17 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
     };
 
     var submitAnswers = function(){
-        return StoreFactory.sendAnswers(answers)
+        var tags = [];
+        for(var answer in $scope.answers){
+            tags = tags.concat($scope.answers[answer].tags);
+        }
+        StoreFactory.sendAnswers(tags)
+        .then(function(bestProduct){
+            console.log(bestProduct)
+        })
     }
 
 });
-
 
 
 app.factory('StoreFactory', function($http) {
@@ -66,7 +72,7 @@ app.factory('StoreFactory', function($http) {
                 })
         },
         sendAnswers: function(answers) {
-            return $http.post('/api/answers',answers)
+            return $http.post('/api/products/store/56d9b3b3144b6f882d8ba4bc/tags',answers)
                 .then(function(res){
                     return res.data
                 })
