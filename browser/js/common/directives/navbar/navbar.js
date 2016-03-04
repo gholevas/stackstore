@@ -13,10 +13,12 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                 }
             }
 
+            // for cart
             scope.toggleRight = buildToggler('right');
 
             scope.state = $state;
 
+            // for admin menu
             scope.toggleLeft = buildToggler('left');
 
 
@@ -61,7 +63,7 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                     console.log(user)
                     scope.user = user;
                     if (user && user.isAdmin) {
-                        // doesn't work without time out
+                        // doesn't work without timeout
                         $timeout(function() {
                           $state.go('admin');
                         }, 0);

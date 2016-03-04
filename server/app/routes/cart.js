@@ -46,6 +46,16 @@ router.post('/', ensureAuthenticated, function(req, res, next) {
 
 });
 
+// creates a cart and adds the product
+router.put('/user', ensureAuthenticated, function(req, res, next) {
+    Cart.findByIdAndUpdate(req.user.cart._id,req.user.cart,{new:true})
+        .then(function(cart) {
+            res.json(cart);
+        })
+        .then(null, next);
+
+});
+
 // remove a box from a cart
 router.delete('/', ensureAuthenticated, function(req, res, next) {
 

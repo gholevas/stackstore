@@ -1,4 +1,4 @@
-app.directive('cart', function() {
+app.directive('cart', function(CartFactory) {
     return {
         restrict: 'E',
         scope: {
@@ -8,8 +8,11 @@ app.directive('cart', function() {
         link: function (scope) {
         	scope.updateCart = function (c) {
         		scope.cart.totalToPay = scope.cart.contents.reduce(function (prev, curr, i, arr) {
-        			return prev + arr[i].product.price * arr[i].quantity
-        		},0)
+        			return prev + curr.product.price * curr.quantity
+        		},0);
+                CartFactory.updateCart(scope.cart).then(function (newCart) {
+                    console.log("cartSaved?",newCart)
+                })
         	}
 
         	scope.getNums = function() {

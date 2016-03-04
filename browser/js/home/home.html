@@ -1,18 +1,35 @@
 <md-content id="home">
     <div id="slider-full-width">
         <div class="container">
-            <h2>Looking for the perfect gift-box?</h2>
-            <div id="button-bg">
+            <h2>Find the the perfect gift</h2>
+            <!-- <div id="button-bg">
                 <md-button ui-sref="buildbox" class="md-raised md-primary">Get Started</md-button>
-            </div>
+            </div> -->
         </div>
+    </div>
+    <div flex-xs flex-gt-xs="50" layout="column">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Card with image</span>
+            <span class="md-subhead">Small</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-sm card-media"></div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </md-card-actions>
+      </md-card>
     </div>
 </md-content>
 <style>
 #slider-full-width {
     max-width: 100%;
-    height: 95vh;
-    background: url('http://lorempixel.com/1200/800/sports/1/') no-repeat center center fixed;
+    height: 40vh;
+    background: url('http://lorempixel.com/1200/800/animals/3/') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -25,7 +42,7 @@
     color: #efefef;
     margin-top: -20px;
     font-size: 25.29pt;
-    padding-top: 40vh;
+    padding-top: 20vh;
     text-shadow: 1px 1px 1px #000;
 }
 </style>
