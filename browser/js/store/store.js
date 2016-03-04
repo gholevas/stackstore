@@ -54,7 +54,7 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
 app.factory('StoreFactory', function($http) {
     return {
         getStoreInfo: function() {
-            return $http.get('/api/store/56d9afbb296f81fc2b04dc5b')
+            return $http.get('/api/store/56d9b3b3144b6f882d8ba4bc')
                 .then(function(res) {
                     return res.data;
                 })
