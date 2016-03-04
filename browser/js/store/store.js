@@ -1,11 +1,11 @@
 app.config(function($stateProvider) {
-    $stateProvider.state('buildbox', {
-        url: '/buildbox',
-        templateUrl: 'js/buildbox/buildbox.html',
-        controller: 'BuildBoxCtrl',
+    $stateProvider.state('store', {
+        url: '/store',
+        templateUrl: 'js/store/store.html',
+        controller: 'StoreCtrl',
         resolve: {
-            questions: function(QuestionFactory) {
-                return QuestionFactory.fetchem();
+            storeInfo: function(StoreFactory) {
+                return StoreFactory.getStoreInfo();
             }
         }
     });
@@ -14,8 +14,8 @@ app.config(function($stateProvider) {
 
 
 
-app.controller('BuildBoxCtrl', function($scope,questions,QuestionFactory,$state) {
-    $scope.questions = questions;
+app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
+    $scope.storeInfo = storeInfo;
     $scope.data = {
         selectedIndex: 0,
         secondLocked: true,
@@ -44,22 +44,28 @@ app.controller('BuildBoxCtrl', function($scope,questions,QuestionFactory,$state)
     };
 
     var submitAnswers = function(){
-        return QuestionFactory.sendem(answers)
+        return StoreFactory.sendAnswers(answers)
     }
 
 });
 
 
 
-app.factory('QuestionFactory', function($http) {
+app.factory('StoreFactory', function($http) {
     return {
-        fetchem: function() {
-            return $http.get('/api/questions')
+        getStoreInfo: function() {
+            return $http.get('/api/store/56d9afbb296f81fc2b04dc5b')
                 .then(function(res) {
                     return res.data;
                 })
         },
-        sendem: function(answers) {
+        getAllStores: function() {
+            return $http.get('/api/store/')
+                .then(function(res) {
+                    return res.data;
+                })
+        },
+        sendAnswers: function(answers) {
             return $http.post('/api/answers',answers)
                 .then(function(res){
                     return res.data
