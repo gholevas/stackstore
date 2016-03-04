@@ -12,8 +12,8 @@ app.factory('CartFactory', function ($http) {
         }); 
     }
 
-    var updateCart = function () {
-        return $http.put('/api/cart/user').then(function (response) {
+    var updateCart = function (cart) {
+        return $http.put('/api/cart/user',cart).then(function (response) {
             return response.data
         })
     }
