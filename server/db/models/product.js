@@ -6,7 +6,8 @@ var ProductSchema = new mongoose.Schema({
 	name: { type: String, required: true},
 	price: { type: Number, required: true},
 	imgUrl: String,
-	tags: [String]
+	tags: [String],
+	store: {type: mongoose.Schema.Types.ObjectId, ref: "Store"}
 
 });
 

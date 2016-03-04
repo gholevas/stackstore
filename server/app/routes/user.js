@@ -25,7 +25,6 @@ router.param("userId", function(req, res, next, id){
 	.populate("store orders cart.contents.product")
 	.then(function(user){
 		if(!user) throw Error("no such user");
-		console.log("U",user);
 		req.user = user;
 		next();
 	})

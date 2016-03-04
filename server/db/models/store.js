@@ -7,8 +7,9 @@ var StoreSchema = new mongoose.Schema({
 	pic: {type:String, default: "http://lorempixel.com/400/400/"},
 	seller: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
 	products: [{type: mongoose.Schema.Types.ObjectId, ref: "Product"}],
-	questions: [{type: mongoose.Schema.Types.ObjectId, ref: "Question"}]
-	
+	questions: [{type: mongoose.Schema.Types.ObjectId, ref: "Question"}],
+	orders: [{type: mongoose.Schema.Types.ObjectId, ref: "Order"}]
+
 }, {
     toObject: {
         virtuals: true
