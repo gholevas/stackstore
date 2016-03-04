@@ -16,7 +16,7 @@ app.controller('AddQuestionCtrl', function($scope, $mdDialog, StoreEditFactory){
 		        break;
 		    }
 		}
-		console.log(found);
+
 		if(!found && str.length && tag.length){
 			var answer = {text: str, tag: tag};
 			$scope.answers.push(answer);
@@ -29,7 +29,7 @@ app.controller('AddQuestionCtrl', function($scope, $mdDialog, StoreEditFactory){
 		var question = $scope.question;
 		question.text = $scope.questionText;
 		question.answers = $scope.answers;
-		$scope.store.questions.push(question);
+		StoreEditFactory.store.addQuestion(question);
 	};
 
 	$scope.cancel = function() {

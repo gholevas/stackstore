@@ -48,6 +48,13 @@ router.get("/:url",function(req, res, next){
 });
 
 //save store
+router.put("/:url", function(req, res, next){
+
+	req.store.update(req.body)
+	.then(function(data){
+		res.send("data");
+	}).catch(next);
+});
 
 //not neccessary since the get by id returns all of this
 router.get("/:url/products", function(req, res, next){
