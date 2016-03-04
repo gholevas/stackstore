@@ -43,7 +43,7 @@ var UserSchema = new mongoose.Schema({
     isAdmin: Boolean,
     isSeller: Boolean,
     store: { type: mongoose.Schema.Types.ObjectId, ref: "Store" },
-    orders: { type: mongoose.Schema.Types.ObjectId, ref: "Order" },
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
     cart: CartSchema
 }, {
     toObject: {
