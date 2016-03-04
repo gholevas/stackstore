@@ -2,16 +2,15 @@
 var mongoose = require('mongoose');
 
 var StoreSchema = new mongoose.Schema({
-
-
+    
     name: { type: String, required: true },
     url: { type: String, unique: true },
     pic: { type: String, default: "http://lorempixel.com/400/400/" },
     headline: String,
     seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }]
-
+    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }],
+    likers: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
 
 }, {
     toObject: {
