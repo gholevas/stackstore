@@ -23,7 +23,7 @@
                     <div layout-align="center" layout="row">
 
 
-                    <md-button ng-click="selectAnswer(question,answer)" ng-class="{'md-warn' : true}" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
+                    <md-button ng-click="selectAnswer(question,answer)" ng-class="{'md-warn' : answer.selected}" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
 
                     
 
@@ -41,7 +41,7 @@
                             </md-button>
                         </div>
                         <div ng-show="$last" layout="column">
-                            <md-button ng-click="previous()">
+                            <md-button ng-click="submitAnswers()">
                                 Submit
                             </md-button>
                         </div>
