@@ -41,6 +41,7 @@ router.param("url", function(req, res, next, id){
 	})
 });
 
+
 //get specfic store
 router.get("/:url",function(req, res, next){
 	res.json(req.store);
