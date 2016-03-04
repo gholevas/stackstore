@@ -45,6 +45,8 @@ router.get("/:url",function(req, res, next){
 	res.json(req.store);
 });
 
+//save store
+
 //not neccessary since the get by id returns all of this
 router.get("/:url/products", function(req, res, next){
 	res.json(req.store.products);
