@@ -2,26 +2,23 @@
     <div id="slider-full-width">
         <div class="container">
             <h2>Find the the perfect gift</h2>
-            <!-- <div id="button-bg">
-                <md-button ui-sref="buildbox" class="md-raised md-primary">Get Started</md-button>
-            </div> -->
         </div>
     </div>
-    <div flex-xs flex-gt-xs="50" layout="column">
-      <md-card>
+    <div flex-xs flex-gt-xs="30" layout="column">
+      <md-card ng-repeat="store in stores" ng-click="goToStore(store)">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">Card with image</span>
-            <span class="md-subhead">Small</span>
+            <span class="md-headline">{{store.name}}</span>
           </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-sm card-media"></div>
-          </md-card-title-media>
         </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button>Action 1</md-button>
-          <md-button>Action 2</md-button>
-        </md-card-actions>
+        <md-card-content layout="row" layout-align="space-between">
+          <div class="md-media-sm card-media"><img src={{store.pic}} height="100%"  width="100%" /></div>
+          <md-card-actions layout="column">
+            <md-button class="md-icon-button" aria-label="Favorite">
+              <md-icon><i class="material-icons">favorite</i></md-icon>
+            </md-button>
+          </md-card-actions>
+        </md-card-content>
       </md-card>
     </div>
 </md-content>
