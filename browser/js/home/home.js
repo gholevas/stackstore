@@ -15,6 +15,8 @@ app.config(function($stateProvider) {
 app.controller('HomeCtrl', function($scope, $state, stores){
 	$scope.stores = stores
 
+    $scope.searchText = ""
+
 	$scope.goToStore = function (store) {
 		console.log(store._id)
 		$state.go('store', {storeId: store._id})
