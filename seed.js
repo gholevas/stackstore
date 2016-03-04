@@ -20,6 +20,8 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Cart = Promise.promisifyAll(mongoose.model('Cart'));
 var Store = Promise.promisifyAll(mongoose.model('Store'));
 var Product = Promise.promisifyAll(mongoose.model('Product'));
+var Question = Promise.promisifyAll(mongoose.model('Question'));
+
 
 var seedUsers = function() {
 
@@ -64,6 +66,56 @@ var dropProducts = function() {
     return Product.remove({});
 };
 
+var QuestionSchema = new mongoose.Schema({
+    text: String,
+    answers: [{
+        text: String,
+        tags: [String]
+    }]
+});
+
+var seedQuestions = function() {
+
+    var questions = [{
+        text: 'who is your your daddy?',
+        answers: [{
+                text: 'arnoldy',
+                tags: ["EDM","rave"]
+            }, {
+                text: 'freddy',
+                tags: ["preteen","rave"]
+            }, {
+                text: 'bobby',
+                tags: ["preteen","rave"]
+            }, {
+                text: 'joey',
+                tags: ["EDM","rave"]
+            }]
+        }, {
+        text: 'who is your your momma?',
+        answers: [{
+                text: 'arnoldya',
+                tags: ["EDM","rave"]
+            }, {
+                text: 'freddya',
+                tags: ["preteen","rave"]
+            }, {
+                text: 'bobbya',
+                tags: ["preteen","rave"]
+            }, {
+                text: 'joeya',
+                tags: ["EDM","rave"]
+            }]
+    }];
+
+    return Question.createAsync(questions);
+
+};
+
+var dropQuestions = function() {
+    return Question.remove({});
+};
+
 
 var seedCarts = function() {
     return Product.find({})
@@ -95,9 +147,15 @@ var dropCarts = function() {
 
 var seedStores = function() {
     var userA;
+    var prodIds;
     return Product.find({})
     .then(function (products) {
-        var prodIds = products.map(function (el) {
+        prodIds = products.map(function (el) {
+            return el._id
+        })
+        return Question.find({})
+    }).then(function (questions) {
+        var questIds = questions.map(function (el) {
             return el._id
         })
         return User.findOne({ isSeller: true })
@@ -107,13 +165,15 @@ var seedStores = function() {
                 name: "testStore",
                 url: "test-store",
                 seller: user._id,
-                products: prodIds
+                products: prodIds,
+                questions: questIds
             }];
             return Store.createAsync(stores);
         }).then(function(stores) {
             userA.store = stores[0]._id
             return userA.save()
         }).catch(console.error)
+        
     })
 
 }
@@ -128,6 +188,8 @@ connectToDb.then(function() {
         dropCarts(),
         dropStores(),
         dropProducts(),
+        dropQuestions(),
+        seedQuestions(),
         seedProducts(),
         seedUsers(),
         seedCarts(),
