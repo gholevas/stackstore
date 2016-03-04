@@ -59,8 +59,7 @@ router.post('/purchase', function(req, res, next){
     //order for user
     Order.create(req.body)
         .then(function(order){
-            console.log("created order ", order);
-            return User.findById("56d9f8ae0f8bb08adfa9d8b4")
+            return User.findById(req.user._id)
                 .then(function(user){
                     if(!user) throw Error("nosuchuser");
                     console.log("founduser ", user);
