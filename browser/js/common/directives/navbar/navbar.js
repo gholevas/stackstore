@@ -58,6 +58,7 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
 
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
+                    console.log(user)
                     scope.user = user;
                     if (user && user.isAdmin) {
                         // doesn't work without time out
@@ -66,8 +67,8 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                         }, 0);
                     }
                     CartFactory.getUserCart()
-                    .then(function(currentCart) {
-                        scope.user.currentCart = currentCart
+                    .then(function(cart) {
+                        scope.user.cart = cart
                     })
                 });
             };

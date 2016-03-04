@@ -4,24 +4,22 @@
             <h1 class="md-toolbar-tools">Your Cart</h1>
         </md-toolbar>
         <md-list layout-padding>
-            <md-card ng-repeat="boxW in cart.boxes">
+            <md-card ng-repeat="c in cart.contents">
                 <md-list-item class="md-3-line">
-                    <img src="/icons/cart.svg" class="md-avatar" alt="cart">
-                    <div class="md-list-item-text">
-                        <h3>{{boxW.box[0].name}}</h3>
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{c.product.name}}</h3>
+                        <label>Quantity {{c.quantity}}</label>
                     </div>
-                    <label>Quantity {{boxW.quantity}}</label>
-                    <i class="material-icons" ng-click="addOne()">plus_one</i>
-                    <!-- <md-button class="md-icon-button md-accent" aria-label="Favorite">
-                        <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-                    </md-button> -->
-
-                    <!-- <md-input-container style="margin-right: 10px;">
-                        <label>Quantity {{boxW.quantity}}</label>
-                        <md-select ng-model="boxW.quantity">
-                            <md-option ng-repeat="a in range(5)" ng-value="{{a}}">{{a}}</md-option>
+                    <div layout="column">
+                        <md-select ng-model="c.quantity" aria-label="quantity" ng-change="updateCart()">
+                            <md-option ng-repeat="num in getNums()" ng-value="{{num}}">
+                                {{num}}
+                            </md-option>
                         </md-select>
-                    </md-input-container> -->
+                    </div>
+                    <div layout="column">
+                        <i class="material-icons" ng-click="removeC()">clear</i>
+                    </div>
                 </md-list-item>
             </md-card>
         </md-list>
