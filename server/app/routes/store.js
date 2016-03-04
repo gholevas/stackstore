@@ -27,8 +27,8 @@ router.post('/', function (req, res, next) {
     }).then(null,next); 
 });
 
-router.param("id", function(req, res, next, id){
-	Store.findById(id)
+router.param("url", function(req, res, next, id){
+	Store.findOne({url:req.params.url})
 	.populate("products seller questions")
 	.then(function(store){
 		if(!store) throw Error("no such store");
@@ -42,18 +42,21 @@ router.param("id", function(req, res, next, id){
 });
 
 //get specfic store
-router.get("/:id",function(req, res, next){
+router.get("/:url",function(req, res, next){
 	res.json(req.store);
 });
 
 //not neccessary since the get by id returns all of this
-router.get("/:id/products", function(req, res, next){
+router.get("/:url/products", function(req, res, next){
 	res.json(req.store.products);
 });
-router.get("/:id/questions", function(req, res, next){
+router.get("/:url/questions", function(req, res, next){
 	res.json(req.store.questions);
 });
-router.get("/:id/seller", function(req, res, next){
+
+
+
+router.get("/:url/seller", function(req, res, next){
 	res.json(req.store.seller);
 });
 

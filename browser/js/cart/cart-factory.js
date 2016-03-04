@@ -12,9 +12,16 @@ app.factory('CartFactory', function ($http) {
         }); 
     }
 
+    var updateCart = function (cart) {
+        return $http.put('/api/cart/user',cart).then(function (response) {
+            return response.data
+        })
+    }
+
     return {
         getUserCart: getUserCart,
-        getAll: getAll
+        getAll: getAll,
+        updateCart: updateCart
     };
 
 });
