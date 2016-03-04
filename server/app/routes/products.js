@@ -29,14 +29,14 @@ router.get('/', function (req, res, next) {
 
 });
 
-router.get('/store/:storeId', function (req, res, next) {
-    Product.find({store:req.params.storeId})
-    .then(function(info){
-        res.json(info);
-    })
-    .then(null,next);
+// router.get('/store/:storeId', function (req, res, next) {
+//     Product.find({store:req.params.storeId})
+//     .then(function(info){
+//         res.json(info);
+//     })
+//     .then(null,next);
 
-});
+// });
 
 // add a product (only sellers can add new products)
 router.post('/store/:storeId', ensureAdminOrSeller, function (req, res, next) {
