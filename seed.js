@@ -162,8 +162,7 @@ var seedStores = function() {
         .then(function(user) {
             userA = user
             var stores = [{
-                name: "testStore",
-                url: "test-store",
+                name: "Test Store",
                 seller: user._id,
                 products: prodIds,
                 questions: questIds

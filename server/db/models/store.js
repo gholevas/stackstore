@@ -18,9 +18,16 @@ var StoreSchema = new mongoose.Schema({
     }
 });
 
+function convertToUrl(name) {
+    return name
+        .toLowerCase()
+        .replace(/ /g,'-')
+        .replace(/[^\w-]+/g,'');
+}
+
 StoreSchema.virtual("url")
 .get(function () {
-	return "/store/"+this.name;
+	return "/store/"+convertToUrl(this.name);
 });
 
 mongoose.model('Store', StoreSchema);
