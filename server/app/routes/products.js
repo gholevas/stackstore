@@ -2,6 +2,7 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Product = mongoose.model('Product');
+var Store = mongoose.model('Store');
 
 var ensureAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
@@ -29,23 +30,55 @@ router.get('/', function (req, res, next) {
 
 });
 
-// router.get('/store/:storeId', function (req, res, next) {
-//     Product.find({store:req.params.storeId})
-//     .then(function(info){
-//         res.json(info);
-//     })
-//     .then(null,next);
-
-// });
 
 // add a product (only sellers can add new products)
 router.post('/store/:storeId', ensureAdminOrSeller, function (req, res, next) {
-    Product.create(req.body)
-    .then(function(info){
-        res.json(info);
+    Store.findById(req.params.storeId)
+    .then(function(store){
+        store.addProduct(req.body);
     })
     .then(null,next);
 });
+
+//delete a product 
+router.delete('/store/:storeId', ensureAdminOrSeller, function (req, res, next) {
+    Store.findById(req.params.storeId)
+    .then(function(store){
+        store.removeProduct(req.body);
+    })
+    .then(null,next);
+});
+
+// get product that matches tags
+router.post('/store/:storeId/tags', function (req, res, next) {
+    var tags = req.body;
+    Store.findById(req.params.storeId)
+    .populate('products')
+    .then(function(store){
+        var topMatches = 0;
+        var numMatches = 0;
+        var bestProduct;
+        store.products.forEach(function(product){
+            for(var i=0; i<product.tags.length; i++){
+                if(tags.indexOf(product.tags[i]) !== -1){
+                    numMatches++;
+                }
+                if(numMatches > topMatches){
+                    topMatches = numMatches;
+                    bestProduct = product;
+                }
+            }
+            numMatches = 0;
+        })
+        console.log(bestProduct)
+        return bestProduct;
+    })
+    .then(function(product){
+        res.send(product);
+    })
+    .then(null,next);
+});
+
 
 //param to find product by id. sets product on request object.
 router.param("id", function(req, res, next, id){

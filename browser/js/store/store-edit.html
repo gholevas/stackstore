@@ -1,0 +1,26 @@
+<div>
+  <div style="width:50%;margin-left:10%;">
+    <h1>Edit Store</h1>
+    <form name="userForm">
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs>
+          <label><strong>Store Name</strong></label>
+          <input ng-model="store.name">
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Picture Url:</label>
+          <input ng-model="store.pic">
+        </md-input-container>
+      </div>
+      <md-input-container class="md-block">
+        <label>Headline</label>
+        <input ng-model="store.text">
+      </md-input-container>
+    <md-button class="md-raised md-primary" ng-click="saveStore($scope.store)">Save</md-button>
+    </form>
+    <md-button class="md-primary md-raised" ng-click="addQuestion($event)">Add Question</md-button>
+  </div>
+
+</div>

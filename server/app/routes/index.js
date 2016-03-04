@@ -12,23 +12,7 @@ router.use('/cart', require('./cart.js'));
 
 router.use('/store', require('./store.js'));
 
-
-// get one user
-router.get('/user/:userId', function (req, res) {
-    mongoose.model('User').findById(req.params.userId)
-    .then(function(info){
-        res.send(info);
-    });
-});
-
-// update a user
-router.put('/user/:userId', function(req,res, next) {
-	mongoose.model('User').findByIdAndUpdate(req.params.userId, req.body, {new:true})
-	.then(function(data){
-		res.send(data);
-	}).catch(next);
-});
-
+router.use('/user', require('./user.js'));
 
 // Make sure this is after all of
 // the registered routes!

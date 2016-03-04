@@ -4,7 +4,9 @@ app.directive('userProfile', function() {
         templateUrl: 'js/user-profile/user-profile.directive.html',
         controller: function($scope, $mdDialog) {
             $scope.showTabDialog = function(ev) {
-
+            $scope.cancel = function(){
+                $mdDialog.cancel();
+            };
                 $mdDialog.show({
                     controller: function DialogController(AuthService) {
                         AuthService.getLoggedInUser()
