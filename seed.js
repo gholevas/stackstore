@@ -77,7 +77,6 @@ var seedCarts = function() {
         var carts = [{
             contents: contents
         }];
-
         return Cart.createAsync(carts);
     }).then(function (carts) {
         var cart = carts[0];
@@ -96,19 +95,27 @@ var dropCarts = function() {
 
 var seedStores = function() {
     var userA;
-    return User.findOne({ isSeller: true })
+    return Product.find({})
+    .then(function (products) {
+        var prodIds = products.map(function (el) {
+            return el._id
+        })
+        return User.findOne({ isSeller: true })
         .then(function(user) {
             userA = user
             var stores = [{
                 name: "testStore",
                 url: "test-store",
-                seller: user._id
+                seller: user._id,
+                products: prodIds
             }];
             return Store.createAsync(stores);
         }).then(function(stores) {
             userA.store = stores[0]._id
             return userA.save()
         }).catch(console.error)
+    })
+
 }
 
 var dropStores = function() {
@@ -121,8 +128,8 @@ connectToDb.then(function() {
         dropCarts(),
         dropStores(),
         dropProducts(),
-        seedUsers(),
         seedProducts(),
+        seedUsers(),
         seedCarts(),
         seedStores()
     ]
