@@ -27,13 +27,16 @@ var OrderSchema = new mongoose.Schema({
         zip: Number
     },
     contents: [{product:ProductSchema, quantity: Number}],
-    date: {type: Date, default: Date.now}
+    date: {type: Date, default: Date.now},
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User" }
+
 });
 
-OrderSchema.pre("save", function(){
+OrderSchema.pre("save", function(next){
     this.totalPrice = this.contents.reduce(function(prev,curr){
         return prev + (curr.quantity * curr.product.price);
-    },0)
+    },0);
+    next();
 })
 
 mongoose.model('Order', OrderSchema);
