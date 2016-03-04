@@ -9,27 +9,6 @@
     </div>
 </md-content>
 
-<style>
-#slider-full-width-store {
-    max-width: 100%;
-    height: 70vh;
-    background: url('http://lorempixel.com/1200/800/abstract') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    position: relative;
-    text-align: center;
-}
-
-#slider-full-width-store h2 {
-    color: #efefef;
-    margin-top: -20px;
-    font-size: 25.29pt;
-    padding-top: 40vh;
-    text-shadow: 1px 1px 1px #000;
-}
-</style>
 
 <div class="tabsdemoStaticTabs">
     <md-content>
@@ -42,12 +21,13 @@
                     </div>
                     <br>
                     <div layout-align="center" layout="row">
-                    <md-radio-group ng-model="data.group3">
-                        <md-radio-button ng-repeat="answer in question.answers" ng-value="answer.value" aria-label="{{answer.text}}">
-                            <!-- <md-icon md-svg-icon="icons/cart.svg"></md-icon><br> -->
-                           {{answer.text}}
-                        </md-radio-button>
-                    </md-radio-group>
+
+
+                    <md-button ng-click="selectAnswer(question,answer)" ng-class="{'md-warn' : true}" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
+
+                    
+
+
                     </div><br>
                     <div layout-align="center" layout="row">
                         <div ng-hide="$first" layout="column">

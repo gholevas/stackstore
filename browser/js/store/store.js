@@ -13,7 +13,6 @@ app.config(function($stateProvider) {
 
 
 
-
 app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
     $scope.storeInfo = storeInfo;
     $scope.data = {
@@ -23,13 +22,14 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
         bottom: false
     };
 
-    var answers = {};
+    $scope.answers = {};
 
     $scope.selectAnswer = function(question,answer){
-        answers[question._id] = answer;
-        if(question._id === $scope.questions[$scope.questions.length-1]._id){
+        $scope.answers[question._id] = answer;
+        console.log($scope.answers)
+        if(question._id === $scope.storeInfo.questions[$scope.storeInfo.questions.length-1]._id){
             submitAnswers()
-            $state.go('checkout')
+            // $state.go('checkout')
         }
         $scope.next();
     }
@@ -44,7 +44,11 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
     };
 
     var submitAnswers = function(){
-        return StoreFactory.sendAnswers(answers)
+        var tags = [];
+        for(var answer in $scope.answers){
+            tags = tags.concat($scope.answers[answer].tags);
+        }
+        return StoreFactory.sendAnswers(tags);
     }
 
 });

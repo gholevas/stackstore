@@ -38,6 +38,8 @@ router.get('/', function (req, res, next) {
 
 // });
 
+
+
 // add a product (only sellers can add new products)
 router.post('/store/:storeId', ensureAdminOrSeller, function (req, res, next) {
     Product.create(req.body)
@@ -46,6 +48,8 @@ router.post('/store/:storeId', ensureAdminOrSeller, function (req, res, next) {
     })
     .then(null,next);
 });
+
+
 
 //param to find product by id. sets product on request object.
 router.param("id", function(req, res, next, id){
