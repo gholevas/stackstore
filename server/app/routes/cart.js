@@ -33,6 +33,7 @@ router.get('/', function(req, res, next) {
 // needs to be logged in right now. need workaround for unauthticated using req.session
 router.get('/user', ensureAuthenticated, function(req, res, next) {
     Cart.findById(req.user.cart)
+        .populate('contents.product')
         .then(function(cart) {
             res.json(cart);
         })
