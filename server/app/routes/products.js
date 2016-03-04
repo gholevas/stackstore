@@ -50,11 +50,12 @@ router.delete('/store/:storeId', ensureAdminOrSeller, function (req, res, next) 
 });
 
 // get product that matches tags
-router.post('/store/:storeId/tags', function (req, res, next) {
+router.post('/store/:url/tags', function (req, res, next) {
     var tags = req.body;
-    Store.findById(req.params.storeId)
+    Store.findOne({url:req.params.url})
     .populate('products')
     .then(function(store){
+        console.log(store)
         var topMatches = 0;
         var numMatches = 0;
         var bestProduct;

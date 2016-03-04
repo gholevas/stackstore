@@ -1,11 +1,11 @@
 app.config(function($stateProvider) {
     $stateProvider.state('store', {
-        url: '/store',
+        url: '/store/:url',
         templateUrl: 'js/store/store.html',
         controller: 'StoreCtrl',
         resolve: {
-            storeInfo: function(StoreFactory) {
-                return StoreFactory.getStoreInfo();
+            storeInfo: function(StoreFactory,$stateParams) {
+                return StoreFactory.getStoreInfo($stateParams.url);
             }
         }
     });
@@ -13,7 +13,7 @@ app.config(function($stateProvider) {
 
 
 
-app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
+app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$stateParams) {
     $scope.storeInfo = storeInfo;
     $scope.data = {
         selectedIndex: 0,
@@ -48,7 +48,7 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
         for(var answer in $scope.answers){
             tags = tags.concat($scope.answers[answer].tags);
         }
-        StoreFactory.sendAnswers(tags)
+        StoreFactory.sendAnswers($stateParams.url,tags)
         .then(function(bestProduct){
             console.log(bestProduct)
         })
@@ -59,8 +59,8 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
 
 app.factory('StoreFactory', function($http) {
     return {
-        getStoreInfo: function() {
-            return $http.get('/api/store/56d9b3b3144b6f882d8ba4bc')
+        getStoreInfo: function(url) {
+            return $http.get('/api/store/'+url)
                 .then(function(res) {
                     return res.data;
                 })
@@ -71,8 +71,8 @@ app.factory('StoreFactory', function($http) {
                     return res.data;
                 })
         },
-        sendAnswers: function(answers) {
-            return $http.post('/api/products/store/56d9b3b3144b6f882d8ba4bc/tags',answers)
+        sendAnswers: function(url,tags) {
+            return $http.post('/api/products/store/'+url+'/tags',tags)
                 .then(function(res){
                     return res.data
                 })
