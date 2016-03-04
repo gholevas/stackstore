@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var StoreSchema = new mongoose.Schema({
-
+    
     name: { type: String, required: true },
     url: { type: String, unique: true },
     pic: { type: String, default: "http://lorempixel.com/400/400/" },

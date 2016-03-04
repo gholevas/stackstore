@@ -21,12 +21,12 @@
         md-row-height-gt-md="1:1" md-row-height="2:2"
         md-gutter="12px" md-gutter-gt-sm="8px" >
         <md-grid-tile class="green" md-rowspan="1" md-colspan="2" md-colspan-sm="1" ng-repeat="store in stores  | filter:searchText" ng-click="goToStore(store)">
-            <h3>Text Here</h3>
+            <h3>Store Headline</h3>
             <md-grid-tile-footer layout="row">
                 <h3>{{store.name}}</h3>
-                <md-button class="md-icon-button" aria-label="Favorite">
+                <!-- <md-button class="md-icon-button" aria-label="Favorite">
                     <md-icon><i class="material-icons">favorite</i></md-icon>
-                </md-button>
+                </md-button> -->
             </md-grid-tile-footer>
         </md-grid-tile>
     </md-grid-list>
