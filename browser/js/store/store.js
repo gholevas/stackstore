@@ -48,11 +48,13 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state) {
         for(var answer in $scope.answers){
             tags = tags.concat($scope.answers[answer].tags);
         }
-        return StoreFactory.sendAnswers(tags);
+        StoreFactory.sendAnswers(tags)
+        .then(function(bestProduct){
+            console.log(bestProduct)
+        })
     }
 
 });
-
 
 
 app.factory('StoreFactory', function($http) {
@@ -70,7 +72,7 @@ app.factory('StoreFactory', function($http) {
                 })
         },
         sendAnswers: function(answers) {
-            return $http.post('/api/answers',answers)
+            return $http.post('/api/products/store/56d9b3b3144b6f882d8ba4bc/tags',answers)
                 .then(function(res){
                     return res.data
                 })
