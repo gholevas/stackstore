@@ -1,15 +1,16 @@
-<md-content id="home">
-    <div id="slider-full-width">
+<md-content id="store">
+    <div id="slider-full-width-store">
         <div class="container">
             <h2>Looking for the perfect gift-box?</h2>
             <div id="button-bg">
-                <md-button ui-sref="buildbox" class="md-raised md-primary">Get Started</md-button>
+                <md-button ui-sref="storeQuestions" class="md-raised md-primary">Get Started</md-button>
             </div>
         </div>
     </div>
 </md-content>
+
 <style>
-#slider-full-width {
+#slider-full-width-store {
     max-width: 100%;
     height: 70vh;
     background: url('http://lorempixel.com/1200/800/abstract') no-repeat center center fixed;
@@ -21,7 +22,7 @@
     text-align: center;
 }
 
-#slider-full-width h2 {
+#slider-full-width-store h2 {
     color: #efefef;
     margin-top: -20px;
     font-size: 25.29pt;
@@ -30,37 +31,38 @@
 }
 </style>
 
-
 <div class="tabsdemoStaticTabs">
     <md-content>
-        <md-tabs class="md-accent buildBox" md-selected="data.selectedIndex" md-align-tabs="top">
+        <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
             <md-tab ng-repeat="question in storeInfo.questions" id="tab1">
                 <md-tab-label>Question {{$index+1}}</md-tab-label>
                 <md-tab-body>
-                    <div flex-offset="25" flex-gt-xs="50" layout="column">
-                        <md-card style="text-align:center;">
-                            <img ng-src="http://lorempixel.com/100/50/sports/1/" class="md-card-image" alt="Washed Out">
-                            <md-card-title>
-                                <md-card-title-text>
-                                    <span class="md-headline">{{question.text}}</span>
-                                </md-card-title-text>
-                            </md-card-title>
-                            <md-card-content>
-                                <p>
-                                    Answer truthfully...
-                                </p>
-                            </md-card-content>
-                            <div layout="row">
-                                <md-card-actions layout="column" layout-align="start">
-                                    <md-button ng-repeat="answer in question.answers" ng-click="selectAnswer(question,answer)">{{answer.text}}</md-button>
-                                </md-card-actions>
-                            </div>
-                        </md-card>
+                    <div layout-align="center" layout="row">
+                        <h2>{{question.text}}</h2>
                     </div>
-                    <div layout="row">
-                        <div ng-show="!$first" flex-gt-xs="50" flex-offset="25" layout="column">
+                    <br>
+                    <div layout-align="center" layout="row">
+                    <md-radio-group ng-model="data.group3">
+                        <md-radio-button ng-repeat="answer in question.answers" ng-value="answer.value" aria-label="{{answer.text}}">
+                            <!-- <md-icon md-svg-icon="icons/cart.svg"></md-icon><br> -->
+                           {{answer.text}}
+                        </md-radio-button>
+                    </md-radio-group>
+                    </div><br>
+                    <div layout-align="center" layout="row">
+                        <div ng-hide="$first" layout="column">
                             <md-button ng-click="previous()">
                                 Previous
+                            </md-button>
+                        </div>
+                        <div ng-hide="$last" layout="column">
+                            <md-button ng-click="next()">
+                                Next
+                            </md-button>
+                        </div>
+                        <div ng-show="$last" layout="column">
+                            <md-button ng-click="previous()">
+                                Submit
                             </md-button>
                         </div>
                     </div>
@@ -69,38 +71,3 @@
         </md-tabs>
     </md-content>
 </div>
-<style>
-md-tabs.buildBox {
-    width: 100%;
-    height: 95vh;
-}
-
-.tabsdemoStaticTabs md-tab-content {
-    padding: 25px;
-}
-
-.tabsdemoStaticTabs md-tab-content:nth-child(1) {
-    background-color: #42A5F5;
-}
-
-.tabsdemoStaticTabs md-tab-content:nth-child(2) {
-    background-color: #689F38;
-}
-
-.tabsdemoStaticTabs md-tab-content:nth-child(3) {
-    background-color: #26C6DA;
-}
-
-.tabsdemoStaticTabs .after-tabs-area > span {
-    margin-top: 25px;
-    padding-right: 15px;
-    vertical-align: middle;
-    line-height: 30px;
-    height: 35px;
-}
-
-.tabsdemoStaticTabs .after-tabs-area > md-checkbox {
-    margin-top: 26px;
-    margin-left: 0;
-}
-</style>

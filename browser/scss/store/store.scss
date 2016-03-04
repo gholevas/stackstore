@@ -1,0 +1,58 @@
+#slider-full-width-store {
+    max-width: 100%;
+    height: 70vh;
+    background: url('http://lorempixel.com/1200/800/abstract') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: relative;
+    text-align: center;
+}
+
+#slider-full-width-store h2 {
+    color: #efefef;
+    margin-top: -20px;
+    font-size: 25.29pt;
+    padding-top: 40vh;
+    text-shadow: 1px 1px 1px #000;
+}
+
+md-tabs.storeQuestions {
+    width: 100%;
+    height: 75vh;
+}
+md-tabs.md-default-theme.md-accent > md-tabs-wrapper, md-tabs.md-accent > md-tabs-wrapper {
+    width: 100%;
+    height: 75vh;
+    background-color:black;
+}
+
+.tabsdemoStaticTabs md-tab-content {
+    padding: 25px;
+}
+
+.tabsdemoStaticTabs md-tab-content:nth-child(1) {
+    background-color: #42A5F5;
+}
+
+.tabsdemoStaticTabs md-tab-content:nth-child(2) {
+    background-color: #689F38;
+}
+
+.tabsdemoStaticTabs md-tab-content:nth-child(3) {
+    background-color: #26C6DA;
+}
+
+.tabsdemoStaticTabs .after-tabs-area > span {
+    margin-top: 25px;
+    padding-right: 15px;
+    vertical-align: middle;
+    line-height: 30px;
+    height: 35px;
+}
+
+.tabsdemoStaticTabs .after-tabs-area > md-checkbox {
+    margin-top: 26px;
+    margin-left: 0;
+}
