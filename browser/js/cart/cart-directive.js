@@ -4,18 +4,6 @@ app.directive('cart', function(CartFactory) {
         scope: {
       		cart: '='
 		},
-        templateUrl: 'js/cart/cart.html',
-        link: function (scope) {
-        	scope.updateCart = function () {
-        		scope.cart.totalToPay = scope.cart.contents.reduce(function (prev, curr, i, arr) {
-        			return prev + curr.product.price * curr.quantity
-        		},0);
-                CartFactory.updateCart(scope.cart).then(null,console.log)
-        	}
-
-        	scope.getNums = function() {
-		        return [1,2,3,4,5];
-		    };
-        }
+        templateUrl: 'js/cart/cart.html'
     };
 });

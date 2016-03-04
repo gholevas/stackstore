@@ -145,7 +145,7 @@ var dropCarts = function() {
     return Cart.remove({});
 };
 
-var seedStores = function() {
+var seedStores = function(name) {
     var userA;
     var prodIds;
     return Product.find({})
@@ -162,7 +162,7 @@ var seedStores = function() {
         .then(function(user) {
             userA = user
             var stores = [{
-                name: "Test Store",
+                name: name,
                 seller: user._id,
                 products: prodIds,
                 questions: questIds
@@ -192,7 +192,8 @@ connectToDb.then(function() {
         seedProducts(),
         seedUsers(),
         seedCarts(),
-        seedStores()
+        seedStores("Cool Stuf"),
+        seedStores("EDM")
     ]
 
     Promise.each(seedyThings, function(element) {

@@ -5,32 +5,32 @@
                 <h2 class="md-flex">Shipping Info</h2>
             </div>
         </md-toolbar>
-        <form name="userForm">
+        <form name="shippingForm">
             <div layout-gt-sm="row">
                 <md-input-container class="md-block">
                     <label>First name</label>
-                    <input ng-model="user.firstName">
+                    <input ng-model="shipping.firstName">
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Last Name</label>
-                    <input ng-model="theMax">
+                    <input ng-model="shipping.lastName">
                 </md-input-container>
             </div>
             <md-input-container class="md-block">
                 <label>Address</label>
-                <input ng-model="user.address">
+                <input ng-model="shipping.address">
             </md-input-container>
             <md-input-container md-no-float class="md-block">
-                <input ng-model="user.address2" placeholder="Address 2">
+                <input ng-model="shipping.address2" placeholder="Address 2">
             </md-input-container>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block">
                     <label>City</label>
-                    <input ng-model="user.city">
+                    <input ng-model="shipping.city">
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>State</label>
-                    <md-select ng-model="user.state">
+                    <md-select ng-model="shipping.state">
                         <md-option ng-repeat="state in states" value="{{state.abbrev}}">
                             {{state.abbrev}}
                         </md-option>
@@ -38,8 +38,8 @@
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Postal Code</label>
-                    <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-                    <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+                    <input name="postalCode" ng-model="shipping.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                    <div ng-messages="shippingForm.postalCode.$error" role="alert" multiple>
                         <div ng-message="required" class="my-message">You must supply a postal code.</div>
                         <div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
                         </div>
@@ -59,32 +59,32 @@
                     <h2 class="md-flex">Billing Info</h2>
                 </div>
             </md-toolbar>
-            <form name="userForm">
+            <form name="billingForm">
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block">
                         <label>First name</label>
-                        <input ng-model="user.firstName">
+                        <input ng-model="billing.firstName">
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>Last Name</label>
-                        <input ng-model="theMax">
+                        <input ng-model="billing.lastName">
                     </md-input-container>
                 </div>
                 <md-input-container class="md-block">
                     <label>Address</label>
-                    <input ng-model="user.address">
+                    <input ng-model="billing.address">
                 </md-input-container>
                 <md-input-container md-no-float class="md-block">
-                    <input ng-model="user.address2" placeholder="Address 2">
+                    <input ng-model="billing.address2" placeholder="Address 2">
                 </md-input-container>
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block">
                         <label>City</label>
-                        <input ng-model="user.city">
+                        <input ng-model="billing.city">
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>State</label>
-                        <md-select ng-model="user.state">
+                        <md-select ng-model="billing.state">
                             <md-option ng-repeat="state in states" value="{{state.abbrev}}">
                                 {{state.abbrev}}
                             </md-option>
@@ -92,16 +92,19 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>Postal Code</label>
-                        <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>Credi Card #</label>
-                        <input ng-model="user.address">
+                        <input name="postalCode" ng-model="billing.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                        <div ng-messages="billingForm.postalCode.$error" role="alert" multiple>
+                            <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                            <div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
+                            </div>
+                            <div ng-message="md-maxlength" class="my-message">
+                                Don't use the long version silly...we don't need to be that specific...
+                            </div>
+                        </div>
                     </md-input-container>
                 </div>
-            </form>
-            <div ng-hide="billingVis" class="overlay"></div>
-        </md-content>
+        </form>
+        <div ng-hide="billingVis" class="overlay"></div>
     </div>
     <div flex>
         <md-content style="height:80vh;" flex layout-padding>
@@ -110,69 +113,7 @@
                     <h2 class="md-flex">Review</h2>
                 </div>
             </md-toolbar>
-            <form name="userForm">
-                <md-list layout-padding>
-                    <md-list-item class="md-3-line">
-                        <img src="/icons/cart.svg" class="md-avatar" alt="{{message.who}}">
-                        <div class="md-list-item-text">
-                            <h3>product 1</h3>
-                            <h4>blach blach</h4>
-                            <p>
-                                hjbkn
-                            </p>
-                        </div>
-                        <md-input-container style="margin-right: 10px;">
-                            <label>Quantity</label>
-                            <md-select ng-model="num">
-                                <md-option ng-repeat="a in range(5) track by $index" value="{{$index + 1}}">{{$index + 1}}</md-option>
-                            </md-select>
-                        </md-input-container>
-                    </md-list-item>
-                    <md-list-item class="md-3-line">
-                        <img src="/icons/cart.svg" class="md-avatar" alt="{{message.who}}">
-                        <div class="md-list-item-text">
-                            <h3>product 1</h3>
-                            <h4>blach blach</h4>
-                            <p>
-                                hjbkn
-                            </p>
-                        </div>
-                        <md-input-container style="margin-right: 10px;">
-                            <label>Quantity</label>
-                            <md-select ng-model="num">
-                                <md-option ng-repeat="a in range(5) track by $index" value="{{$index + 1}}">{{$index + 1}}</md-option>
-                            </md-select>
-                        </md-input-container>
-                    </md-list-item>
-                </md-list>
-                <md-list>
-                    <md-list-item>
-                        <div class="md-list-item-text">
-                            <h4>Sub-total</h4>
-                        </div>
-                        <div class="md-secondary">$30.00</div>
-                    </md-list-item>
-                    <md-list-item>
-                        <div class="md-list-item-text">
-                            <h4>Tax</h4>
-                        </div>
-                        <div class="md-secondary">$5.00</div>
-                    </md-list-item>
-                    <md-list-item>
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>Promo Code</label>
-                            <input name="promo" ng-model="user.promo" />
-                        </md-input-container>
-                        <md-icon style="margin-top: 20px;" md-svg-src="/icons/add.svg" class="promo"></md-icon>
-                    </md-list-item>
-                    <md-list-item>
-                        <div class="md-list-item-text">
-                            <h2>Total</h2>
-                        </div>
-                        <div class="md-secondary">$35.00</div>
-                    </md-list-item>
-                </md-list>
-            </form>
+            <cart-items cart="user.cart"></cart-items>
             <div ng-hide="reviewVis" class="overlay"></div>
         </md-content>
     </div>

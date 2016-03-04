@@ -6,6 +6,7 @@ var Store = mongoose.model("Store");
 // get all stores
 router.get('/', function (req, res, next) {
     Store.find({})
+    .populate('products')
     .then(function(info){
         res.json(info);
     })
@@ -39,6 +40,7 @@ router.param("url", function(req, res, next, id){
 		next(err);
 	})
 });
+
 
 //get specfic store
 router.get("/:url",function(req, res, next){
