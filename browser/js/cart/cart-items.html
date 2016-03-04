@@ -1,0 +1,22 @@
+<md-list layout-padding>
+    <md-card ng-repeat="c in cart.contents">
+        <md-list-item class="md-3-line">
+            <div class="md-list-item-text" layout="column">
+                <h3>{{c.product.name}}</h3>
+                <label>Price {{c.product.price}}</label>
+                <label>Quantity {{c.quantity}}</label>
+            </div>
+            <div layout="column">
+                <md-select ng-model="c.quantity" aria-label="quantity" ng-change="updateCart()">
+                    <md-option ng-repeat="num in getNums()" ng-value="{{num}}">
+                        {{num}}
+                    </md-option>
+                </md-select>
+            </div>
+            <div layout="column">
+                <i class="material-icons" ng-click="removeC()">clear</i>
+            </div>
+        </md-list-item>
+    </md-card>
+    <h2>Total: {{cart.totalToPay}}</h2>
+</md-list>

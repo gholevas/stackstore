@@ -17,6 +17,7 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
             scope.toggleRight = buildToggler('right');
 
             scope.state = $state;
+            console.log(scope.state.current)
 
             // for admin menu
             scope.toggleLeft = buildToggler('left');

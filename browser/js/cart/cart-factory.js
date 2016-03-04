@@ -13,6 +13,7 @@ app.factory('CartFactory', function ($http) {
     }
 
     var updateCart = function (cart) {
+        console.log(cart)
         return $http.put('/api/cart/user',cart).then(function (response) {
             return response.data
         })
