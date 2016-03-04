@@ -28,7 +28,7 @@ router.post('/', function (req, res, next) {
 
 router.param("id", function(req, res, next, id){
 	Store.findById(id)
-	.populate("products questions seller")
+	.populate("products seller questions")
 	.then(function(store){
 		if(!store) throw Error("no such store");
 		req.store = store;
