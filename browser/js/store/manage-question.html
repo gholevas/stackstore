@@ -7,10 +7,12 @@
 	  </md-button>
 	</div>
 </md-toolbar>
-<md-dialog-content style="max-width:800px;max-height:810px; ">
+<md-dialog-content style="width:30vw;height:50vh; ">
 	<div style="margin:3%">
-		<ul ui-sortable ng-model="store.questions">
-			<question-item ng-repeat="question in store.questions" question="{{question.text}}"></question-item>
-		</ul>
+		<table style="width:100%">
+		  <tr ng-repeat="question in store.questions">
+		  	<td>{{question.text}}</td>
+		  	<td><md-icon md-svg-icon="/icons/cancel.svg" aria-label="question" ng-click="removeQuestion(question)"></md-icon></td>
+		</table>
   </div>
 </md-dialog-content>

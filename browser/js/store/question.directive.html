@@ -1,14 +1,16 @@
 <div class="question-box">
 	<div layout-gt-xs="row">
-		<md-icon md-svg-src="/icons/question.svg" aria-label="question"></md-icon>{{question}}
+		<h4>{{question}}</h4>
+		<span flex></span>
+		<md-icon md-svg-icon="/icons/cancel.svg" aria-label="question"></md-icon>
 	</div>
 </div>
 
 <style>
 	.question-box{
 		border:1px solid black;
-		height:4em;
-		width:16em;
+		height:3rem;
+		width:80%;
 		padding:10%;
 		overflow:hidden;
 		text-overflow: hidden;

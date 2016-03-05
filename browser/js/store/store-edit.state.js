@@ -10,9 +10,11 @@ app.config(function($stateProvider){
         },
         controller: function($scope, $mdMedia, $mdDialog, store, StoreEditFactory){
         	$scope.store = store;
+
         	$scope.saveStore = function(){
         		StoreEditFactory.store = $scope.store;
         		StoreEditFactory.saveStore();
+        		$scope.store = StoreEditFactory.returnStore();
         	};
 
       	$scope.addQuestion = function(ev) {
@@ -27,17 +29,30 @@ app.config(function($stateProvider){
 			    });
       	};
 
-      	$scope.manageQuestion = function(ev) {
-			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-			    $mdDialog.show({
-			      controller:'ManageQuestionCtrl',
-			      templateUrl: 'js/store/manage-question.html',
-			      parent: angular.element(document.body),
-			      targetEvent: ev,
-			      clickOutsideToClose:true,
-			      fullscreen: useFullScreen
-			    });
-      	};
+      	$scope.$on('newQuestion', function(){
+      		$scope.store = StoreEditFactory.returnStore();
+      	});
+
+      	$scope.removeQuestion =function(question){
+					return StoreEditFactory.removeQuestion(question)
+					.then(function(store){
+						StoreEditFactory.store = store;
+						$scope.store = store;
+					});
+				};
+      	// $scope.manageQuestion = function(ev) {
+
+			    // var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+			    // $mdDialog.show({
+			    //   controller:'ManageQuestionCtrl',
+			    //   templateUrl: 'js/store/manage-question.html',
+			    //   parent: angular.element(document.body),
+			    //   scope: $scope.$new(),
+			    //   targetEvent: ev,
+			    //   clickOutsideToClose:true,
+			    //   fullscreen: useFullScreen
+			    // });
+      	// };
       }
 	});
 });
