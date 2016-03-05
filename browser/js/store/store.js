@@ -48,7 +48,7 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
         }
         StoreFactory.sendAnswers($stateParams.url,tags)
         .then(function(bestProduct){
-            console.log(bestProduct)
+            $state.go('foundproduct',{productId:bestProduct._id})
         })
     }
 

@@ -1,16 +1,20 @@
-<md-content id="store">
-    <div id="slider-full-width-store">
-        <div class="container">
-            <h2>Looking for the perfect gift-box?</h2>
-            <div id="button-bg">
-                <md-button ui-sref="storeQuestions" class="md-raised md-primary">Get Started</md-button>
-            </div>
-        </div>
-    </div>
-</md-content>
-
-
-<div class="tabsdemoStaticTabs">
+<div layout="column">
+	<md-card>
+	    <img src="http://lorempixel.com/g/600/200/" class="md-card-image">
+	    <md-card-title>
+	        <md-card-title-text>
+	            <span class="md-headline">{{product.name}}</span>
+	        </md-card-title-text>
+	    </md-card-title>
+	    <md-card-content>
+	        {{product.price | currency:"$"}}
+	    </md-card-content>
+	    <md-card-actions layout="row" layout-align="end center">
+	        <md-button>Add to Cart</md-button>
+	    </md-card-actions>
+	</md-card>
+</div>
+<!-- <div class="tabsdemoStaticTabs">
     <md-content>
         <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
             <md-tab ng-repeat="question in storeInfo.questions" id="tab1">
@@ -21,14 +25,9 @@
                     </div>
                     <br>
                     <div layout-align="center" layout="row">
-
-
-                    <md-button ng-click="selectAnswer(question,answer)" ng-class="{'md-warn' : answer.selected}" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
-
-                    
-
-
-                    </div><br>
+                        <md-button ng-click="selectAnswer(question,answer)" ng-class="{'md-warn' : answer.selected}" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
+                    </div>
+                    <br>
                     <div layout-align="center" layout="row">
                         <div ng-hide="$first" layout="column">
                             <md-button ng-click="previous()">
@@ -50,4 +49,4 @@
             </md-tab>
         </md-tabs>
     </md-content>
-</div>
+</div> -->
