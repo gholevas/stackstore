@@ -27,6 +27,8 @@ router.post('/', function (req, res, next) {
     }).then(null,next); 
 });
 
+
+
 router.param("url", function(req, res, next, id){
 	Store.findOne({url:req.params.url})
 	.populate("products seller questions")
@@ -41,10 +43,26 @@ router.param("url", function(req, res, next, id){
 	})
 });
 
+//add a question to a store
+router.post('/:url/question', function (req, res, next) {
+	req.store.addQuestion(req.body)
+	.then(function(store){
+		res.send(store);
+	});
+});
 
 //get specfic store
 router.get("/:url",function(req, res, next){
 	res.json(req.store);
+});
+
+//save store
+router.put("/:url", function(req, res, next){
+
+	req.store.update(req.body)
+	.then(function(data){
+		res.send("data");
+	}).catch(next);
 });
 
 //not neccessary since the get by id returns all of this

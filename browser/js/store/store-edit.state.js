@@ -8,8 +8,13 @@ app.config(function($stateProvider){
         		return StoreEditFactory.getStore($stateParams.url);
         	}
         },
-        controller: function($scope, $mdMedia, $mdDialog, store){
+        controller: function($scope, $mdMedia, $mdDialog, store, StoreEditFactory){
         	$scope.store = store;
+        	$scope.saveStore = function(){
+        		StoreEditFactory.store = $scope.store;
+        		StoreEditFactory.saveStore();
+        	};
+
         	$scope.addQuestion = function(ev) {
 				    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 				    $mdDialog.show({
