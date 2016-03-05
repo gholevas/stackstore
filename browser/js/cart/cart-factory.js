@@ -25,11 +25,18 @@ app.factory('CartFactory', function ($http) {
         })
     }
 
+    var addToCart = function (product) {
+        return $http.put('/api/cart/add-to-cart',product).then(function (response) {
+            return response.data
+        })
+    }
+
     return {
         getUserCart: getUserCart,
         getAll: getAll,
         updateCart: updateCart,
-        processOrder: processOrder
+        processOrder: processOrder,
+        addToCart: addToCart
     };
 
 });
