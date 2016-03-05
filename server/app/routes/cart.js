@@ -69,6 +69,7 @@ router.post('/purchase', function(req, res, next){
         })
         .then(function(u){
             console.log("saveduser", u);
+            res.send(u)
         })
         .catch(console.log);
 

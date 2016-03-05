@@ -15,7 +15,7 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('CheckOutCtrl', function($rootScope, $scope, user, CartFactory, cart) {
+app.controller('CheckOutCtrl', function($rootScope, $scope, $state, user, CartFactory, cart) {
 
     $scope.user = user;
     $scope.user.cart = cart
@@ -23,13 +23,16 @@ app.controller('CheckOutCtrl', function($rootScope, $scope, user, CartFactory, c
 
     $scope.placeOrder = function() {
 
-
-        // {
-        //     "user": $scope.user._id,
-        //     "shipping": $scope.shipping,
-        //     "billing": $scope.billing,
-        //     "contents": $scope.user.cart.contents
-        // }
+        CartFactory.processOrder({
+            "user": $scope.user._id,
+            "shipping": $scope.shipping,
+            "billing": $scope.billing,
+            "contents": $scope.user.cart.contents
+        }).then(function (data) {
+            console.log("order processed", data)
+            $state.go('membersOnly')
+        }).then(null,console.log)
+        
     }
 
 
@@ -53,19 +56,5 @@ app.controller('CheckOutCtrl', function($rootScope, $scope, user, CartFactory, c
         $scope.billingVis = true;
     }
 
-
-});
-
-app.factory('CheckoutFactory', function ($http) {
-
-    var processOrder = function (data) {
-        return $http.post()
-    }
-
-    return {
-        getUserCart: getUserCart,
-        getAll: getAll,
-        updateCart: updateCart
-    };
 
 });
