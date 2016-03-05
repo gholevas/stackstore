@@ -50,7 +50,7 @@ router.post('/', ensureAuthenticated, function(req, res, next) {
 });
 
 router.get("/test", function(req,res,next){
-    res.json(req.user.cart);
+    res.json(req.user);
 })
 
 //aka convert to order
@@ -62,35 +62,31 @@ router.post('/purchase', function(req, res, next){
             return User.findById(req.user._id)
                 .then(function(user){
                     if(!user) throw Error("nosuchuser");
+                    console.log("founduser ", user);
                     user.orders.push(order);
                     return user.save();
                 });
         })
-        .catch(function(err){
-            console.log("error creating user order",err);
-        });
+        .then(function(u){
+            console.log("saveduser", u);
+        })
+        .catch(console.log);
 
-    var storeContent = {};
-    req.body.contents.forEach(function(content){
-        console.log("co ",content);
-        var storeId = content.product.store;
-        storeContent[storeId] = storeContent[storeId] || [];
-        storeContent[storeId].push(content);
-    });
+    // var storeContent = {};
+    // req.body.contents.forEach(function(content){
+    //     var storeId = content.product.store;
+    //     storeContent[storeId] = storeContent[storeId] || [];
+    //     storeContent[storeId].push(content);
+    // });
 
     // //new order for every store they bought from
-    for(var storeId in storeContent){
-        var content = storeContent[storeId];
-
-        var storeOrder = Order.create({
-            contents: content,
-            shipping: req.body.shipping,
-            billing: req.body.billing
-        })
-        .catch(function(err){
-            console.log("error creating store order",err);
-        });
-    }
+    // for(content in storeContent){
+    //     var storeOrder = Order.create({
+    //         contents: content,
+    //         shipping: req.body.shipping,
+    //         billing: req.body.billing
+    //     });
+    // }
 
 });
 
