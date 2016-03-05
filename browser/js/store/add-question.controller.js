@@ -29,6 +29,7 @@ app.controller('AddQuestionCtrl', function($timeout, $rootScope, $scope, $mdDial
     var question = $scope.question;
     question.text = $scope.questionText;
     question.answers = $scope.answers;
+    if(!question.text.length || !question.answers.length) return;
     return StoreEditFactory.addQuestion(question)
     .then(function(store){
     	StoreEditFactory.store = store;
