@@ -1,10 +1,12 @@
 'use strict';
 var mongoose = require('mongoose');
+var ProductSchema = mongoose.model('Product').schema;
+
 
 var CartSchema = new mongoose.Schema({
 
 	contents: [{
-		product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+		product: ProductSchema,
 		quantity: Number
 	}]
 }, {
@@ -17,23 +19,21 @@ var CartSchema = new mongoose.Schema({
 
 });
 
-// CartSchema.virtual("totalToPay")
-// .get(function(){
-// 	return this.contents.reduce(function(prev,curr){
-// 		console.log(curr.toString())
-// 		return prev + (curr.quantity * curr.product.price)
-// 	}, 0)
-// });
+CartSchema.virtual("totalToPay")
+.get(function(){
+	return this.contents.reduce(function(prev,curr){
+		return prev + (curr.quantity * curr.product.price)
+	}, 0)
+});
 
 CartSchema.methods.addProduct = function(product){
 	var exists = false;
 	this.contents.forEach(function(c){
-		if(c.product.toString() === product._id.toString()){
+		if(c.product._id.toString() === product._id.toString()){
 			exists=true;
 			c.quantity ++;
 		}
 	});
-	console.log('adding',product.toString())
 	if(!exists) this.contents.push(product);
 	return this.save();
 }
