@@ -3,6 +3,14 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var User = mongoose.model("User");
 
+var ensureAuthenticated = function(req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.sendStatus(401).end();
+    }
+};
+
 var ensureAdmin = function(req, res, next) {
     if (req.user.isAdmin) {
         next();
@@ -11,40 +19,25 @@ var ensureAdmin = function(req, res, next) {
     }
 };
 
-// get all users?
-router.get('/', ensureAdmin, function (req, res, next) {
-    User.find({})
-    .then(function(info){
-        res.json(info);
-    })
-    .then(null,next);
+// get user's own data
+router.get('/', ensureAuthenticated, function (req, res) {
+    res.json(req.user);
 });
 
-router.param("userId", function(req, res, next, id){
-	User.findById(id)
-	.populate("store orders cart.contents.product")
-	.then(function(user){
-		if(!user) throw Error("no such user");
-		req.user = user;
-		next();
-	})
-	.catch(function(err){
-		err.status = 404;
-		next(err);
-	});
-});
+router.get('/store', ensureAuthenticated, function(req, res) {
+	res.json(req.user.store);
+})
 
-// get one user
-router.get('/:userId', function (req, res) {
-    res.send(req.user);
-    // User.findById(req.params.userId)
-    // .then(function(info){
-    //     res.send(info);
-    // });
-});
+router.get('/orders', ensureAuthenticated, function(req, res) {
+	res.json(req.user.orders);
+})
 
-// update a user
-router.put('/:userId', function(req,res, next) {
+router.get('/cart', ensureAuthenticated, function(req, res) {
+	res.json(req.user.cart);
+})
+
+// update a user //is this being used?
+router.put('/:userId', ensureAuthenticated, function(req,res, next) {
 	User.findByIdAndUpdate(req.params.userId, req.body, {new:true})
 	.then(function(data){
 		res.send(data);

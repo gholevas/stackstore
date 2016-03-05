@@ -17,22 +17,23 @@ var CartSchema = new mongoose.Schema({
 
 });
 
-CartSchema.virtual("totalToPay")
-.get(function(){
-	return this.contents.reduce(function(prev,curr){
-		return prev + (curr.quantity * curr.product.price)
-	}, 0)
-});
+// CartSchema.virtual("totalToPay")
+// .get(function(){
+// 	return this.contents.reduce(function(prev,curr){
+// 		console.log(curr.toString())
+// 		return prev + (curr.quantity * curr.product.price)
+// 	}, 0)
+// });
 
 CartSchema.methods.addProduct = function(product){
 	var exists = false;
 	this.contents.forEach(function(c){
-		if(c.product === product._id){
+		if(c.product.toString() === product._id.toString()){
 			exists=true;
 			c.quantity ++;
 		}
 	});
-	
+	console.log('adding',product.toString())
 	if(!exists) this.contents.push(product);
 	return this.save();
 }

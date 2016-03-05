@@ -33,13 +33,18 @@ module.exports = function (app) {
 
     // When we give a cookie to the browser, it is just the userId (encrypted with our secret).
     passport.serializeUser(function (user, done) {
-        done(null, user.id);
+        done(null, user._id);
     });
 
     // When we receive a cookie from the browser, we use that id to set our req.user
     // to a user found in the database.
     passport.deserializeUser(function (id, done) {
-        UserModel.findById(id, done);
+        UserModel.findById(id)
+        .populate("store orders cart.contents.product")
+        .exec(function(err,user){
+            user.id = user._id; //probably not neccessary, but just in case
+            done(err,user);
+        });
     });
 
     // We provide a simple GET /session in order to get session information directly.

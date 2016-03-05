@@ -49,10 +49,6 @@ router.post('/', ensureAuthenticated, function(req, res, next) {
 
 });
 
-router.get("/test", function(req,res,next){
-    res.json(req.user.cart);
-})
-
 //aka convert to order
 router.post('/purchase', function(req, res, next){
 
@@ -91,6 +87,20 @@ router.post('/purchase', function(req, res, next){
             console.log("error creating store order",err);
         });
     }
+
+});
+
+// creates a cart and adds the product
+router.put('/add-to-cart', ensureAuthenticated, function(req, res, next) {
+    console.log('adding to cart', req.body)
+    Cart.findById(req.user.cart._id)
+        .then(function(cart) {
+            return cart.addProduct(req.body)
+        })
+        .then(function (cart) {
+            res.json(cart)
+        })
+        .then(null, next);
 
 });
 

@@ -12,7 +12,26 @@ router.use('/cart', require('./cart.js'));
 
 router.use('/store', require('./store.js'));
 
-router.use('/user', require('./user.js'));
+router.use('/my', require('./user.js'));
+
+router.use('/orders', require('./order.js'));
+
+var ensureAdmin = function(req, res, next) {
+    if (req.user.isAdmin) {
+        next();
+    } else {
+        res.sendStatus(401).end();
+    }
+};
+
+// get all users
+router.get('/users', ensureAdmin, function (req, res, next) {
+    User.find({})
+    .then(function(info){
+        res.json(info);
+    })
+    .then(null,next);
+});
 
 // Make sure this is after all of
 // the registered routes!

@@ -16,7 +16,10 @@ app.controller('FoundProductController', function ($scope,productInfo,CartFactor
 	$scope.product = productInfo;
 
     $scope.addToCart = function () {
-        console.log($scope.product)
+        CartFactory.addToCart($scope.product[0])
+        .then(function (newCart) {
+            console.log(newCart)
+        })
     }
 
 });
