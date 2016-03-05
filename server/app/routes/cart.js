@@ -49,10 +49,6 @@ router.post('/', ensureAuthenticated, function(req, res, next) {
 
 });
 
-router.get("/test", function(req,res,next){
-    res.json(req.user.cart);
-})
-
 //aka convert to order
 router.post('/purchase', function(req, res, next){
 
