@@ -13,19 +13,19 @@ app.config(function($stateProvider) {
                 return CartFactory.getAll()
             }
         }
-    }).state('adminCarts', {
-        url: '/admin/carts',
-        controller: 'AdminCartsController',
-        templateUrl: 'js/admin/admin-carts.html',
+    }).state('adminOrders', {
+        url: '/admin/orders',
+        controller: 'AdminOrdersController',
+        templateUrl: 'js/admin/admin-orders.html',
         resolve: {
             carts: function (CartFactory) {
                 return CartFactory.getAll()
             }
         }
-    }).state('adminBoxes', {
-        url: '/admin/boxes',
-        controller: 'AdminBoxesController',
-        templateUrl: 'js/admin/admin-boxes.html',
+    }).state('adminProducts', {
+        url: '/admin/products',
+        controller: 'AdminProductsController',
+        templateUrl: 'js/admin/admin-products.html',
         resolve: {
             carts: function (CartFactory) {
                 return CartFactory.getAll()
@@ -53,7 +53,7 @@ app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout, 
 
 });
 
-app.controller('AdminCartsController', function($mdEditDialog, $q, $scope, $timeout, carts) {
+app.controller('AdminOrdersController', function($mdEditDialog, $q, $scope, $timeout, carts) {
     $scope.carts = carts
 
     $scope.selected = [];
@@ -71,7 +71,7 @@ app.controller('AdminCartsController', function($mdEditDialog, $q, $scope, $time
 });
 
 
-app.controller('AdminBoxesController', function($mdEditDialog, $q, $scope, $timeout, carts) {
+app.controller('AdminProductsController', function($mdEditDialog, $q, $scope, $timeout, carts) {
     $scope.carts = carts
 
     $scope.selected = [];
@@ -87,3 +87,13 @@ app.controller('AdminBoxesController', function($mdEditDialog, $q, $scope, $time
     }
 
 });
+
+app.factory('AdminFactory', function(){
+    
+    return {
+
+        
+        
+
+    };
+})

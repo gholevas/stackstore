@@ -63,7 +63,7 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                 AuthService.getLoggedInUser().then(function(user) {
                     console.log(user)
                     scope.user = user;
-                    if (user && user.isAdmin) {
+                    if (user && user.isSeller) {
                         // doesn't work without timeout
                         $timeout(function() {
                           $state.go('admin');
