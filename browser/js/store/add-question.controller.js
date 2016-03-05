@@ -29,7 +29,7 @@ app.controller('AddQuestionCtrl', function($scope, $mdDialog, StoreEditFactory){
 		var question = $scope.question;
 		question.text = $scope.questionText;
 		question.answers = $scope.answers;
-		StoreEditFactory.store.addQuestion(question);
+		StoreEditFactory.addQuestion(question);
 	};
 
 	$scope.cancel = function() {

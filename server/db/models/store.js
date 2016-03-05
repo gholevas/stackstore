@@ -41,6 +41,16 @@ StoreSchema.methods.addProduct = function(product) {
         })
 };
 
+StoreSchema.methods.addQuestion = function(question) {
+    var theStore = this;
+    return mongoose.model('Question').create(question)
+        .then(function(question) {
+            theStore.questions.addToSet(question);
+            return theStore.save();
+        });
+};
+
+
 
 StoreSchema.methods.removeProduct = function(product) {
     var theStore = this;

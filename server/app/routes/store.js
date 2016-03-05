@@ -27,6 +27,8 @@ router.post('/', function (req, res, next) {
     }).then(null,next); 
 });
 
+
+
 router.param("url", function(req, res, next, id){
 	Store.findOne({url:req.params.url})
 	.populate("products seller questions")
@@ -41,6 +43,13 @@ router.param("url", function(req, res, next, id){
 	})
 });
 
+//add a question to a store
+router.post('/:url/question', function (req, res, next) {
+	req.store.addQuestion(req.body)
+	.then(function(store){
+		res.send(store);
+	});
+});
 
 //get specfic store
 router.get("/:url",function(req, res, next){
