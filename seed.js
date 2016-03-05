@@ -148,11 +148,13 @@ var dropCarts = function() {
 var seedStores = function(name) {
     var userA;
     var prodIds;
+    var products;
     return Product.find({})
-    .then(function (products) {
+    .then(function (productz) {
+        products = productz;
         prodIds = products.map(function (el) {
             return el._id
-        })
+        });
         return Question.find({})
     }).then(function (questions) {
         var questIds = questions.map(function (el) {
@@ -170,6 +172,10 @@ var seedStores = function(name) {
             return Store.createAsync(stores);
         }).then(function(stores) {
             userA.store = stores[0]._id
+            products.forEach(function(product){
+                product.store = stores[0]._id;
+                product.save();
+            })
             return userA.save()
         }).catch(console.error)
         
