@@ -26,12 +26,10 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
 
     $scope.selectAnswer = function(question,answer){
         $scope.answers[question._id] = answer;
-        console.log($scope.answers)
-        if(question._id === $scope.storeInfo.questions[$scope.storeInfo.questions.length-1]._id){
-            submitAnswers()
-            // $state.go('checkout')
+        answer.selected = true;
+        for(var i=0; i<question.answers.length; i++){
+            if(question.answers[i] !== answer) question.answers.selected = false;
         }
-        $scope.next();
     }
 
     $scope.next = function() {
@@ -43,14 +41,14 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
         $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
     };
 
-    var submitAnswers = function(){
+    $scope.submitAnswers = function(){
         var tags = [];
         for(var answer in $scope.answers){
             tags = tags.concat($scope.answers[answer].tags);
         }
         StoreFactory.sendAnswers($stateParams.url,tags)
         .then(function(bestProduct){
-            console.log(bestProduct)
+            $state.go('foundproduct',{productId:bestProduct._id})
         })
     }
 
