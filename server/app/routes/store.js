@@ -2,6 +2,7 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Store = mongoose.model("Store");
+var Question = mongoose.model('Question');
 
 // get all stores
 router.get('/', function (req, res, next) {
@@ -46,6 +47,17 @@ router.param("url", function(req, res, next, id){
 //add a question to a store
 router.post('/:url/question', function (req, res, next) {
 	req.store.addQuestion(req.body)
+	.then(function(store){
+		res.send(store);
+	});
+});
+
+//delete a question from a store
+router.delete('/:url/question/:questId', function (req, res, next) {
+	Question.findById(req.params.questId)
+	.then(function(question){
+		return req.store.removeQuestion(question);
+	})
 	.then(function(store){
 		res.send(store);
 	});

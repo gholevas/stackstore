@@ -13,6 +13,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular-material-data-table": "^0.9.12"
+    "angular-material-data-table": "^0.9.12",
+    "jquery": "^2.2.1",
+    "jquery-ui": "^1.11.4"
   }
 }

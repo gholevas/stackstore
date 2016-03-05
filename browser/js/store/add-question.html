@@ -1,5 +1,5 @@
 <md-toolbar>
-	<div class="md-toolbar-tools">
+	<div class="md-toolbar-tools" style="width:50vw">
 	  <h2>Add Question</h2>
 	  <span flex></span>
 	  <md-button class="md-icon-button" ng-click="cancel()">
@@ -7,29 +7,29 @@
 	  </md-button>
 	</div>
 </md-toolbar>
-<md-dialog-content style="max-width:800px;max-height:810px; ">
+<md-dialog-content style="max-height:810px; ">
 	<div style="margin:3%">
 		<div layout-gt-xs="row">
 	    <md-input-container class="md-block" flex-gt-xs>
 	      <h4>Question Text</h4>
-	      <input ng-model="questionText">
+	      <input aria-label="Question Text" ng-model="questionText">
 	    </md-input-container>
 	  </div>
 	  <div layout-gt-xs="row">
 	    <md-input-container class="md-block" flex-gt-xs>
 	      <h4>Answer {{answers.length + 1}} Text</h4>
-	      <input ng-model="answerText">
+	      <input aria-label="Answer Text" ng-model="answerText">
 	    </md-input-container>
 	    <md-input-container class="md-block" flex-gt-xs>
-	      <h4>Answer {{answers.length + 1}} Tag</h4>
-	      <input ng-model="answerTag">
+	      <h4>Answer {{answers.length + 1}} Tags <small>separated by spaces</small><h5>
+	      <input aria-label="Answer Tags" ng-model="answerTags">
 	    </md-input-container>
 	    <md-button ng-click="addAnswer()">Add Answer</md-button>
 	  </div>
 	  <div>
 	  	<h5 ng-if="answers.length">Answers</h5>
 	  	<ul>
-	  		<li ng-repeat="answer in answers">{{answer.text}} (tag: {{answer.tag}})</li>
+	  		<li ng-repeat="answer in answers">{{answer.text}} (tags: {{answer.tags.join(", ")}})</li>
 	  	</ul>
 	  </div>
 	  <md-button class="md-raised md-primary" ng-click="saveQuestion()">Save Question</md-button>
