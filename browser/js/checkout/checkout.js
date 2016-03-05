@@ -7,18 +7,33 @@ app.config(function($stateProvider) {
             user: function(AuthService) {
                 return AuthService.getLoggedInUser()
             },
-            cart: function (CartFactory) {
+            cart: function(CartFactory) {
                 return CartFactory.getUserCart()
-            } 
+            }
         }
     });
 });
 
 
-app.controller('CheckOutCtrl', function($rootScope, $scope, user,CartFactory, cart) {
+app.controller('CheckOutCtrl', function($rootScope, $scope, $state, user, CartFactory, cart) {
 
     $scope.user = user;
     $scope.user.cart = cart
+
+
+    $scope.placeOrder = function() {
+
+        CartFactory.processOrder({
+            "user": $scope.user._id,
+            "shipping": $scope.shipping,
+            "billing": $scope.billing,
+            "contents": $scope.user.cart.contents
+        }).then(function (data) {
+            console.log("order processed", data)
+            $state.go('membersOnly')
+        }).then(null,console.log)
+        
+    }
 
 
     $scope.shippingVis = true;

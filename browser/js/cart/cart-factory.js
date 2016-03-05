@@ -19,10 +19,17 @@ app.factory('CartFactory', function ($http) {
         })
     }
 
+    var processOrder = function (data) {
+        return $http.post('/api/cart/purchase',data).then(function(response) {
+            return response.data
+        })
+    }
+
     return {
         getUserCart: getUserCart,
         getAll: getAll,
-        updateCart: updateCart
+        updateCart: updateCart,
+        processOrder: processOrder
     };
 
 });
