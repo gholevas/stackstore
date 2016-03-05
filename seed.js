@@ -192,8 +192,8 @@ connectToDb.then(function() {
         seedProducts(),
         seedUsers(),
         seedCarts(),
-        seedStores("Cool Stuf"),
-        seedStores("EDM")
+        seedStores("Cool Stuff"),
+        seedStores("EDM Rave")
     ]
 
     Promise.each(seedyThings, function(element) {

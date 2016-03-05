@@ -1,9 +1,9 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button class="md-fab md-accent md-mini md-primary" ng-click="toggleLeft()" aria-label="admin" ng-if="user && user.isAdmin">
+        <md-button class="md-fab md-accent md-mini md-primary" ng-click="toggleLeft()" aria-label="admin" ng-if="user && user.isSeller">
             <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
         </md-button>
-        <user-profile ng-hide="!user || user.isAdmin"></user-profile>
+        <user-profile ng-hide="!user || user.isSeller"></user-profile>
         <h2>
           <a href="#" ui-sref="home">LOGO</a>
         </h2>
@@ -15,7 +15,7 @@
         <md-button ng-show="user" ng-click="logout()" class="md-raised" aria-label="Learn More">
           Logout
         </md-button>
-        <md-button class="md-icon-button" ng-click="toggleRight()" ng-hide="isOpenRight() || user.isAdmin || !user" aria-label="Favorite">
+        <md-button class="md-icon-button" ng-click="toggleRight()" ng-hide="isOpenRight() || user.isSeller || !user" aria-label="Favorite">
             <md-icon md-svg-icon="/icons/cart.svg"></md-icon>
         </md-button>
 

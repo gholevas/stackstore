@@ -9,7 +9,7 @@
 	    <md-card-content>
 	        {{product.price | currency:"$"}}
 	    </md-card-content>
-	    <md-card-actions layout="row" layout-align="end center">
+	    <md-card-actions layout="row" layout-align="end center" ng-click="addToCart()">
 	        <md-button>Add to Cart</md-button>
 	    </md-card-actions>
 	</md-card>
