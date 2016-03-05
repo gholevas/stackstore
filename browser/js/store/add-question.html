@@ -12,17 +12,17 @@
 		<div layout-gt-xs="row">
 	    <md-input-container class="md-block" flex-gt-xs>
 	      <h4>Question Text</h4>
-	      <input ng-model="questionText">
+	      <input aria-label="Question Text" ng-model="questionText">
 	    </md-input-container>
 	  </div>
 	  <div layout-gt-xs="row">
 	    <md-input-container class="md-block" flex-gt-xs>
 	      <h4>Answer {{answers.length + 1}} Text</h4>
-	      <input ng-model="answerText">
+	      <input aria-label="Answer Text" ng-model="answerText">
 	    </md-input-container>
 	    <md-input-container class="md-block" flex-gt-xs>
 	      <h4>Answer {{answers.length + 1}} Tag</h4>
-	      <input ng-model="answerTag">
+	      <input aria-label="Answer Tag" ng-model="answerTag">
 	    </md-input-container>
 	    <md-button ng-click="addAnswer()">Add Answer</md-button>
 	  </div>

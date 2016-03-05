@@ -32,13 +32,12 @@ function convertToUrl(name) {
 
 StoreSchema.methods.addProduct = function(product) {
     var theStore = this;
-    var product;
-    return ProductSchema.create(product)
+    return mongoose.model('Product').create(product)
         .then(function(c) {
             product = c;
             theStore.products.addToSet(c._id);
             return theStore.save();
-        })
+        });
 };
 
 StoreSchema.methods.addQuestion = function(question) {

@@ -15,17 +15,29 @@ app.config(function($stateProvider){
         		StoreEditFactory.saveStore();
         	};
 
-        	$scope.addQuestion = function(ev) {
-				    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-				    $mdDialog.show({
-				      controller:'AddQuestionCtrl',
-				      templateUrl: 'js/store/add-question.html',
-				      parent: angular.element(document.body),
-				      targetEvent: ev,
-				      clickOutsideToClose:true,
-				      fullscreen: useFullScreen
-				    });
-        };
+      	$scope.addQuestion = function(ev) {
+			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+			    $mdDialog.show({
+			      controller:'AddQuestionCtrl',
+			      templateUrl: 'js/store/add-question.html',
+			      parent: angular.element(document.body),
+			      targetEvent: ev,
+			      clickOutsideToClose:true,
+			      fullscreen: useFullScreen
+			    });
+      	};
+
+      	$scope.manageQuestion = function(ev) {
+			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+			    $mdDialog.show({
+			      controller:'ManageQuestionCtrl',
+			      templateUrl: 'js/store/manage-question.html',
+			      parent: angular.element(document.body),
+			      targetEvent: ev,
+			      clickOutsideToClose:true,
+			      fullscreen: useFullScreen
+			    });
+      	};
       }
 	});
 });
