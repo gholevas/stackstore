@@ -17,7 +17,6 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
             scope.toggleRight = buildToggler('right');
 
             scope.state = $state;
-            console.log(scope.state.current)
 
             // for admin menu
             scope.toggleLeft = buildToggler('left');
@@ -59,20 +58,25 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                 });
             };
 
+            var updateCart = function () {
+                CartFactory.getUserCart()
+                .then(function(cart) {
+                    scope.user.cart = cart
+                })
+            }
+
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
                     console.log(user)
                     scope.user = user;
-                    if (user && user.isAdmin) {
+                    if (user && user.isSeller) {
+                        // turned off so it wont redirect sellers away from edit page
                         // doesn't work without timeout
-                        $timeout(function() {
-                          $state.go('admin');
-                        }, 0);
+                        // $timeout(function() {
+                        //   $state.go('admin');
+                        // }, 0);
                     }
-                    CartFactory.getUserCart()
-                    .then(function(cart) {
-                        scope.user.cart = cart
-                    })
+                    updateCart()
                 });
             };
 
@@ -85,6 +89,7 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
+            // add listener for add to cart event to pull from db and update cart 
 
         }
 

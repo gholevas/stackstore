@@ -4,10 +4,15 @@ app.factory('StoreEditFactory', function($http){
 
 	factory.store = {};
 
+	factory.returnStore = function(){
+		return this.store;
+	};
+
 	factory.saveStore = function(){
 		var store = this.store;
 		return $http.put('/api/store/'+store.url, store)
 		.then(function(response){
+			factory.store = response.data;
 			//TODO: Provide success/failure feedback
 		});
 	};
@@ -16,7 +21,17 @@ app.factory('StoreEditFactory', function($http){
 		var store = this.store;
 		return $http.post('/api/store/'+store.url+'/question',question)
 		.then(function(response){
-			console.log(response);
+			store = response.data;
+			return store;
+		});
+	};
+
+	factory.removeQuestion = function(question){
+		var store = this.store;
+		return $http.delete('/api/store/'+store.url+'/question/'+question._id)
+		.then(function(response){
+			store = response.data;
+			return store;
 		});
 	};
 

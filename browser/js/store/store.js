@@ -5,6 +5,7 @@ app.config(function($stateProvider) {
         controller: 'StoreCtrl',
         resolve: {
             storeInfo: function(StoreFactory,$stateParams) {
+                console.log("store state",$stateParams.url)
                 return StoreFactory.getStoreInfo($stateParams.url);
             }
         }

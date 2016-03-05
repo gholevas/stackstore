@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
+var Question = mongoose.model('Question');
 
 var StoreSchema = new mongoose.Schema({
 
@@ -32,25 +33,13 @@ function convertToUrl(name) {
 
 StoreSchema.methods.addProduct = function(product) {
     var theStore = this;
-    var product;
-    return ProductSchema.create(product)
+    return mongoose.model('Product').create(product)
         .then(function(c) {
             product = c;
             theStore.products.addToSet(c._id);
             return theStore.save();
-        })
-};
-
-StoreSchema.methods.addQuestion = function(question) {
-    var theStore = this;
-    return mongoose.model('Question').create(question)
-        .then(function(question) {
-            theStore.questions.addToSet(question);
-            return theStore.save();
         });
 };
-
-
 
 StoreSchema.methods.removeProduct = function(product) {
     var theStore = this;
@@ -61,6 +50,23 @@ StoreSchema.methods.removeProduct = function(product) {
         });
 };
 
+StoreSchema.methods.addQuestion = function(question) {
+    var theStore = this;
+    return Question.create(question)
+        .then(function(question) {
+            theStore.questions.addToSet(question);
+            return theStore.save();
+        });
+};
+
+StoreSchema.methods.removeQuestion = function(question) {
+    var theStore = this;
+    return question.remove()
+        .then(function() {
+            theStore.questions.pull(question);
+            return theStore.save();
+        });
+};
 
 StoreSchema.pre('validate', function(next) {
     this.url = convertToUrl(this.name);

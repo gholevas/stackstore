@@ -91,6 +91,20 @@ router.post('/purchase', function(req, res, next){
 });
 
 // creates a cart and adds the product
+router.put('/add-to-cart', ensureAuthenticated, function(req, res, next) {
+    console.log('adding to cart', req.body)
+    Cart.findById(req.user.cart._id)
+        .then(function(cart) {
+            return cart.addProduct(req.body)
+        })
+        .then(function (cart) {
+            res.json(cart)
+        })
+        .then(null, next);
+
+});
+
+// creates a cart and adds the product
 router.put('/user', ensureAuthenticated, function(req, res, next) {
     console.log('we here', req.body)
     Cart.findByIdAndUpdate(req.user.cart._id,req.body,{new:true})

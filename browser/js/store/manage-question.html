@@ -1,0 +1,19 @@
+<md-toolbar>
+	<div class="md-toolbar-tools">
+	  <h2>Manage Questions</h2>
+	  <span flex></span>
+	  <md-button class="md-icon-button" ng-click="cancel()">
+	    <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
+	  </md-button>
+	</div>
+</md-toolbar>
+<md-dialog-content style="width:30vw;height:50vh; ">
+	<div style="margin:3%">
+	  <table style="width:20em">
+	    <tr ng-repeat="question in store.questions">
+	      <td>{{question.text}}</td>
+	      <td><md-icon md-svg-icon="/icons/cancel.svg" aria-label="question" ng-click="removeQuestion(question)"></md-icon></td>
+	      </tr>
+	  </table>
+  </div>
+</md-dialog-content>

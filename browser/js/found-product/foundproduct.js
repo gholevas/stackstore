@@ -12,8 +12,16 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('FoundProductController', function ($scope,productInfo) {
+app.controller('FoundProductController', function ($scope,productInfo,CartFactory) {
 	$scope.product = productInfo;
+
+    $scope.addToCart = function () {
+        CartFactory.addToCart($scope.product[0])
+        .then(function (newCart) {
+            console.log(newCart)
+        })
+    }
+
 });
 
 app.factory('FoundProductFactory', function($http) {
@@ -21,6 +29,7 @@ app.factory('FoundProductFactory', function($http) {
         getProductInfo: function(productId) {
             return $http.get('/api/products/'+productId)
                 .then(function(res) {
+                    console.log("this returns and array",res.data)
                     return res.data;
                 })
         }

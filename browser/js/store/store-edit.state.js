@@ -10,22 +10,48 @@ app.config(function($stateProvider){
         },
         controller: function($scope, $mdMedia, $mdDialog, store, StoreEditFactory){
         	$scope.store = store;
+
         	$scope.saveStore = function(){
         		StoreEditFactory.store = $scope.store;
         		StoreEditFactory.saveStore();
+        		$scope.store = StoreEditFactory.returnStore();
         	};
 
-        	$scope.addQuestion = function(ev) {
-				    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-				    $mdDialog.show({
-				      controller:'AddQuestionCtrl',
-				      templateUrl: 'js/store/add-question.html',
-				      parent: angular.element(document.body),
-				      targetEvent: ev,
-				      clickOutsideToClose:true,
-				      fullscreen: useFullScreen
-				    });
-        };
+      	$scope.addQuestion = function(ev) {
+			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+			    $mdDialog.show({
+			      controller:'AddQuestionCtrl',
+			      templateUrl: 'js/store/add-question.html',
+			      parent: angular.element(document.body),
+			      targetEvent: ev,
+			      clickOutsideToClose:true,
+			      fullscreen: useFullScreen
+			    });
+      	};
+
+      	$scope.$on('questionChange', function(){
+      		$scope.store = StoreEditFactory.returnStore();
+      	});
+
+    //   	$scope.removeQuestion =function(question){
+				// 	return StoreEditFactory.removeQuestion(question)
+				// 	.then(function(store){
+				// 		StoreEditFactory.store = store;
+				// 		$scope.store = store;
+				// 	});
+				// };
+      	$scope.manageQuestion = function(ev) {
+
+			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+			    $mdDialog.show({
+			      controller:'ManageQuestionCtrl',
+			      templateUrl: 'js/store/manage-question.html',
+			      parent: angular.element(document.body),
+			      targetEvent: ev,
+			      clickOutsideToClose:true,
+			      fullscreen: useFullScreen
+			    });
+      	};
       }
 	});
 });
