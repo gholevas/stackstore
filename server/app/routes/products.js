@@ -86,6 +86,7 @@ router.param("id", function(req, res, next, id){
     Product.findById(id)
     .then(function(product){
         if(!product) throw Error("no such product");
+        console.log(product)
         req.product = product;
         next();
     })

@@ -17,11 +17,11 @@ app.directive('adminNav', function($mdSidenav, $state) {
             }
 
             scope.toBoxes = function() {
-                $state.go('adminBoxes')
+                $state.go('adminProducts')
             }
 
             scope.toCarts = function() {
-                $state.go('adminCarts')
+                $state.go('adminOrders')
             }
 
         }
