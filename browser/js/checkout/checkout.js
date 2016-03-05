@@ -7,18 +7,30 @@ app.config(function($stateProvider) {
             user: function(AuthService) {
                 return AuthService.getLoggedInUser()
             },
-            cart: function (CartFactory) {
+            cart: function(CartFactory) {
                 return CartFactory.getUserCart()
-            } 
+            }
         }
     });
 });
 
 
-app.controller('CheckOutCtrl', function($rootScope, $scope, user,CartFactory, cart) {
+app.controller('CheckOutCtrl', function($rootScope, $scope, user, CartFactory, cart) {
 
     $scope.user = user;
     $scope.user.cart = cart
+
+
+    $scope.placeOrder = function() {
+
+
+        // {
+        //     "user": $scope.user._id,
+        //     "shipping": $scope.shipping,
+        //     "billing": $scope.billing,
+        //     "contents": $scope.user.cart.contents
+        // }
+    }
 
 
     $scope.shippingVis = true;
@@ -41,5 +53,19 @@ app.controller('CheckOutCtrl', function($rootScope, $scope, user,CartFactory, ca
         $scope.billingVis = true;
     }
 
+
+});
+
+app.factory('CheckoutFactory', function ($http) {
+
+    var processOrder = function (data) {
+        return $http.post()
+    }
+
+    return {
+        getUserCart: getUserCart,
+        getAll: getAll,
+        updateCart: updateCart
+    };
 
 });

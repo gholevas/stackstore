@@ -5,7 +5,7 @@
                 <h2 class="md-flex">Shipping Info</h2>
             </div>
         </md-toolbar>
-        <form name="shippingForm">
+        <form name="shippingForm" novalidate>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block">
                     <label>First name</label>
@@ -128,7 +128,7 @@
     </div>
     <div flex>
     <md-button style="width:25%;" ng-show="reviewVis" ng-click="backToBilling()" class="md-raised md-primary">Back</md-button>
-        <md-button style="width:60%;" ng-show="reviewVis" class="md-raised md-primary">Place Order</md-button>
+        <md-button style="width:60%;" ng-show="reviewVis" ng-click="placeOrder()" class="md-raised md-primary">Place Order</md-button>
     </div>
 </div>
 <style>
