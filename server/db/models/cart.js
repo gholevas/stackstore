@@ -41,7 +41,6 @@ CartSchema.methods.addProduct = function(product){
 CartSchema.methods.removeProduct = function(product){
 	var self = this;
 	this.contents.forEach(function(c,i){
-		console.log(c.product, product._id)
 		if(c.product.toString() === product._id.toString()){
 			self.contents.splice(i,1);
 		}

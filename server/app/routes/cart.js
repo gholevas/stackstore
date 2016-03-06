@@ -59,8 +59,17 @@ router.post('/purchase', ensureAuthenticated, function(req, res, next){
                 .then(function(user){
                     if(!user) throw Error("nosuchuser");
                     user.orders.push(order);
+                    // clear the user cart
+                    user.cart.contents = []
+                    // req.body.contents.forEach(function (c) {
+                    //     console.log("c",c.product)
+                    //     user.cart.removeProduct(c.product)
+                    // })
                     return user.save();
-                });
+                })
+                .then(function (user) {
+                    res.json(user)
+                })
         })
         .catch(function(err){
             console.log("error creating user order",err);
@@ -68,7 +77,6 @@ router.post('/purchase', ensureAuthenticated, function(req, res, next){
 
     var storeContent = {};
     req.body.contents.forEach(function(content){
-        console.log("co ",content);
         var storeId = content.product.store;
         storeContent[storeId] = storeContent[storeId] || [];
         storeContent[storeId].push(content);
@@ -92,7 +100,6 @@ router.post('/purchase', ensureAuthenticated, function(req, res, next){
 
 // creates a cart and adds the product
 router.put('/add-to-cart', ensureAuthenticated, function(req, res, next) {
-    console.log('adding to cart', req.body)
     Cart.findById(req.user.cart._id)
         .then(function(cart) {
             return cart.addProduct(req.body)
@@ -106,7 +113,6 @@ router.put('/add-to-cart', ensureAuthenticated, function(req, res, next) {
 
 // creates a cart and adds the product
 router.put('/user', ensureAuthenticated, function(req, res, next) {
-    console.log('we here', req.body)
     Cart.findByIdAndUpdate(req.user.cart._id,req.body,{new:true})
         .then(function(cart) {
             res.json(cart);
@@ -119,7 +125,6 @@ router.put('/user', ensureAuthenticated, function(req, res, next) {
 router.put('/remove-product', ensureAuthenticated, function(req, res, next) {
     Cart.findById(req.user.cart._id)
         .then(function(cart) {
-            console.log('removing from cart', req.body)
             return cart.removeProduct(req.body)
         })
         .then(function (cart) {

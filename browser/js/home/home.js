@@ -4,7 +4,6 @@ app.config(function($stateProvider) {
         templateUrl: 'js/home/home.html',
         resolve: {
         	stores: function (StoreFactory) {
-        		console.log("here")
         		return StoreFactory.getAllStores();
         	}
         },

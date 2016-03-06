@@ -32,7 +32,7 @@ router.post('/', function (req, res, next) {
 
 router.param("url", function(req, res, next, id){
 	Store.findOne({url:req.params.url})
-	.populate("products seller questions")
+	.populate("products seller questions orders")
 	.then(function(store){
 		if(!store) throw Error("no such store");
 		req.store = store;
@@ -81,11 +81,14 @@ router.put("/:url", function(req, res, next){
 router.get("/:url/products", function(req, res, next){
 	res.json(req.store.products);
 });
+
 router.get("/:url/questions", function(req, res, next){
 	res.json(req.store.questions);
 });
 
-
+router.get("/:url/orders", function(req, res, next){
+	res.json(req.store.orders);
+});
 
 router.get("/:url/seller", function(req, res, next){
 	res.json(req.store.seller);

@@ -7,19 +7,14 @@ app.config(function($stateProvider) {
         templateUrl: 'js/admin/admin.html',
         data: {
             authenticate: true
-        },
-        resolve: {
-            carts: function (CartFactory) {
-                return CartFactory.getAll()
-            }
         }
     }).state('adminOrders', {
         url: '/admin/orders',
         controller: 'AdminOrdersController',
         templateUrl: 'js/admin/admin-orders.html',
         resolve: {
-            carts: function (CartFactory) {
-                return CartFactory.getAll()
+            carts: function (AdminFactory) {
+                return AdminFactory.getStoreOrders()
             }
         }
     }).state('adminProducts', {
@@ -88,12 +83,14 @@ app.controller('AdminProductsController', function($mdEditDialog, $q, $scope, $t
 
 });
 
-app.factory('AdminFactory', function(){
+app.factory('AdminFactory', function($http){
     
     return {
-
-        
-        
+        getStoreOrders: function (store) {
+            return $http.get('/api/' + store.url + '/orders').then(function (response) {
+                return response.data;
+            }); 
+        }
 
     };
 })
