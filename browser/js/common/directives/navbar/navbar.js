@@ -90,7 +90,7 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
             // add listener for add to cart event to pull from db and update cart 
-
+            $rootScope.$on('addToCart', updateCart)
         }
 
     };

@@ -12,13 +12,15 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('FoundProductController', function ($scope,productInfo,CartFactory) {
+app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo,CartFactory) {
 	$scope.product = productInfo;
 
     $scope.addToCart = function () {
+        // need to change one we fix answer schema [tags]
         CartFactory.addToCart($scope.product[0])
         .then(function (newCart) {
-            console.log(newCart)
+            $scope.$emit('addToCart');
+            $mdSidenav('right').open()
         })
     }
 

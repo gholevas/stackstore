@@ -31,12 +31,19 @@ app.factory('CartFactory', function ($http) {
         })
     }
 
+    var removeProduct = function (product) {
+        return $http.put('/api/cart/remove-product',product).then(function (response) {
+            return response.data
+        })
+    }
+
     return {
         getUserCart: getUserCart,
         getAll: getAll,
         updateCart: updateCart,
         processOrder: processOrder,
-        addToCart: addToCart
+        addToCart: addToCart,
+        removeProduct: removeProduct
     };
 
 });
