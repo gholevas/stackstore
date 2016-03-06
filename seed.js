@@ -122,7 +122,7 @@ var seedCarts = function() {
     .then(function (products) {
         var contents = products.map(function (p) {
             return {
-                product:p,
+                product:p._id,
                 quantity: 1
             }
         })

@@ -42,7 +42,7 @@ module.exports = function (app) {
         UserModel.findById(id)
         .populate("store orders cart.contents.product")
         .exec(function(err,user){
-            user.id = user._id; //probably not neccessary, but just in case
+            // user.id = user._id; //probably not neccessary, but just in case
             done(err,user);
         });
     });

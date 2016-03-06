@@ -50,7 +50,7 @@ router.post('/', ensureAuthenticated, function(req, res, next) {
 });
 
 //aka convert to order
-router.post('/purchase', function(req, res, next){
+router.post('/purchase', ensureAuthenticated, function(req, res, next){
 
     //order for user
     Order.create(req.body)
@@ -116,7 +116,15 @@ router.put('/user', ensureAuthenticated, function(req, res, next) {
 });
 
 // remove a box from a cart
-router.delete('/', ensureAuthenticated, function(req, res, next) {
-
+router.put('/remove-product', ensureAuthenticated, function(req, res, next) {
+    Cart.findById(req.user.cart._id)
+        .then(function(cart) {
+            console.log('removing from cart', req.body)
+            return cart.removeProduct(req.body)
+        })
+        .then(function (cart) {
+            res.json(cart)
+        })
+        .then(null, next);
 
 });
