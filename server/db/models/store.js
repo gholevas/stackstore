@@ -36,9 +36,8 @@ function convertToUrl(name) {
 StoreSchema.methods.addProduct = function(product) {
     var theStore = this;
     return Product.create(product)
-        .then(function(product) {
-            console.log(product);
-            theStore.products.addToSet(product);
+        .then(function(createdProduct) {
+            theStore.products.addToSet(createdProduct);
             return theStore.save();
         });
 };
@@ -55,8 +54,8 @@ StoreSchema.methods.removeProduct = function(product) {
 StoreSchema.methods.addQuestion = function(question) {
     var theStore = this;
     return Question.create(question)
-        .then(function(question) {
-            theStore.questions.addToSet(question);
+        .then(function(createdQuestion) {
+            theStore.questions.addToSet(createdQuestion);
             return theStore.save();
         });
 };
