@@ -8,25 +8,33 @@
           <div class="md-toolbar-tools">
               <span>Edit Store Info</span>
           </div>
-      </md-toolbar>
+        </md-toolbar>
           <form name="userForm">
             <div layout-gt-xs="row">
               <md-input-container class="md-block" flex-gt-xs>
                 <label><strong>Store Name</strong></label>
-                <input ng-model="store.name">
+                <input required ng-model="store.name">
               </md-input-container>
             </div>
             <div layout-gt-sm="row">
               <md-input-container class="md-block" flex-gt-sm>
                 <label>Picture Url:</label>
-                <input ng-model="store.pic">
+                <input required ng-model="store.pic">
               </md-input-container>
             </div>
             <md-input-container class="md-block">
               <label>Headline</label>
               <input ng-model="store.headline">
             </md-input-container>
-          <md-button class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
+            <div layout-gt-xs="row">
+              <md-button name="save" class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
+                <div ng-show="error">
+                  <p class="error-message">Save unsuccessful!</p>
+                </div>
+                <div ng-show="success">
+                  <p class="success-message">Save successful!</p>
+                </div>
+              </div>
           </form>
         </md-content>
       </md-tab-body>
@@ -106,7 +114,7 @@
                               <td md-cell>{{product.price | currency:"$"}}</td>
                               <td md-cell>{{product.tags.join(", ")}}</td>
                               <td md-cell>{{product.imgUrl}}</td>
-                              <td md-cell><md-switch ng-model="product.available" aria-label="Available Switch">
+                              <td md-cell><md-switch ng-model="product.available" aria-label="Available Switch" ng-click="saveStore()">
                               </md-switch></td>
                               <td md-cell><md-icon md-svg-icon="/icons/cancel.svg" aria-label="product" ng-click="removeProduct(product)"></md-icon></td>
                           </tr>

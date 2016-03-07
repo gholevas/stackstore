@@ -10,12 +10,23 @@ app.config(function($stateProvider){
         },
         controller: function($scope, $mdMedia, $mdDialog, store, StoreEditFactory){
         	$scope.store = store;
+        	$scope.success = false;
+        	$scope.error = false;
 
         	$scope.saveStore = function(){
         		StoreEditFactory.store = $scope.store;
-        		StoreEditFactory.saveStore();
-        		$scope.store = StoreEditFactory.returnStore();
-        	};
+        		return StoreEditFactory.saveStore()
+        		.then(function(store){
+	        		$scope.store = store;
+	        		console.log($scope.store);
+	        		$scope.success = true;
+	        		$scope.error = false;
+	        	})
+	        	.catch(function(err){
+	        		$scope.success = false;
+	        		$scope.error = true;
+	        	});
+        };
 
       	$scope.addQuestion = function(ev) {
 			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;

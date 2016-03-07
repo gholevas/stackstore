@@ -101,10 +101,10 @@ router.get("/:url",function(req, res, next){
 
 //save store
 router.put("/:url", function(req, res, next){
-
-	req.store.update(req.body)
+	Store.findByIdAndUpdate(req.body._id,req.body, {new:true})
 	.then(function(data){
-		res.send("data");
+		console.log(data);
+		res.send(data);
 	}).catch(next);
 });
 
@@ -112,8 +112,8 @@ router.put("/:url", function(req, res, next){
 router.put("/", function(req, res, next){
 	Store.findByIdAndUpdate(req.body._id,{active:req.body.active},{new:true})
 	.then(function (newStore) {
-		res.json(newStore)
-	})
+		res.json(newStore);
+	});
 });
 
 //not neccessary since the get by id returns all of this
