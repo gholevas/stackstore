@@ -122,6 +122,20 @@
             });
         };
 
+        this.resetPassword = function (email) {
+            return $http.post('/api/forgot',{email:email})
+                .then(function (response) {
+                    return response.data
+                })
+        }
+
+        this.getTokenUser = function (token) {
+            return $http.get('/api/token',{token:token})
+                .then(function (response) {
+                    return response.data
+                })
+        }
+
     });
 
     app.service('Session', function ($rootScope, AUTH_EVENTS) {

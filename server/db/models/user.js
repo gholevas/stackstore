@@ -44,7 +44,9 @@ var UserSchema = new mongoose.Schema({
     isSeller: Boolean,
     store: { type: mongoose.Schema.Types.ObjectId, ref: "Store" },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
-    cart: CartSchema
+    cart: CartSchema,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 }, {
     toObject: {
         virtuals: true
