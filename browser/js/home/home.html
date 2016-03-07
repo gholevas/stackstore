@@ -1,4 +1,32 @@
-<md-content id="home">
+    <div class="banner2">
+          <div class="field_content">
+            <h1>Find the perfect gift</h1>
+            <h2 style="color:black;">By answering some <br>simple questions</h2>
+        </div>
+    </div>
+    <div class="content_middle_bottom">
+        <div class="header-left" id="home">
+              <section>
+                <ul class="lb-album" >
+                    <li ng-repeat="store in stores">
+                        <a ng-click="goToStore(store)" href="#">
+                            <img ng-src="{{store.pic}}"  class="img-responsive"/>
+                            <span>{{store.name}}</span>
+                        </a>
+                        
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </section>
+        </div>
+      <!--   <div class="field_content">
+            <h1># Icndy On Instagram</h1>
+            <h2>View Hashtag</h2>
+        </div> -->
+     </div>
+
+
+<!-- <md-content id="home">
     <div id="slider-full-width">
         <div class="container">
             <h2>Find the the perfect gift</h2>
@@ -27,8 +55,8 @@
                 <!-- <md-button class="md-icon-button" aria-label="Favorite">
                     <md-icon><i class="material-icons">favorite</i></md-icon>
                 </md-button> -->
-            </md-grid-tile-footer>
+<!--             </md-grid-tile-footer>
         </md-grid-tile>
     </md-grid-list>
-</md-content>
-
+</md-content> 
+ -->

@@ -1,26 +1,23 @@
-<md-toolbar>
-    <div class="md-toolbar-tools">
-        <md-button class="md-fab md-accent md-mini md-primary" ng-click="toggleLeft()" aria-label="admin" ng-if="user && user.isSeller">
-            <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
-        </md-button>
-        <user-profile ng-hide="!user || user.isSeller"></user-profile>
-        <h2>
-          <a href="#" ui-sref="home">LOGO</a>
-        </h2>
-        <span flex></span>
-        <md-button ng-if="user.isAdmin" ui-sref="admin" class="md-raised" aria-label="Admin Panel">Admin</md-button>
-        <md-button ng-show="!user" ng-click="showAdvanced($event)"   class="md-raised" aria-label="Learn More">
-          Login
-        </md-button>
-        <md-button ng-show="user" ng-click="logout()" class="md-raised" aria-label="Learn More">
-          Logout
-        </md-button>
-        <md-button class="md-icon-button" ng-click="toggleRight()" ng-hide="isOpenRight() || user.isSeller || !user" aria-label="Favorite">
-            <md-icon md-svg-icon="/icons/cart.svg"></md-icon>
-        </md-button>
-
+<div class="banner">
+    <div class="container">
+        <div class="logo">
+            <a ui-sref="home"><img src="images/logo.png" alt="" /></a>
+        </div>
+        <div class="menu">
+            <ul class="megamenu skyblue">
+                <li ng-click="toggleLeft()" aria-label="admin" ng-if="user && user.isSeller"><a class="color2">Admin</a>
+                </li>
+                <user-profile ng-hide="!user || user.isSeller"></user-profile>
+                <li ng-show="!user" ng-click="showAdvanced($event)"><a class="color7" >Login</a></li>
+                <li ng-show="user" ng-click="logout()"><a class="color7">Logout</a></li>
+                <li ng-click="toggleRight()" ng-hide="isOpenRight() || user.isSeller"><a class="color7">Cart</a></li>
+                <div class="clearfix"> </div>
+            </ul>
+        </div>
+        <div class="clearfix"> </div>
+        <div class="header_arrow">
+            <a href="#arrow" class="scroll"><span> </span></a>
+        </div>
     </div>
-</md-toolbar>
-
+</div>
 <cart cart="user.cart"></cart>
-
