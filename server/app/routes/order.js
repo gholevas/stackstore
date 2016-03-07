@@ -32,3 +32,13 @@ router.get('/', ensureAdmin, function(req, res, next) {
     })
     .then(null, next);
 });
+
+// Get order details
+router.get('/:confirmationNum', function(req, res, next) {
+    Order.findOne({})
+    .populate("contents user")
+    .then(function(order) {
+        res.json(order);
+    })
+    .then(null, next);
+});

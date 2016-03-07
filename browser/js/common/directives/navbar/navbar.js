@@ -54,20 +54,25 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
 
             scope.logout = function() {
                 AuthService.logout().then(function() {
+                    updateCart();
                     $state.go('home');
                 });
             };
 
+            // may need to embed cart by refrence, having trouble clearing the cart even though its cleared in db.
             var updateCart = function () {
                 CartFactory.getUserCart()
                 .then(function(cart) {
-                    scope.user.cart = cart
+                    scope.cart = cart
                 })
+            }
+
+            var clearCart = function () {
+                scope.cart.contents = []
             }
 
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
-                    console.log(user)
                     scope.user = user;
                     if (user && user.isSeller) {
                         // turned off so it wont redirect sellers away from edit page
@@ -90,7 +95,8 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
             // add listener for add to cart event to pull from db and update cart 
-
+            $rootScope.$on('updateCart', updateCart)
+            $rootScope.$on('clearCart', clearCart)
         }
 
     };

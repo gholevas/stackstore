@@ -12,13 +12,15 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('FoundProductController', function ($scope,productInfo,CartFactory) {
+app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo,CartFactory) {
 	$scope.product = productInfo;
     $scope.quantity = 1;
     $scope.addToCart = function () {
-        CartFactory.addToCart($scope.product[0])
+        // need to change one we fix answer schema [tags]
+        CartFactory.addToCart($scope.product)
         .then(function (newCart) {
-            console.log(newCart)
+            $scope.$emit('updateCart');
+            $mdSidenav('right').open()
         })
     }
 
@@ -29,7 +31,6 @@ app.factory('FoundProductFactory', function($http) {
         getProductInfo: function(productId) {
             return $http.get('/api/products/'+productId)
                 .then(function(res) {
-                    console.log("this returns and array",res.data)
                     return res.data;
                 })
         }
