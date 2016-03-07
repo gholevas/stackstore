@@ -4,7 +4,7 @@ app.config(function($stateProvider) {
         templateUrl: 'js/home/home.html',
         resolve: {
         	stores: function (StoreFactory) {
-        		return StoreFactory.getAllStores();
+        		return StoreFactory.getActiveStores();
         	}
         },
         controller: 'HomeCtrl'
@@ -12,7 +12,8 @@ app.config(function($stateProvider) {
 });
 
 app.controller('HomeCtrl', function($scope, $state, stores){
-	$scope.stores = stores;
+	
+    $scope.stores = stores;
 
     $scope.searchText = "";
 

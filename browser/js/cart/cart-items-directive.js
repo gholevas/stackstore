@@ -8,6 +8,7 @@ app.directive('cartItems', function(CartFactory) {
         link: function (scope) {
 
             function getTotal() {
+                if (!scope.cart) return 
         		scope.cart.totalToPay = !scope.cart? 0 : scope.cart.contents.reduce(function (prev, curr, i, arr) {
         			return prev + curr.product.price * curr.quantity
         		},0);

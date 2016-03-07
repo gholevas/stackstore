@@ -45,6 +45,15 @@ app.factory('StoreEditFactory', function($http){
 		});
 	};
 
+	factory.removeProduct = function(product){
+		var store = this.store;
+		return $http.delete('/api/store/'+store.url+'/product/'+product._id)
+		.then(function(response){
+			store = response.data;
+			return store;
+		});
+	};
+
 	factory.getStore = function(url){
 		var self = this;
 		return $http.get('/api/store/'+url)
