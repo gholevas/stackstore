@@ -69,6 +69,11 @@ StoreSchema.methods.removeQuestion = function(question) {
         });
 };
 
+StoreSchema.pre('update', function(next) {
+    this.url = convertToUrl(this.name);
+    next();
+}); 
+
 StoreSchema.pre('validate', function(next) {
     this.url = convertToUrl(this.name);
     next();

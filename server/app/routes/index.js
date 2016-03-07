@@ -14,7 +14,7 @@ router.use('/cart', require('./cart.js'));
 
 router.use('/store', require('./store.js'));
 
-router.use('/my', require('./user.js'));
+router.use('/user', require('./user.js'));
 
 router.use('/orders', require('./order.js'));
 
