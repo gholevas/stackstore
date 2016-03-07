@@ -48,12 +48,12 @@
                           <tr md-row>
                               <th md-column md-order-by="text"><span>Question</span></th>
                               <th md-column md-order-by="text"><span>Answers</span></th>
-                              <th md-column md-order-by="text"><span>Remove</span></th>
+                              <th md-column><span>Remove</span></th>
                           </tr>
                       </thead>
                       <tbody md-body>
                           <tr md-row md-select="question" ng-repeat="question in store.questions | filter: filter.search | orderBy: query.order">
-                              <td md-cell contenteditable ng-model="question.text">{{question.text}}</td>
+                              <td md-cell>{{question.text}}</td>
                               <td md-cell>
                               <ul>
                                 <li ng-repeat="answer in question.answers">Text: {{answer.text}}, Tags: {{answer.tags.join(", ")}}</li>
@@ -94,6 +94,8 @@
                               <th md-column md-order-by="price"><span>Price</span></th>
                               <th md-column md-order-by="tags" md-desc><span>Tags</span></th>
                               <th md-column md-order-by="imgUrl" md-desc><span>Image Url</span></th>
+                              <th md-column md-desc><span>Available</span></th>
+                              <th md-column><span>Remove</span></th>
                           </tr>
                       </thead>
                       <tbody md-body>
@@ -102,6 +104,9 @@
                               <td md-cell>{{product.price}}</td>
                               <td md-cell>{{product.tags.join(", ")}}</td>
                               <td md-cell>{{product.imgUrl}}</td>
+                              <td md-cell><md-switch ng-model="product.available" aria-label="Available Switch">
+                              </md-switch></td>
+                              <td md-cell><md-icon md-svg-icon="/icons/cancel.svg" aria-label="product" ng-click="removeProduct(product)"></md-icon></td>
                           </tr>
                       </tbody>
                   </table>

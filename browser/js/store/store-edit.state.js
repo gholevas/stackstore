@@ -33,45 +33,28 @@ app.config(function($stateProvider){
       		$scope.store = StoreEditFactory.returnStore();
       	});
 
-      	$scope.manageQuestions = function(ev) {
+    		$scope.removeQuestion =function(question){
+					return StoreEditFactory.removeQuestion(question)
+					.then(function(store){
+			    	StoreEditFactory.store = store;
+			    	$scope.store = store;
+		    	});
+				};
 
-			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-			    $mdDialog.show({
-			      controller:'ManageQuestionCtrl',
-			      templateUrl: 'js/store/manage-question.html',
-			      parent: angular.element(document.body),
-			      targetEvent: ev,
-			      clickOutsideToClose:true,
-			      fullscreen: useFullScreen
-			    });
-      	};
+				$scope.removeProduct =function(product){
+					return StoreEditFactory.removeProduct(product)
+					.then(function(store){
+			    	StoreEditFactory.store = store;
+			    	$scope.store = store;
+		    	});
+				};
 
-      		$scope.removeQuestion =function(question){
-						return StoreEditFactory.removeQuestion(question)
-						.then(function(store){
-				    	StoreEditFactory.store = store;
-				    	$scope.store = store;
-			    	});
-					};
 
       	$scope.addProduct = function(ev) {
 			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 			    $mdDialog.show({
 			      controller:'AddProductCtrl',
 			      templateUrl: 'js/store/add-product.html',
-			      parent: angular.element(document.body),
-			      targetEvent: ev,
-			      clickOutsideToClose:true,
-			      fullscreen: useFullScreen
-			    });
-      	};
-
-      	$scope.manageProducts = function(ev) {
-
-			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-			    $mdDialog.show({
-			      controller:'ManageProductCtrl',
-			      templateUrl: 'js/store/manage-product.html',
 			      parent: angular.element(document.body),
 			      targetEvent: ev,
 			      clickOutsideToClose:true,
