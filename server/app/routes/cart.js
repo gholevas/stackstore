@@ -84,24 +84,26 @@ router.post('/purchase', ensureAuthenticatedOrGuestCart, function(req, res, next
 
     //order for user
     req.body.user = req.user._id || null;
-    var userOrder = Order.create(req.body)
-        .then(function(order){
-            return User.findById(req.user._id)
-                .then(function(user){
-                    if(!user) return "nosuchuser"; //don't want an error or next
-                    //add to user's order history
-                    user.orders.push(order);
-                    // clear the user cart
-                    user.cart.contents = [];
-                    return user.save();
-                })
-        });
-    orderPromises.push(userOrder);
+    var userOrder;
+    orderPromises.push(Order.create(req.body)
+            .then(function(order){
+                userOrder = order;
+                User.findById(req.user._id)
+                    .then(function(user){
+                        if(!user) return "nosuchuser"; //don't want an error or next
+                        //add to user's order history
+                        user.orders.push(order);
+                        // clear the user cart
+                        user.cart.contents = [];
+                        return user.save();
+                    }).catch(console.log);
+            })
+        );
     
     Promise.all(orderPromises)
         .then(function(orders){
             console.log("store orders created ", orders)
-            next();
+            res.json(userOrder); //send back the full order
         })
         .catch(function(err){
             console.log("error creating store order",err);

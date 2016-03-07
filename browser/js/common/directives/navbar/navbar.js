@@ -62,7 +62,6 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
             var updateCart = function () {
                 CartFactory.getUserCart()
                 .then(function(cart) {
-                    console.log("settingnav-cartscope ", cart)
                     scope.cart = cart
                 })
             }

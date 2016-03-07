@@ -17,7 +17,7 @@ app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo
     $scope.quantity = 1;
     $scope.addToCart = function () {
         // need to change one we fix answer schema [tags]
-        CartFactory.addToCart($scope.product[0])
+        CartFactory.addToCart($scope.product)
         .then(function (newCart) {
             $scope.$emit('updateCart');
             $mdSidenav('right').open()
@@ -31,7 +31,6 @@ app.factory('FoundProductFactory', function($http) {
         getProductInfo: function(productId) {
             return $http.get('/api/products/'+productId)
                 .then(function(res) {
-                    console.log("this returns and array",res.data)
                     return res.data;
                 })
         }
