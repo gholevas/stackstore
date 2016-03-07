@@ -1,35 +1,41 @@
 <div>
-  <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
+  <md-tabs class="storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
     <md-tab>
       <md-tab-label>Edit Store</md-tab-label>
       <md-tab-body>
-        <form name="userForm">
-          <div layout-gt-xs="row">
-            <md-input-container class="md-block" flex-gt-xs>
-              <label><strong>Store Name</strong></label>
-              <input ng-model="store.name">
-            </md-input-container>
+        <md-tab-content flex>
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+          <div class="md-toolbar-tools">
+              <span>Edit Store Info</span>
           </div>
-          <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm>
-              <label>Picture Url:</label>
-              <input ng-model="store.pic">
+      </md-toolbar>
+          <form name="userForm">
+            <div layout-gt-xs="row">
+              <md-input-container class="md-block" flex-gt-xs>
+                <label><strong>Store Name</strong></label>
+                <input ng-model="store.name">
+              </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Picture Url:</label>
+                <input ng-model="store.pic">
+              </md-input-container>
+            </div>
+            <md-input-container class="md-block">
+              <label>Headline</label>
+              <input ng-model="store.headline">
             </md-input-container>
-          </div>
-          <md-input-container class="md-block">
-            <label>Headline</label>
-            <input ng-model="store.headline">
-          </md-input-container>
-        <md-button class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
-        </form>
+          <md-button class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
+          </form>
+        </md-content>
       </md-tab-body>
     </md-tab>
 
     <md-tab>
       <md-tab-label>Manage Questions</md-tab-label>
       <md-tab-body>
-        <md-content flex>
-          <md-card>
+          <!-- <md-card> -->
               <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
                   <div class="md-toolbar-tools">
                       <span>Questions</span>
@@ -72,8 +78,7 @@
     <md-tab>
       <md-tab-label>Manage Products</md-tab-label>
       <md-tab-body>
-        <md-content flex>
-          <md-card>
+          <!-- <md-card> -->
               <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
                   <div class="md-toolbar-tools">
                       <span>Products</span>
@@ -101,7 +106,7 @@
                       <tbody md-body>
                           <tr md-row md-select="product" ng-repeat="product in store.products | filter: filter.search | orderBy: query.order">
                               <td md-cell>{{product.name}}</td>
-                              <td md-cell>{{product.price}}</td>
+                              <td md-cell>${{product.price}}</td>
                               <td md-cell>{{product.tags.join(", ")}}</td>
                               <td md-cell>{{product.imgUrl}}</td>
                               <td md-cell><md-switch ng-model="product.available" aria-label="Available Switch">
