@@ -24,11 +24,12 @@ module.exports = function (app) {
             });
     };
 
-    var strategySignUp = function (email, password, done) {
+    var strategySignUp = function (req, email, password, done) {
         User.findOne({ email: email })
             .then(function (user) {
                 if(!user){
-                    User.create({email:email,password:password})
+                    console.log('hii',req.body)
+                    User.create({email:email,password:password,isSeller:req.body.isSeller})
                     .then(function(newUser){
                         done(null,newUser)
                     })
@@ -39,7 +40,7 @@ module.exports = function (app) {
             })
     };
 
-    passport.use('local-signup',new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, strategySignUp));
+    passport.use('local-signup',new LocalStrategy({ usernameField: 'email', passwordField: 'password', passReqToCallback: true}, strategySignUp));
     
     app.post('/signup', function(req,res,next){
 
