@@ -13,7 +13,6 @@ app.factory('StoreEditFactory', function($http){
 		return $http.put('/api/store/'+store.url, store)
 		.then(function(response){
 			factory.store = response.data;
-			console.log(response.data);
 			return response.data;
 		});
 	};

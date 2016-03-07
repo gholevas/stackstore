@@ -19,7 +19,6 @@ app.config(function($stateProvider) {
         		return StoreEditFactory.saveStore()
         		.then(function(store){
 	        		$scope.store = store;
-	        		console.log($scope.store);
 	        		$scope.success = true;
 	        		$scope.error = false;
 	        	})
