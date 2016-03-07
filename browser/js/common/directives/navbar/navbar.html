@@ -9,6 +9,7 @@
                 </li>
                 <user-profile ng-hide="!user || user.isSeller"></user-profile>
                 <li ng-show="!user" ng-click="showAdvanced($event)"><a class="color7" >Login</a></li>
+                <li ng-show="!user" ng-click="showSignup($event)"><a class="color8" >Signup</a></li>
                 <li ng-show="user" ng-click="logout()"><a class="color7">Logout</a></li>
                 <li ng-click="toggleRight()" ng-hide="isOpenRight() || user.isSeller"><a class="color7">Cart</a></li>
                 <div class="clearfix"> </div>
