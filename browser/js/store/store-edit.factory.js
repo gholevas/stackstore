@@ -26,6 +26,16 @@ app.factory('StoreEditFactory', function($http){
 		});
 	};
 
+	factory.addProduct = function(product){
+		var store = this.store;
+		product.store = store._id;
+		return $http.post('/api/store/'+store.url+'/product',product)
+		.then(function(response){
+			store = response.data;
+			return store;
+		});
+	};
+
 	factory.removeQuestion = function(question){
 		var store = this.store;
 		return $http.delete('/api/store/'+store.url+'/question/'+question._id)
@@ -40,6 +50,7 @@ app.factory('StoreEditFactory', function($http){
 		return $http.get('/api/store/'+url)
 		.then(function(response){
 			self.store = response.data;
+			console.log(self.store);
 			return response.data;
 		});
 	};

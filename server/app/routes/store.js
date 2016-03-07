@@ -63,6 +63,14 @@ router.delete('/:url/question/:questId', function (req, res, next) {
 	});
 });
 
+//add a product to a store
+router.post('/:url/product', function (req, res, next) {
+	req.store.addProduct(req.body)
+	.then(function(store){
+		res.send(store);
+	});
+});
+
 //get specfic store
 router.get("/:url",function(req, res, next){
 	res.json(req.store);
