@@ -36,7 +36,10 @@ module.exports = function (app) {
                                 done(null,newUser)
                             })
                         }else{
-                            done(null,newUser)
+                            newUser.addCart({})
+                            .then(function(newUser){
+                                done(null,newUser)
+                            })
                         }
                     })
                 }else {
