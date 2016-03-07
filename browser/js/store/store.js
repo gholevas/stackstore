@@ -12,6 +12,17 @@ app.config(function($stateProvider) {
     });
 });
 
+app.directive('sibs', function() {
+    return {
+        link: function(scope, element, attrs) {
+            element.bind('click', function() {
+                element.parent().children().removeClass('md-warn');
+                element.addClass('md-warn');
+            })
+        },
+    }
+});
+
 
 app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$stateParams) {
     $scope.storeInfo = storeInfo;
@@ -19,12 +30,11 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
     $scope.answers = {};
 
     $scope.selectAnswer = function(question,answer){
-        console.log($scope.answers)
         $scope.answers[question._id] = answer;
-        answer.selected = true;
-        for(var i=0; i<question.answers.length; i++){
-            if(question.answers[i] !== answer) question.answers.selected = false;
-        }
+        $scope.answers[question._id].selected = true;
+        // for(var i=0; i<question.answers.length; i++){
+        //     if(question.answers[i] !== answer) question.answers.selected = false;
+        // }
     }
 
     $scope.next = function() {
