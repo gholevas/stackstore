@@ -27,15 +27,15 @@ var CartSchema = new mongoose.Schema({
 // 	}, 0)
 // });
 
-CartSchema.methods.addProduct = function(product){
+CartSchema.methods.addProduct = function(product,quantity){
 	var exists = false;
 	this.contents.forEach(function(c){
 		if(c.product.toString() === product._id.toString()){
 			exists=true;
-			c.quantity ++;
+			c.quantity += quantity;
 		}
 	});
-	if(!exists) this.contents.push({product: product, quantity: 1});
+	if(!exists) this.contents.push({product: product, quantity: quantity||1});
 	return this.save();
 }
 

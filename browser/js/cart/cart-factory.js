@@ -25,8 +25,8 @@ app.factory('CartFactory', function ($http) {
         },console.log)
     }
 
-    var addToCart = function (product) {
-        return $http.put('/api/cart/add-to-cart',product).then(function (response) {
+    var addToCart = function (product,quantity) {
+        return $http.put('/api/cart/add-to-cart',{product:product, quantity:quantity}).then(function (response) {
             return response.data;
         })
     }

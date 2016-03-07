@@ -136,7 +136,7 @@ router.post('/purchase', ensureAuthenticatedOrGuestCart, function(req, res, next
 router.put('/add-to-cart', ensureAuthenticatedOrGuestCart, function(req, res, next) {
     Cart.findById(req.user.cart._id)
         .then(function(cart) {
-            return cart.addProduct(req.body)
+            return cart.addProduct(req.body.product, req.body.quantity)
         })
         .then(function (cart) {
             res.json(cart)
