@@ -1,39 +1,73 @@
 <div>
-  <div style="width:50%;margin-left:10%;">
-    <h1>Edit Store</h1>
-    <form name="userForm">
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label><strong>Store Name</strong></label>
-          <input ng-model="store.name">
-        </md-input-container>
-      </div>
-      <div layout-gt-sm="row">
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>Picture Url:</label>
-          <input ng-model="store.pic">
-        </md-input-container>
-      </div>
-      <md-input-container class="md-block">
-        <label>Headline</label>
-        <input ng-model="store.headline">
-      </md-input-container>
-    <md-button class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
-    </form>
-    <div layout-gt-xs="row">
-    <md-button class="md-primary md-raised" ng-click="addQuestion($event)">Add Question</md-button>
-    <md-button class="md-primary md-raised" ng-click="manageQuestion($event)">Manage Questions</md-button>
-    </div>
-<!--     <div>
-      <h2>Manage Questions</h2>
-    </div>
-    <div style="margin:3%">
-      <table style="width:20em">
-        <tr ng-repeat="question in store.questions">
-          <td>{{question.text}}</td>
-          <td><md-icon md-svg-icon="/icons/cancel.svg" aria-label="question" ng-click="removeQuestion(question)"></md-icon></td>
+  <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
+    <md-tab>
+      <md-tab-label>Edit Store</md-tab-label>
+      <md-tab-body>
+        <form name="userForm">
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label><strong>Store Name</strong></label>
+              <input ng-model="store.name">
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Picture Url:</label>
+              <input ng-model="store.pic">
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block">
+            <label>Headline</label>
+            <input ng-model="store.headline">
+          </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
+        </form>
+      <table>
+        <tr>
+          <td><md-button class="md-primary md-raised" ng-click="addQuestion($event)">Add Question</md-button></td>
+          <td><md-button class="md-primary md-raised" ng-click="manageQuestions($event)">Manage Questions</md-button></td>
+        </tr>
+        <tr>
+          <td><md-button class="md-primary md-raised" ng-click="addProduct($event)">Add Product</md-button></td>
+          <td><md-button class="md-primary md-raised" ng-click="manageProducts($event)">Manage Products</md-button></td>
+        </tr>
       </table>
-    </div> -->
-  </div>
-
+      </md-tab-body>
+    </md-tab>
+  </md-tabs>
 </div>
+
+<!-- <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
+            <md-tab ng-repeat="question in storeInfo.questions" id="tab1">
+                <md-tab-label>Question {{$index+1}}</md-tab-label>
+                <md-tab-body>
+                    <div layout-align="center" layout="row">
+                        <h2>{{question.text}}</h2>
+                    </div>
+                    <br>
+
+
+                    <div layout-align="center" layout="row">
+                        <md-button sibs ng-click="selectAnswer(question,answer)" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
+                    </div>
+                    <br>
+                    <div layout-align="center" layout="row">
+                        <div ng-hide="$first" layout="column">
+                            <md-button ng-click="previous()">
+                                Previous
+                            </md-button>
+                        </div>
+                        <div ng-hide="$last" layout="column">
+                            <md-button ng-click="next()">
+                                Next
+                            </md-button>
+                        </div>
+                        <div ng-show="$last" layout="column">
+                            <md-button ng-click="submitAnswers()">
+                                Submit
+                            </md-button>
+                        </div>
+                    </div>
+                </md-tab-body>
+            </md-tab>
+        < -->

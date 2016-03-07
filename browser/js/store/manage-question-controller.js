@@ -5,7 +5,7 @@ app.controller('ManageQuestionCtrl', function($rootScope, $scope, $mdDialog, Sto
 		return StoreEditFactory.removeQuestion(question)
 		.then(function(store){
     	StoreEditFactory.store = store;
-    	$rootScope.$broadcast("questionChange");
+    	$rootScope.$broadcast("storeUpdate");
     	$scope.store = store;
     });
 	};

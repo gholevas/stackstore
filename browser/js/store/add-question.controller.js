@@ -33,7 +33,7 @@ app.controller('AddQuestionCtrl', function($timeout, $rootScope, $scope, $mdDial
     return StoreEditFactory.addQuestion(question)
     .then(function(store){
     	StoreEditFactory.store = store;
-    	$rootScope.$broadcast("newQuestion");
+    	$rootScope.$broadcast("storeUpdate");
     	$scope.cancel();
     });
   };

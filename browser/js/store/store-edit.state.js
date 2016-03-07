@@ -29,23 +29,45 @@ app.config(function($stateProvider){
 			    });
       	};
 
-      	$scope.$on('questionChange', function(){
+      	$scope.$on('storeUpdate', function(){
       		$scope.store = StoreEditFactory.returnStore();
       	});
 
-    //   	$scope.removeQuestion =function(question){
-				// 	return StoreEditFactory.removeQuestion(question)
-				// 	.then(function(store){
-				// 		StoreEditFactory.store = store;
-				// 		$scope.store = store;
-				// 	});
-				// };
-      	$scope.manageQuestion = function(ev) {
+      	$scope.manageQuestions = function(ev) {
 
 			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 			    $mdDialog.show({
 			      controller:'ManageQuestionCtrl',
 			      templateUrl: 'js/store/manage-question.html',
+			      parent: angular.element(document.body),
+			      targetEvent: ev,
+			      clickOutsideToClose:true,
+			      fullscreen: useFullScreen
+			    });
+      	};
+
+      	$scope.addProduct = function(ev) {
+			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+			    $mdDialog.show({
+			      controller:'AddProductCtrl',
+			      templateUrl: 'js/store/add-product.html',
+			      parent: angular.element(document.body),
+			      targetEvent: ev,
+			      clickOutsideToClose:true,
+			      fullscreen: useFullScreen
+			    });
+      	};
+
+      	$scope.$on('productChange', function(){
+      		$scope.store = StoreEditFactory.returnStore();
+      	});
+
+      	$scope.manageProducts = function(ev) {
+
+			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+			    $mdDialog.show({
+			      controller:'ManageProductCtrl',
+			      templateUrl: 'js/store/manage-product.html',
 			      parent: angular.element(document.body),
 			      targetEvent: ev,
 			      clickOutsideToClose:true,
