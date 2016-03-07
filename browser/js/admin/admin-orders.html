@@ -15,22 +15,20 @@
         </md-toolbar>
         <md-table-container>
             <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
-                <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                <thead md-head md-order="query.order">
                     <tr md-row>
                         <th md-column md-order-by="id"><span>Order Id</span></th>
-                        <th md-column md-order-by="price"><span>Price</span></th>
-                        <th md-column md-numeric md-order-by="status" md-desc><span>Status</span></th>
+                        <th md-column md-order-by="totalPrice"><span>Total</span></th>
+                        <th md-column md-order-by="date"><span>Date</span></th>
+                        <th md-column md-order-by="contents.length"><span>Products</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-select="cart" ng-repeat="cart in carts | filter: filter.search | orderBy: query.order">
-                        <td md-cell>{{cart._id}}</td>
-                        <td md-cell>{{cart.totalToPay}}</td>
-                        <td md-cell>
-                            <md-select ng-model="cart.status" placeholder="unpaid">
-                                <md-option ng-value="status" ng-repeat="status in getTypes()">{{status}}</md-option>
-                            </md-select>
-                        </td>
+                    <tr md-row md-select="order" ng-repeat="order in orders | filter: filter.search | orderBy: query.order">
+                        <td md-cell>{{order._id}}</td>
+                        <td md-cell>{{order.totalPrice}}</td>
+                        <td md-cell>{{order.date}}</td>
+                        <td md-cell>{{order.contents.length}}</td>
                     </tr>
                 </tbody>
             </table>
