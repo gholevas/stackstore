@@ -83,7 +83,7 @@ var seedQuestions = function() {
                 tags: ["EDM","rave"]
             }, {
                 text: 'freddy',
-                tags: ["preteen","rave"]
+                tags: ["outdoors","trees"]
             }, {
                 text: 'bobby',
                 tags: ["preteen","rave"]
@@ -95,7 +95,7 @@ var seedQuestions = function() {
         text: 'who is your your momma?',
         answers: [{
                 text: 'arnoldya',
-                tags: ["EDM","rave"]
+                tags: ["food","rave"]
             }, {
                 text: 'freddya',
                 tags: ["preteen","rave"]
@@ -198,8 +198,14 @@ connectToDb.then(function() {
         seedProducts(),
         seedUsers(),
         seedCarts(),
-        seedStores("Cool Stuff"),
-        seedStores("EDM Rave")
+        seedStores("Store 1"),
+        seedStores("Store 2"),
+        seedStores("Store 3"),
+        seedStores("Store 4"),
+        seedStores("Store 5"),
+        seedStores("Store 6"),
+        seedStores("Store 7"),
+        seedStores("Store 8")
     ]
 
     Promise.each(seedyThings, function(element) {
