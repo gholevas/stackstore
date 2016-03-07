@@ -10,7 +10,7 @@ app.config(function($stateProvider) {
         },
         resolve: {
             stores: function (AdminFactory) {
-                return AdminFactory.getStores()
+                return AdminFactory.getStores();
             }
         }
     }).state('adminOrders', {
@@ -19,7 +19,7 @@ app.config(function($stateProvider) {
         templateUrl: 'js/admin/admin-orders.html',
         resolve: {
             orders: function (AdminFactory) {
-                return AdminFactory.getOrders()
+                return AdminFactory.getOrders();
             }
         }
     }).state('adminProducts', {
@@ -28,7 +28,7 @@ app.config(function($stateProvider) {
         templateUrl: 'js/admin/admin-products.html',
         resolve: {
             products: function (AdminFactory) {
-                return AdminFactory.getProducts()
+                return AdminFactory.getProducts();
             }
         }
     });
@@ -37,23 +37,23 @@ app.config(function($stateProvider) {
 
 app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout,stores,AdminFactory) {
     
-    $scope.stores = stores
+    $scope.stores = stores;
 
     $scope.updateStatus = function (store) {
         $scope.promise = $timeout(function() {
             AdminFactory.updateStatus(store)
             .then(function (newStore) {
-                console.log(newStore)
-            })
+                console.log(newStore);
+            });
         }, 500);
-    }
+    };
 
     
 });
 
 app.controller('AdminOrdersController', function($mdEditDialog, $q, $scope, $timeout, orders) {
 
-    $scope.orders = orders
+    $scope.orders = orders;
 
     $scope.selected = [];
 
@@ -65,14 +65,14 @@ app.controller('AdminOrdersController', function($mdEditDialog, $q, $scope, $tim
         $scope.promise = $timeout(function() {
             // loading
         }, 2000);
-    }
+    };
 
 });
 
 
 app.controller('AdminProductsController', function($mdEditDialog, $q, $scope, $timeout, products) {
 
-    $scope.products = products
+    $scope.products = products;
 
     $scope.selected = [];
 
@@ -84,7 +84,7 @@ app.controller('AdminProductsController', function($mdEditDialog, $q, $scope, $t
         $scope.promise = $timeout(function() {
             // loading
         }, 2000);
-    }
+    };
 
 });
 
@@ -113,4 +113,4 @@ app.factory('AdminFactory', function($http){
         }
 
     };
-})
+});
