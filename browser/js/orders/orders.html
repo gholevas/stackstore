@@ -13,9 +13,9 @@
         <md-button ng-click="goHome()">Return to stores</md-button>
     </span>
 </div>
-<md-content flex style="background-color: white;">
+<md-content flex style="background-color: white;" ng-if="isAuthenticated()">
     <md-card>
-        <h2>Orders</h2>
+        <h2> Orders</h2>
         <div flex></div>
         <md-table-container style="background-color: white;">
             <table md-table md-progress="promise" style="background-color: white;">
@@ -41,5 +41,5 @@
         </md-table-container>
     </md-card>
     <div flex></div>
-    <cart-items cart="orderDetails" editable="false"></cart-items>
 </md-content>
+<cart-items cart="orderDetails" editable="false"></cart-items>
