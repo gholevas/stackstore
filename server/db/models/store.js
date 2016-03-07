@@ -12,7 +12,8 @@ var StoreSchema = new mongoose.Schema({
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }],
     orders: [{type: mongoose.Schema.Types.ObjectId, ref: "Order"}],
-    likers: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
+    likers: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
+    active: {type:Boolean, default: true}
 
 }, {
     toObject: {

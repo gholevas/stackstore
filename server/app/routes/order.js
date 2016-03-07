@@ -26,9 +26,8 @@ var ensureAdmin = function(req, res, next) {
 // Get all orders
 router.get('/', ensureAdmin, function(req, res, next) {
     Order.find()
-    .populate("contents user")
-    .then(function(order) {
-        res.json(order);
+    .then(function(orders) {
+        res.json(orders);
     })
     .then(null, next);
 });

@@ -7,7 +7,18 @@ var Question = mongoose.model('Question');
 // get all stores
 router.get('/', function (req, res, next) {
     Store.find({})
-    .populate('products')
+    .populate('products orders')
+    .then(function(info){
+        res.json(info);
+    })
+    .then(null,next);
+
+});
+
+// get all active stores
+router.get('/active', function (req, res, next) {
+    Store.find({active:true})
+    .populate('products orders')
     .then(function(info){
         res.json(info);
     })

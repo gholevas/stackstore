@@ -59,6 +59,12 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                 });
             };
 
+            scope.goToAdmin = function () {
+                $timeout(function() {
+                    $state.go('admin');
+                }, 0);
+            }
+
             // may need to embed cart by refrence, having trouble clearing the cart even though its cleared in db.
             var updateCart = function () {
                 CartFactory.getUserCart()

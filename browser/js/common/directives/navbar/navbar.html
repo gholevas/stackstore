@@ -1,16 +1,19 @@
 <div class="banner">
     <div class="container">
+        <md-button class="md-fab md-accent md-mini md-primary" ng-click="toggleLeft()" aria-label="admin" ng-if="user && user.isAdmin">
+            <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
+        </md-button>
         <div class="logo">
             <a ui-sref="home"><img src="logo.jpg"/></a>
         </div>
         <div class="menu">
             <ul class="megamenu skyblue">
-                <li ng-click="toggleLeft()" aria-label="admin" ng-if="user && user.isSeller"><a class="color2">Admin</a>
+                <li ng-click="goToAdmin()" aria-label="admin" ng-if="user && user.isAdmin"><a class="color2">Admin</a>
                 </li>
                 <user-profile ng-hide="!user || user.isSeller"></user-profile>
                 <li ng-show="!user" ng-click="showAdvanced($event)"><a class="color7" >Login</a></li>
                 <li ng-show="user" ng-click="logout()"><a class="color7">Logout</a></li>
-                <li ng-click="toggleRight()" ng-hide="isOpenRight() || user.isSeller"><a class="color7">Cart</a></li>
+                <li ng-click="toggleRight()" ng-hide="isOpenRight() || user.isSeller || user.isAdmin"><a class="color7">Cart</a></li>
                 <div class="clearfix"> </div>
             </ul>
         </div>
