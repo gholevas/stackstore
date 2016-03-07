@@ -5,14 +5,13 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function(scope) {
-
+            console.log('state is',$state.current)
             function buildToggler(navID) {
                 return function() {
                     $mdSidenav(navID)
                         .toggle();
                 }
             }
-
             // for cart
             scope.toggleRight = buildToggler('right');
 
