@@ -36,6 +36,14 @@ app.factory('StoreEditFactory', function($http){
 		});
 	};
 
+	factory.updateProduct = function(product){
+		var store = this.store;
+		return $http.put('/api/products/store/'+store.url+'/'+product._id,product)
+		.then(function(response){
+			return response.data;
+		});
+	};
+
 	factory.removeQuestion = function(question){
 		var store = this.store;
 		return $http.delete('/api/store/'+store.url+'/question/'+question._id)

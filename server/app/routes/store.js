@@ -99,9 +99,17 @@ router.get("/:url",function(req, res, next){
 	res.json(req.store);
 });
 
+router.get("/id/:id", function(req, res, next){
+	Store.findById(req.params.id)
+	.then(function(store){
+		res.send(store.url);
+	});
+});
+
 //save store
 router.put("/:url", function(req, res, next){
 	Store.findByIdAndUpdate(req.body._id,req.body, {new:true})
+	.populate("products seller questions orders")
 	.then(function(data){
 		res.send(data);
 	}).catch(next);

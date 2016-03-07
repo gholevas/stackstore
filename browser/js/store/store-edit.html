@@ -44,11 +44,13 @@
       <md-tab-label>Manage Questions</md-tab-label>
       <md-tab-body>
               <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+                <md-content>
                   <div class="md-toolbar-tools">
                       <span>Questions</span>
                       <span flex></span>
                       <md-button class="md-primary md-raised" ng-click="addQuestion($event)">Add Question</md-button>
                   </div>
+                </md-content>
               </md-toolbar>
               <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
                   <div class="md-toolbar-tools">
@@ -85,11 +87,13 @@
       <md-tab-label>Manage Products</md-tab-label>
       <md-tab-body>
               <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+                <md-content>
                   <div class="md-toolbar-tools">
                       <span>Products</span>
                       <span flex></span>
                       <md-button class="md-primary md-raised" ng-click="addProduct($event)">Add Product</md-button>
                   </div>
+                </md-content>
               </md-toolbar>
               <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
                   <div class="md-toolbar-tools">
@@ -114,7 +118,7 @@
                               <td md-cell>{{product.price | currency:"$"}}</td>
                               <td md-cell>{{product.tags.join(", ")}}</td>
                               <td md-cell>{{product.imgUrl}}</td>
-                              <td md-cell><md-switch ng-model="product.available" aria-label="Available Switch" ng-click="saveStore()">
+                              <td md-cell><md-switch ng-model="product.available" aria-label="Available Switch" ng-change="updateProduct(product)">
                               </md-switch></td>
                               <td md-cell><md-icon md-svg-icon="/icons/cancel.svg" aria-label="product" ng-click="removeProduct(product)"></md-icon></td>
                           </tr>
@@ -129,10 +133,12 @@
       <md-tab-label>Orders</md-tab-label>
       <md-tab-body>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
-          <div class="md-toolbar-tools">
+          <md-content>
+            <div class="md-toolbar-tools">
               <span>Orders</span>
               <span flex></span>
-          </div>
+            </div>
+          </md-content>
         </md-toolbar>
         <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
             <div class="md-toolbar-tools">

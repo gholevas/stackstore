@@ -13,11 +13,15 @@ var ensureAuthenticated = function(req, res, next) {
 };
 
 var ensureAdminOrSeller = function(req, res, next) {
-    if ((req.user.isSeller && req.user.store === req.params.storeId)||req.user.isAdmin) {
-        next();
-    } else {
-        res.sendStatus(401).end();
-    }
+    Store.find({url:req.params.storeUrl})
+    .then(function(store){
+        console.log("store is: ",store,"\nUser is ",req.user);
+        if ((req.user.isSeller === store._id)||req.user.isAdmin) {
+            next();
+        } else {
+            res.sendStatus(401).end();
+        }
+   });
 };
 
 // get all products (if recommending product on front end, or admin catalog screen)
@@ -72,7 +76,7 @@ router.post('/store/:url/tags', function (req, res, next) {
             }
             numMatches = 0;
         })
-        console.log("bestProduct", bestProduct)
+        console.log("bestProduct", bestProduct);
         return bestProduct;
     })
     .then(function(product){
@@ -83,23 +87,23 @@ router.post('/store/:url/tags', function (req, res, next) {
 
 
 //param to find product by id. sets product on request object.
-router.param("id", function(req, res, next, id){
-    Product.findById(id)
-    .then(function(product){
-        if(!product) throw Error("no such product");
-        console.log(product)
-        req.product = product;
-        next();
-    })
-    .then(null, function(err){
-        err.status(404);
-        next(err);
-    });
-});
+// router.param("id", function(req, res, next, id){
+//     Product.findById(id)
+//     .then(function(product){
+//         if(!product) throw Error("no such product");
+//         console.log(product);
+//         req.product = product;
+//         next();
+//     })
+//     .then(null, function(err){
+//         err.status(404);
+//         next(err);
+//     });
+// });
 
 // update a product (only sellers can update products)
-router.put('/store/:storeId/:id', ensureAdminOrSeller, function (req, res, next) {
-    req.product.set(req.body).save()
+router.put('/store/:storeUrl/:id', function (req, res, next) {
+    Product.findByIdAndUpdate(req.params.id, req.body)
     .then(function(updated){
         res.json(updated);
     })
