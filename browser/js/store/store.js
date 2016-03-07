@@ -13,19 +13,13 @@ app.config(function($stateProvider) {
 });
 
 
-
 app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$stateParams) {
     $scope.storeInfo = storeInfo;
-    $scope.data = {
-        selectedIndex: 0,
-        secondLocked: true,
-        secondLabel: "Item Two",
-        bottom: false
-    };
-
+    
     $scope.answers = {};
 
     $scope.selectAnswer = function(question,answer){
+        console.log($scope.answers)
         $scope.answers[question._id] = answer;
         answer.selected = true;
         for(var i=0; i<question.answers.length; i++){
@@ -47,6 +41,7 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
         for(var answer in $scope.answers){
             tags = tags.concat($scope.answers[answer].tags);
         }
+        console.log(tags)
         StoreFactory.sendAnswers($stateParams.url,tags)
         .then(function(bestProduct){
             $state.go('foundproduct',{productId:bestProduct._id})

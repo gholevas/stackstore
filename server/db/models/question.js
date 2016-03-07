@@ -5,7 +5,7 @@ var QuestionSchema = new mongoose.Schema({
     text: String,
     answers: [{
         text: String,
-        tag: String
+        tags: [String]
     }]
 });
 
