@@ -31,7 +31,16 @@ app.config(function($stateProvider) {
                 return AdminFactory.getProducts()
             }
         }
-    });
+    }).state('adminUsers', {
+        url: '/admin/users',
+        controller: 'AdminUsersController',
+        templateUrl: 'js/admin/admin-users.html',
+        resolve: {
+            users: function (AdminFactory) {
+                return AdminFactory.getUsers()
+            }
+        }
+    })
 
 });
 
@@ -39,7 +48,7 @@ app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout,s
     
     $scope.stores = stores
 
-    $scope.updateStatus = function (store) {
+    $scope.updateStoreStatus = function (store) {
         $scope.promise = $timeout(function() {
             AdminFactory.updateStatus(store)
             .then(function (newStore) {
@@ -88,6 +97,24 @@ app.controller('AdminProductsController', function($mdEditDialog, $q, $scope, $t
 
 });
 
+app.controller('AdminUsersController', function($mdEditDialog, $q, $scope, $timeout, users) {
+
+    $scope.users = users
+
+    $scope.selected = [];
+
+    $scope.getTypes = function() {
+        return ['unpaid', 'shipping info', 'complete'];
+    };
+
+    $scope.loadStuff = function() {
+        $scope.promise = $timeout(function() {
+            // loading
+        }, 2000);
+    }
+
+});
+
 app.factory('AdminFactory', function($http){
     
     return {
@@ -106,7 +133,12 @@ app.factory('AdminFactory', function($http){
                 return response.data;
             }); 
         },
-        updateStatus: function (store) {
+        getUsers: function () {
+            return $http.get('/api/users').then(function (response) {
+                return response.data;
+            }); 
+        },
+        updateStoreStatus: function (store) {
             return $http.put('/api/store/',store).then(function (response) {
                 return response.data;
             }); 

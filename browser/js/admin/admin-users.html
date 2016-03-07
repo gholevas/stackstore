@@ -1,0 +1,38 @@
+<admin-nav></admin-nav>
+<md-content flex>
+    <md-card>
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+            <div class="md-toolbar-tools">
+                <span>Orders</span>
+                <div flex></div>
+                <md-button ng-click="loadStuff()">Async Operation</md-button>
+            </div>
+        </md-toolbar>
+        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+            <div class="md-toolbar-tools">
+                <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+            </div>
+        </md-toolbar>
+        <md-table-container>
+            <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
+                <thead md-head md-order="query.order">
+                    <tr md-row>
+                        <th md-column md-order-by="id"><span>Id</span></th>
+                        <th md-column md-order-by="email"><span>Email</span></th>
+                        <th md-column md-order-by="isAdmin"><span>Admin</span></th>
+                        <th md-column md-order-by="isSeller"><span>Seller</span></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-select="user" ng-repeat="user in users | filter: filter.search | orderBy: query.order">
+                        <td md-cell>{{user._id}}</td>
+                        <td md-cell>{{user.email}}</td>
+                        <td md-cell>{{user.isAdmin}}</td>
+                        <td md-cell>{{user.isSeller}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+    </md-card>
+    <div flex></div>
+</md-content>
