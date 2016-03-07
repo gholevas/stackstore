@@ -12,9 +12,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo,CartFactory) {
+app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo,CartFactory, AuthService) {
 	$scope.product = productInfo;
     $scope.quantity = 1;
+    AuthService.getLoggedInUser(false).then(function(user){
+        $scope.isAdmin = user.isAdmin;
+    });
     $scope.addToCart = function () {
         // need to change one we fix answer schema [tags]
         CartFactory.addToCart($scope.product)
