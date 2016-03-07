@@ -5,7 +5,7 @@ var Product = mongoose.model('Product');
 
 var StoreSchema = new mongoose.Schema({
 
-    name: { type: String, required: true },
+    name: { type: String },
     url: { type: String, unique: true },
     pic: { type: String, default: "http://lorempixel.com/400/400/" },
     headline: String,

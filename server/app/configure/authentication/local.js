@@ -28,9 +28,12 @@ module.exports = function (app) {
         User.findOne({ email: email })
             .then(function (user) {
                 if(!user){
-                    console.log('hii',req.body)
                     User.create({email:email,password:password,isSeller:req.body.isSeller})
                     .then(function(newUser){
+                        if(newUser.isSeller === true){
+                            console.log('we got a seller!')
+                            newUser.addStore({});
+                        }
                         done(null,newUser)
                     })
                 }else {

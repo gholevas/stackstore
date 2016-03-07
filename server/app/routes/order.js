@@ -23,18 +23,18 @@ var ensureAdmin = function(req, res, next) {
 // Get all orders
 router.get('/', ensureAdmin, function(req, res, next) {
     Order.find()
-    .then(function(orders) {
-        res.json(orders);
-    })
-    .then(null, next);
+        .then(function(orders) {
+            res.json(orders);
+        })
+        .then(null, next);
 });
 
 // Get order details
 router.get('/:confirmationNum', function(req, res, next) {
     Order.findOne({})
-    .populate("contents user")
-    .then(function(order) {
-        res.json(order);
-    })
-    .then(null, next);
+        .populate("contents user")
+        .then(function(order) {
+            res.json(order);
+        })
+        .then(null, next);
 });
