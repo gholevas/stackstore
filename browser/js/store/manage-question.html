@@ -7,7 +7,7 @@
 	  </md-button>
 	</div>
 </md-toolbar>
-<md-dialog-content style="width:30vw;height:50vh; ">
+<md-dialog-content style="width:30vw;max-height:80vh; ">
 	<div style="margin:3%">
 	  <table style="width:20em">
 	    <tr ng-repeat="question in store.questions">
@@ -17,3 +17,7 @@
 	  </table>
   </div>
 </md-dialog-content>
+
+<style>
+	tr:nth-child(odd) {background-color: #f2f2f2}
+</style>

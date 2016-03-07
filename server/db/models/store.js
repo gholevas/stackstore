@@ -1,6 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 var Question = mongoose.model('Question');
+var Product = mongoose.model('Product');
 
 var StoreSchema = new mongoose.Schema({
 
@@ -34,10 +35,10 @@ function convertToUrl(name) {
 
 StoreSchema.methods.addProduct = function(product) {
     var theStore = this;
-    return mongoose.model('Product').create(product)
-        .then(function(c) {
-            product = c;
-            theStore.products.addToSet(c._id);
+    return Product.create(product)
+        .then(function(product) {
+            console.log(product);
+            theStore.products.addToSet(product);
             return theStore.save();
         });
 };

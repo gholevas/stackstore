@@ -46,6 +46,18 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                     })
             };
 
+            scope.showSignup = function(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && scope.customFullscreen;
+                $mdDialog.show({
+                        controller: DialogController,
+                        templateUrl: 'js/signup/signup.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true,
+                        fullscreen: useFullScreen
+                    })
+            };
+
             scope.user = null;
 
             scope.isLoggedIn = function() {
