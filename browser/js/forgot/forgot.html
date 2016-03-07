@@ -1,7 +1,7 @@
 <div layout="column" ng-cloak style="background-color: white">
   <md-content layout-padding style="background-color: white">
     <h2 style="background-color: black" ng-if="!reset">Enter your email to reset your password</h2>
-    <form name="forgotPasswordForm" novalidate ng-submit="resetPassword()" ng-if="!reset">
+    <form name="forgotPasswordForm" novalidate ng-submit="resetPassword(email)" ng-if="!reset">
       <md-input-container class="md-block">
         <label>Email</label>
         <input required name="email" ng-model="email">

@@ -38,13 +38,9 @@ router.get('/users', ensureAdmin, function (req, res, next) {
 });
 
 router.post('/forgot', function(req, res, next) {
-    console.log(req.body.email)
-    User.findOne({ email: req.body.email }, function(err, user) {
-        if (!user) {
-          console.error('error', 'No account with that email address exists.');
-          return res.redirect('/');
-        }
-
+    User.findOne({ email: req.body.email })
+    .then(function (user) {
+        
         user.resetPasswordToken = crypto.randomBytes(10).toString('hex')
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
@@ -57,7 +53,7 @@ router.post('/forgot', function(req, res, next) {
             subject: 'Node.js Password Reset',
             text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-              'http://' + req.headers.host + '/api/reset/' + user.resetPasswordToken + '\n\n' +
+              'http://' + req.headers.host + '/reset/' + user.resetPasswordToken + '\n\n' +
               'If you did not request this, please ignore this email and your password will remain unchanged.\n'
         };
         return sendgrid.send(mailOptions)
@@ -69,26 +65,12 @@ router.post('/forgot', function(req, res, next) {
 
 });
 
-router.get('/reset/:token', function(req, res, next) {
-  User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } })
-  .then(function(user) {
-    res.json(user);
-  })
-  .then(null,next)
-});
-
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {
     res.status(404).end();
 });
 
-
-// Make sure this is after all of
-// the registered routes!
-router.use(function (req, res) {
-    res.status(404).end();
-});
 
 
 

@@ -4,15 +4,13 @@ app.config(function($stateProvider) {
         url: '/forgot',
         controller: 'ForgotController',
         templateUrl: 'js/forgot/forgot.html'
-    })
-
-    $stateProvider.state('reset', {
-        url: '/reset',
+    }).state('reset', {
+        url: '/reset/:token',
         controller: 'ResetController',
         templateUrl: 'js/forgot/reset.html',
         resolve: {
-            user: function (AuthService) {
-                 return AuthService.getTokenUser()
+            user: function (AuthService,$stateParams) {
+                return AuthService.getTokenUser($stateParams.token)
             } 
         }
     })
@@ -21,8 +19,8 @@ app.config(function($stateProvider) {
 
 app.controller('ForgotController', function($scope,AuthService){
     
-    $scope.resetPassword = function () {
-        AuthService.resetPassword($scope.email)
+    $scope.resetPassword = function (email) {
+        AuthService.resetPassword(email)
         .then(function (data) {
             $scope.reset = true;
         })
@@ -30,12 +28,16 @@ app.controller('ForgotController', function($scope,AuthService){
 
 })
 
-app.controller('ResetController', function($scope,AuthService){
+app.controller('ResetController', function($state,$scope,AuthService,user){
     
+    $scope.user = user;
+    $scope.user.password = ""
+
     $scope.updatePassword = function () {
-        AuthService.saveUser($scope.user)
+        console.log($scope.user)
+        AuthService.updateTokenUser($scope.user)
         .then(function () {
-            $state.go('home');      
+            $state.go("home")
         })
     }
 

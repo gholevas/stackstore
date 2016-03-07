@@ -78,7 +78,7 @@ var encryptPassword = function(plainText, salt) {
 };
 
 UserSchema.pre('save', function(next) {
-
+    console.log("pre user save")
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
