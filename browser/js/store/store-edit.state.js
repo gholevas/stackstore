@@ -6,7 +6,7 @@ app.config(function($stateProvider) {
         resolve: {
             store: function($stateParams, StoreEditFactory) {
                 return StoreEditFactory.getStore($stateParams.url);
-            }
+                }
         },
 
         controller: function($scope, $mdMedia, $mdDialog, store, StoreEditFactory){
@@ -18,7 +18,6 @@ app.config(function($stateProvider) {
         		StoreEditFactory.store = $scope.store;
         		return StoreEditFactory.saveStore()
         		.then(function(store){
-                    console.log(store);
 	        		$scope.store = store;
 	        		$scope.success = true;
 	        		$scope.error = false;

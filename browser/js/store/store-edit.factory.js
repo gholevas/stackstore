@@ -62,6 +62,13 @@ app.factory('StoreEditFactory', function($http){
 		});
 	};
 
+	factory.populateStore = function(user){
+		return $http.get('/api/user/'+user._id)
+		.then(function(response){
+			return response.data;
+		});
+	};
+
 	factory.getStore = function(url){
 		var self = this;
 		return $http.get('/api/store/'+url)
