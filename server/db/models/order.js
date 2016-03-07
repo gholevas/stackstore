@@ -29,7 +29,8 @@ var OrderSchema = new mongoose.Schema({
     contents: [{product:ProductSchema, quantity: Number}],
     date: {type: Date, default: Date.now},
     user: {type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    confirmationNum: String
+    confirmationNum: String,
+    status: {type: String, default: "Pending"}
 
 });
 
