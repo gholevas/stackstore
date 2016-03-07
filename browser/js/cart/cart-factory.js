@@ -22,11 +22,17 @@ app.factory('CartFactory', function ($http) {
     var processOrder = function (data) {
         return $http.post('/api/cart/purchase',data).then(function(response) {
             return response.data
-        })
+        },console.log)
     }
 
     var addToCart = function (product) {
         return $http.put('/api/cart/add-to-cart',product).then(function (response) {
+            return response.data;
+        })
+    }
+
+    var removeProduct = function (product) {
+        return $http.put('/api/cart/remove-product',product).then(function (response) {
             return response.data
         })
     }
@@ -36,7 +42,8 @@ app.factory('CartFactory', function ($http) {
         getAll: getAll,
         updateCart: updateCart,
         processOrder: processOrder,
-        addToCart: addToCart
+        addToCart: addToCart,
+        removeProduct: removeProduct
     };
 
 });

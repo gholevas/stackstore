@@ -18,19 +18,20 @@ app.config(function($stateProvider) {
 app.controller('CheckOutCtrl', function($rootScope, $scope, $state, user, CartFactory, cart) {
 
     $scope.user = user;
-    $scope.user.cart = cart
-
+    $scope.cart = cart;
 
     $scope.placeOrder = function() {
-
+console.log("CARTID", $scope.cart);
         CartFactory.processOrder({
-            "user": $scope.user._id,
+            // "user": $scope.user._id, //setting this on the backend now -pm
+            "cartId": $scope.cart._id,
             "shipping": $scope.shipping,
             "billing": $scope.billing,
-            "contents": $scope.user.cart.contents
+            "contents": $scope.cart.contents
         }).then(function (data) {
-            console.log("order processed", data)
-            $state.go('membersOnly')
+            $scope.$emit('clearCart')
+            $state.go('membersOnly');
+            // $state.go('thankyou',data.confirmationNum)
         }).then(null,console.log)
         
     }
