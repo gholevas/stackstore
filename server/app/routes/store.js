@@ -108,6 +108,14 @@ router.put("/:url", function(req, res, next){
 	}).catch(next);
 });
 
+//save store alternate
+router.put("/", function(req, res, next){
+	Store.findByIdAndUpdate(req.body._id,{active:req.body.active},{new:true})
+	.then(function (newStore) {
+		res.json(newStore)
+	})
+});
+
 //not neccessary since the get by id returns all of this
 router.get("/:url/products", function(req, res, next){
 	res.json(req.store.products);
