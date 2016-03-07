@@ -21,7 +21,8 @@ app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo
     });
     $scope.addToCart = function () {
         // need to change one we fix answer schema [tags]
-        CartFactory.addToCart($scope.product)
+        // console.log("Quant",$scope.quantity); //TODO, not updating from view
+        CartFactory.addToCart($scope.product, $scope.quantity)
         .then(function () {
             $scope.$emit('updateCart');
             $mdSidenav('right').open()
