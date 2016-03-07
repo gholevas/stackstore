@@ -1,14 +1,14 @@
 <md-dialog ng-controller="LoginCtrl" aria-label="Login" ng-cloak>
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Login</h2>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="close()">
-                    <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-                <form flex id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Login</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <form flex id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
         <md-dialog-content>
                     <alert type="danger" ng-show="error">
                         {{ error }}
@@ -21,11 +21,12 @@
                         <label>Password</label>
                         <input type="password" ng-model="login.password" type="email">
                     </md-input-container>
+                    <a ui-sref="forgot">Forgot Password?</a>
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <md-button type="submit" ng-click="cancel()" style="margin-right:20px;">
                 Submit
             </md-button>
         </md-dialog-actions>
-                </form>
+    </form>
 </md-dialog>

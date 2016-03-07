@@ -44,6 +44,25 @@ router.get('/cart', ensureAuthenticated, function(req, res) {
 	res.json(req.user.cart);
 })
 
+router.get('/reset/:token', function(req, res, next) {
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } })
+    .then(function(user) {
+        res.json(user);
+    })
+    .then(null,next)
+});
+
+// update a unauthenticated user password
+router.put('/reset', function(req, res, next) {
+    User.findOne({ resetPasswordToken: req.body.resetPasswordToken,resetPasswordExpires: {$gt: Date.now()}})
+    .then(function(user) {
+        user.password = req.body.password
+        user.save()
+        res.json(user);
+    })
+    .then(null,next)
+});
+
 // update a user
 router.put('/:userId', ensureAuthenticated, function(req,res, next) {
 	User.findByIdAndUpdate(req.params.userId, req.body, {new:true})
