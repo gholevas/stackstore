@@ -1,52 +1,45 @@
-<div layout="column">
-	<md-card>
-	    <img src="http://lorempixel.com/g/600/200/" class="md-card-image">
-	    <md-card-title>
-	        <md-card-title-text>
-	            <span class="md-headline">{{product.name}}</span>
-	        </md-card-title-text>
-	    </md-card-title>
-	    <md-card-content>
-	        {{product.price | currency:"$"}}
-	    </md-card-content>
-	    <md-card-actions layout="row" layout-align="end center" ng-click="addToCart()">
-	        <md-button>Add to Cart</md-button>
-	    </md-card-actions>
-	</md-card>
+<div class="tabsdemoStaticTabs">
+<md-content>
+    <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
+        <md-tab id="tab1">
+            <md-tab-body>
+                <div layout-align="center" layout="row">
+                    <h2>We found the perfect product!</h2>
+                </div>
+                <br>
+                <div layout-align="center" layout="row">
+                    <div layout-align="center" layout="row">
+                        <div layout="column">
+                            <div class="single_left">
+                                <div class="labout span_1_of_a1">
+                                    <img src="http://lorempixel.com/300/400/sports/1/" class="img-responsive" />
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div>
+                                    <h2>{{product.name}}</h1>
+                                    <p>Availability: <span class="color">In stock</span></p>
+                                    <div class="price_single">
+                                        <span class="actual">{{product.price | currency:"$"}}</span>
+                                    </div>
+                                    <h2>Quick Overview:</h2>
+                                    <p> Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; es</p><br>
+                                    <md-input-container>
+                                        <label>Quantity</label>
+                                        <md-select ng-model="quantity" aria-label="quantity">
+                                            <md-option ng-repeat="num in [1,2,3,4,5,6,7,8,9]" ng-value="{{num}}">
+                                                {{num}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <br>
+                                    <a href="reservation.html" title="Online Reservation" class="btn btn-primary btn-normal btn-inline " target="_self">Add to Cart</a>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                    </div>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+</md-content>
 </div>
-<!-- <div class="tabsdemoStaticTabs">
-    <md-content>
-        <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
-            <md-tab ng-repeat="question in storeInfo.questions" id="tab1">
-                <md-tab-label>Question {{$index+1}}</md-tab-label>
-                <md-tab-body>
-                    <div layout-align="center" layout="row">
-                        <h2>{{question.text}}</h2>
-                    </div>
-                    <br>
-                    <div layout-align="center" layout="row">
-                        <md-button ng-click="selectAnswer(question,answer)" ng-class="{'md-warn' : answer.selected}" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
-                    </div>
-                    <br>
-                    <div layout-align="center" layout="row">
-                        <div ng-hide="$first" layout="column">
-                            <md-button ng-click="previous()">
-                                Previous
-                            </md-button>
-                        </div>
-                        <div ng-hide="$last" layout="column">
-                            <md-button ng-click="next()">
-                                Next
-                            </md-button>
-                        </div>
-                        <div ng-show="$last" layout="column">
-                            <md-button ng-click="submitAnswers()">
-                                Submit
-                            </md-button>
-                        </div>
-                    </div>
-                </md-tab-body>
-            </md-tab>
-        </md-tabs>
-    </md-content>
-</div> -->

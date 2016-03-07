@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
 
 app.controller('FoundProductController', function ($scope,productInfo,CartFactory) {
 	$scope.product = productInfo;
-
+    $scope.quantity = 1;
     $scope.addToCart = function () {
         CartFactory.addToCart($scope.product[0])
         .then(function (newCart) {
