@@ -87,9 +87,7 @@ router.post('/purchase', ensureAuthenticatedOrGuestCart, function(req, res, next
             }).then(function(order){
                 return Store.findById(storeId)
                     .then(function(store){
-                        console.log("PUSHIN")
                         store.orders.push(order._id);
-                        console.log("DONE")
                         return store.save();
                     })
             })

@@ -1,15 +1,17 @@
 app.config(function($stateProvider) {
     $stateProvider.state('orders', {
         url: '/orders',
+        onEnter: function($state, AuthService){
+            if(!AuthService.isAuthenticated()) $state.go("home");
+        },
         templateUrl: 'js/orders/orders.html',
         controller: function($scope,$state,allMyOrders,OrdersFactory) {
             $scope.allMyOrders = allMyOrders;
         },
         resolve: {
             allMyOrders: function(AuthService, OrdersFactory){
-                console.log("authed", AuthService.isAuthenticated());
-                if(AuthService.isAuthenticated()) 
-                    return OrdersFactory.getAllMyOrders();
+                return OrdersFactory.getAllMyOrders()
+                    .catch(console.log.bind(console))
             }
         }
     });
