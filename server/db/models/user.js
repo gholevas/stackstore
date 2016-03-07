@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var CartSchema = mongoose.model('Cart').schema;
 var Store = mongoose.model('Store');
+var Cart = mongoose.model('Cart');
 
 var UserSchema = new mongoose.Schema({
     email: {
@@ -53,6 +54,23 @@ var UserSchema = new mongoose.Schema({
 });
 
 
+UserSchema.methods.addCart = function() {
+    var theUser = this;
+    return Cart.create({isGuest:false})
+        .then(function(createdCart) {
+            theUser.cart = createdCart;
+            return theUser.save();
+        });
+};
+
+UserSchema.methods.addStore = function() {
+    var theUser = this;
+    return Store.create({name:'Test Store '+Math.floor(Math.random() * 6000) + 1 })
+        .then(function(createdStore) {
+            theUser.store = createdStore._id;
+            return theUser.save();
+        });
+};
 
 
 UserSchema.methods.addStore = function() {
