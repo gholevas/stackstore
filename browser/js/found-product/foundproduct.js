@@ -16,6 +16,7 @@ app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo
 	$scope.product = productInfo;
     $scope.quantity = 1;
     AuthService.getLoggedInUser(false).then(function(user){
+        if(!user) return;
         $scope.isAdmin = user.isAdmin;
     });
     $scope.addToCart = function () {
