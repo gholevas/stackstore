@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
 
 app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo,CartFactory) {
 	$scope.product = productInfo;
-
+    $scope.quantity = 1;
     $scope.addToCart = function () {
         // need to change one we fix answer schema [tags]
         CartFactory.addToCart($scope.product[0])
