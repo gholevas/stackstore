@@ -16,12 +16,16 @@ app.directive('adminNav', function($mdSidenav, $state) {
                 $state.go('admin')
             }
 
-            scope.toBoxes = function() {
+            scope.toProducts = function() {
                 $state.go('adminProducts')
             }
 
-            scope.toCarts = function() {
+            scope.toOrders = function() {
                 $state.go('adminOrders')
+            }
+
+            scope.toUsers = function() {
+                $state.go('adminUsers')
             }
 
         }

@@ -60,7 +60,7 @@
         // saves user
 
         this.saveUser = function(user){
-            $http.put('/api/user/'+user._id, user)
+            return $http.put('/api/user/'+user._id, user)
             .then(function(data){
                 return data;
             });
@@ -117,6 +117,30 @@
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             });
         };
+
+        this.resetPassword = function (email) {
+            return $http.post('/api/forgot',{email:email})
+                .then(function (response) {
+                    return response.data
+                })
+        }
+
+        this.getTokenUser = function (token) {
+            console.log('here',token)
+            return $http.get('/api/user/reset/'+token)
+                .then(function (response) {
+                    console.log("resolved token user")
+                    return response.data
+                })
+        }
+
+        this.updateTokenUser = function (user) {
+            return $http.put('/api/user/reset',user)
+                .then(function (response) {
+                    console.log("resolved token user")
+                    return response.data
+                })
+        }
 
     });
 
