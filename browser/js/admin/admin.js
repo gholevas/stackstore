@@ -9,7 +9,7 @@ app.config(function($stateProvider) {
             authenticate: true
         },
         resolve: {
-            stores: function (AdminFactory) {
+            stores: function(AdminFactory) {
                 return AdminFactory.getStores();
             }
         }
@@ -18,7 +18,7 @@ app.config(function($stateProvider) {
         controller: 'AdminOrdersController',
         templateUrl: 'js/admin/admin-orders.html',
         resolve: {
-            orders: function (AdminFactory) {
+            orders: function(AdminFactory) {
                 return AdminFactory.getOrders();
             }
         }
@@ -27,7 +27,7 @@ app.config(function($stateProvider) {
         controller: 'AdminProductsController',
         templateUrl: 'js/admin/admin-products.html',
         resolve: {
-            products: function (AdminFactory) {
+            products: function(AdminFactory) {
                 return AdminFactory.getProducts();
             }
         }
@@ -36,7 +36,7 @@ app.config(function($stateProvider) {
         controller: 'AdminUsersController',
         templateUrl: 'js/admin/admin-users.html',
         resolve: {
-            users: function (AdminFactory) {
+            users: function(AdminFactory) {
                 return AdminFactory.getUsers()
             }
         }
@@ -44,20 +44,20 @@ app.config(function($stateProvider) {
 
 });
 
-app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout,stores,AdminFactory) {
-    
+app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout, stores, AdminFactory) {
+
     $scope.stores = stores;
 
-    $scope.updateStoreStatus = function (store) {
+    $scope.updateStoreStatus = function(store) {
         $scope.promise = $timeout(function() {
-            AdminFactory.updateStatus(store)
-            .then(function (newStore) {
-                console.log(newStore);
-            });
+            AdminFactory.updateStoreStatus(store)
+                .then(function(newStore) {
+                    console.log(newStore);
+                });
         }, 500);
     };
 
-    
+
 });
 
 app.controller('AdminOrdersController', function($mdEditDialog, $q, $scope, $timeout, orders) {
@@ -70,12 +70,6 @@ app.controller('AdminOrdersController', function($mdEditDialog, $q, $scope, $tim
         return ['unpaid', 'shipping info', 'complete'];
     };
 
-    $scope.loadStuff = function() {
-        $scope.promise = $timeout(function() {
-            // loading
-        }, 2000);
-    };
-
 });
 
 
@@ -85,63 +79,50 @@ app.controller('AdminProductsController', function($mdEditDialog, $q, $scope, $t
 
     $scope.selected = [];
 
-    $scope.getTypes = function() {
-        return ['unpaid', 'shipping info', 'complete'];
-    };
-
-    $scope.loadStuff = function() {
-        $scope.promise = $timeout(function() {
-            // loading
-        }, 2000);
-    };
 
 });
 
-app.controller('AdminUsersController', function($mdEditDialog, $q, $scope, $timeout, users) {
+app.controller('AdminUsersController', function($mdEditDialog, $q, $scope, $timeout, users, AuthService) {
 
     $scope.users = users
 
     $scope.selected = [];
 
-    $scope.getTypes = function() {
-        return ['unpaid', 'shipping info', 'complete'];
-    };
-
-    $scope.loadStuff = function() {
-        $scope.promise = $timeout(function() {
-            // loading
-        }, 2000);
+    $scope.resetPassword = function(user) {
+        $scope.promise = AuthService.resetPassword(user.email)
+            .then(function() {})
     }
+
 
 });
 
-app.factory('AdminFactory', function($http){
-    
+app.factory('AdminFactory', function($http) {
+
     return {
-        getStores: function () {
-            return $http.get('/api/store').then(function (response) {
+        getStores: function() {
+            return $http.get('/api/store').then(function(response) {
                 return response.data;
-            }); 
+            });
         },
-        getOrders: function () {
-            return $http.get('/api/orders').then(function (response) {
+        getOrders: function() {
+            return $http.get('/api/orders').then(function(response) {
                 return response.data;
-            }); 
+            });
         },
-        getProducts: function () {
-            return $http.get('/api/products').then(function (response) {
+        getProducts: function() {
+            return $http.get('/api/products').then(function(response) {
                 return response.data;
-            }); 
+            });
         },
-        getUsers: function () {
-            return $http.get('/api/users').then(function (response) {
+        getUsers: function() {
+            return $http.get('/api/users').then(function(response) {
                 return response.data;
-            }); 
+            });
         },
-        updateStoreStatus: function (store) {
-            return $http.put('/api/store/',store).then(function (response) {
+        updateStoreStatus: function(store) {
+            return $http.put('/api/store/', store).then(function(response) {
                 return response.data;
-            }); 
+            });
         }
 
     };
