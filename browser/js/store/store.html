@@ -1,6 +1,16 @@
 <div class="tabsdemoStaticTabs">
     <md-content>
         <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
+            <!-- <md-tab ng-show="storeInfo.questions.length">
+             <md-tab-body>
+            <div layout-align="center" layout="row">
+                <h2>This store has not added any questions yet.</h2>
+            </div>
+            <div layout-align="center" layout="row">
+                <h3>If you are the store owner, <a ng-click="goToStoreEdit()" style="color:red">click here</a> to begin adding questions.</h3>
+            </div>
+            </md-tab-body>
+            </md-tab> -->
             <md-tab ng-repeat="question in storeInfo.questions" id="tab1" ng-click="showWarningMsg(false)">
                 <md-tab-label>Question {{$index+1}}</md-tab-label>
                 <md-tab-body>
@@ -11,8 +21,6 @@
                         <h2>{{question.text}}</h2>
                     </div>
                     <br>
-
-
                     <div layout-align="center" layout="row">
                         <md-button sibs ng-click="selectAnswer(question,answer)" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
                     </div>
