@@ -46,6 +46,14 @@ app.config(function($stateProvider){
 			    });
       	};
 
+      		$scope.removeQuestion =function(question){
+						return StoreEditFactory.removeQuestion(question)
+						.then(function(store){
+				    	StoreEditFactory.store = store;
+				    	$scope.store = store;
+			    	});
+					};
+
       	$scope.addProduct = function(ev) {
 			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 			    $mdDialog.show({
@@ -57,10 +65,6 @@ app.config(function($stateProvider){
 			      fullscreen: useFullScreen
 			    });
       	};
-
-      	$scope.$on('productChange', function(){
-      		$scope.store = StoreEditFactory.returnStore();
-      	});
 
       	$scope.manageProducts = function(ev) {
 
