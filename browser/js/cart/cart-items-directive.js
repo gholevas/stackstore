@@ -2,7 +2,8 @@ app.directive('cartItems', function(CartFactory) {
     return {
         restrict: 'E',
         scope: {
-      		cart: '='
+      		cart: '=',
+            editable: "="
 		},
         templateUrl: 'js/cart/cart-items.html',
         link: function (scope) {

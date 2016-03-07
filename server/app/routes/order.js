@@ -26,7 +26,7 @@ var ensureAdmin = function(req, res, next) {
 // Get all orders
 router.get('/', ensureAdmin, function(req, res, next) {
     Order.find()
-    .populate("contents user")
+    .populate("user")
     .then(function(order) {
         res.json(order);
     })
@@ -35,8 +35,9 @@ router.get('/', ensureAdmin, function(req, res, next) {
 
 // Get order details
 router.get('/:confirmationNum', function(req, res, next) {
-    Order.findOne({})
-    .populate("contents user")
+    console.log("cccc",req.params.confirmationNum);
+    Order.findOne({confirmationNum: req.params.confirmationNum})
+    .populate("user")
     .then(function(order) {
         res.json(order);
     })

@@ -30,8 +30,8 @@ app.controller('CheckOutCtrl', function($rootScope, $scope, $state, user, CartFa
             "contents": $scope.cart.contents
         }).then(function (data) {
             $scope.$emit('clearCart')
-            $state.go('membersOnly');
-            // $state.go('thankyou',data.confirmationNum)
+            // $state.go('membersOnly');
+            $state.go('thankyou',data.confirmationNum)
         }).then(null,console.log)
         
     }

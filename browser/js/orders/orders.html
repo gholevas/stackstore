@@ -1,39 +1,45 @@
-<md-content flex>
+<style>
+.selected {
+    background-color: #da430f;
+} 
+</style>
+<div style="text-align: center" id='confirmation' ng-if="confNum">
+    <br>
+    <h2>Thank you for your purchaise!</h2>
+    <h4>your order number is <b>{{confNum}}</b></h4>
+    <br><br>
+    <span>
+        <md-button ng-click="">Sign Up!</md-button>
+        <md-button ng-click="goHome()">Return to stores</md-button>
+    </span>
+</div>
+<md-content flex style="background-color: white;">
     <md-card>
-        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
-            <div class="md-toolbar-tools">
-                <span>Orders</span>
-                <div flex></div>
-                <md-button ng-click="">LoadStuffMaybe</md-button>
-            </div>
-        </md-toolbar>
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-            <div class="md-toolbar-tools">
-                <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
-            </div>
-        </md-toolbar>
-        <md-table-container>
-            <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
-                <thead md-head md-order="query.order" md-on-reorder="logOrder">
+        <h2>Orders</h2>
+        <div flex></div>
+        <md-table-container style="background-color: white;">
+            <table md-table md-progress="promise" style="background-color: white;">
+                <thead md-head md-order="order" md-on-reorder="logOrder">
                     <tr md-row>
-                        <th md-column md-order-by="id"><span>Order Id</span></th>
+                        <th md-column md-order-by="date" mdDesc><span>Date</span></th>
+                        <th md-column md-order-by="id"><span>Confirmation #</span></th>
                         <th md-column md-order-by="price"><span>Price</span></th>
+                        <th md-column md-order-by="numItems"><span>Num Items</span></th>
                         <th md-column md-numeric md-order-by="status" md-desc><span>Status</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-select="cart" ng-repeat="cart in carts | filter: filter.search | orderBy: query.order">
-                        <td md-cell>{{cart._id}}</td>
-                        <td md-cell>{{cart.totalToPay}}</td>
-                        <td md-cell>
-                            <md-select ng-model="cart.status" placeholder="unpaid">
-                                <md-option ng-value="status" ng-repeat="status in getTypes()">{{status}}</md-option>
-                            </md-select>
-                        </td>
+                    <tr md-row ng-click="selectRow(order)" ng-class="{selected: order.confirmationNum.toString()==orderDetails.confirmationNum.toString()}" ng-repeat="order in allMyOrders | filter: filter.search | orderBy: order">
+                        <td md-cell>{{order.date | date: format}}</td>
+                        <td md-cell>{{order.confirmationNum}}</td>
+                        <td md-cell>{{order.totalPrice | currency: "$"}}</td>
+                        <td md-cell>{{order.numItems}}</td>
+                        <td md-cell>{{order.status}}</td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
     </md-card>
     <div flex></div>
+    <cart-items cart="orderDetails" editable="false"></cart-items>
 </md-content>
