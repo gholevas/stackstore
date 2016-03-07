@@ -2,7 +2,6 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-var OrderSchema = mongoose.model('Order').schema;
 var CartSchema = mongoose.model('Cart').schema;
 
 var UserSchema = new mongoose.Schema({
