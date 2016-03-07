@@ -1,0 +1,31 @@
+<md-dialog ng-controller="SignupCtrl" aria-label="signup" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Signup</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+                <form flex id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
+        <md-dialog-content>
+                    <alert type="danger" ng-show="error">
+                        {{ error }}
+                    </alert>
+                    <md-input-container class="md-block">
+                        <label>Email</label>
+                        <input type="text" ng-model="signup.email" type="email">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Password</label>
+                        <input type="password" ng-model="signup.password" type="email">
+                    </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button type="submit" ng-click="cancel()" style="margin-right:20px;">
+                Signup
+            </md-button>
+        </md-dialog-actions>
+                </form>
+</md-dialog>

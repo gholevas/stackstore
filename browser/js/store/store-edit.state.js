@@ -29,23 +29,32 @@ app.config(function($stateProvider){
 			    });
       	};
 
-      	$scope.$on('questionChange', function(){
+      	$scope.$on('storeUpdate', function(){
       		$scope.store = StoreEditFactory.returnStore();
       	});
 
-    //   	$scope.removeQuestion =function(question){
-				// 	return StoreEditFactory.removeQuestion(question)
-				// 	.then(function(store){
-				// 		StoreEditFactory.store = store;
-				// 		$scope.store = store;
-				// 	});
-				// };
-      	$scope.manageQuestion = function(ev) {
+    		$scope.removeQuestion =function(question){
+					return StoreEditFactory.removeQuestion(question)
+					.then(function(store){
+			    	StoreEditFactory.store = store;
+			    	$scope.store = store;
+		    	});
+				};
 
+				$scope.removeProduct =function(product){
+					return StoreEditFactory.removeProduct(product)
+					.then(function(store){
+			    	StoreEditFactory.store = store;
+			    	$scope.store = store;
+		    	});
+				};
+
+
+      	$scope.addProduct = function(ev) {
 			    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 			    $mdDialog.show({
-			      controller:'ManageQuestionCtrl',
-			      templateUrl: 'js/store/manage-question.html',
+			      controller:'AddProductCtrl',
+			      templateUrl: 'js/store/add-product.html',
 			      parent: angular.element(document.body),
 			      targetEvent: ev,
 			      clickOutsideToClose:true,
