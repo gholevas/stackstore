@@ -1,7 +1,7 @@
 <div class="tabsdemoStaticTabs">
     <md-content>
         <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
-            <md-tab ng-repeat="question in storeInfo.questions" id="tab1">
+            <md-tab ng-repeat="question in storeInfo.questions" id="tab1" ng-click="showWarningMsg(false)">
                 <md-tab-label>Question {{$index+1}}</md-tab-label>
                 <md-tab-body>
                     <div layout-align="center" layout="row">
@@ -30,6 +30,9 @@
                                 Submit
                             </md-button>
                         </div>
+                    </div>
+                    <div layout-align="center" layout="row">
+                        <h4 ng-show="pleaseAnswerAllMsg">Please answer all the questions!</h4>
                     </div>
                 </md-tab-body>
             </md-tab>

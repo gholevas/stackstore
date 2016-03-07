@@ -38,25 +38,35 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
     }
 
     $scope.next = function() {
+        $scope.showWarningMsg(false);
         $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
     };
 
-
     $scope.previous = function() {
+        $scope.showWarningMsg(false);
         $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
     };
 
     $scope.submitAnswers = function(){
-        var tags = [];
         //TODO ensure all questions answered
+        if(Object.keys($scope.answers).length !== storeInfo.questions.length){
+            $scope.showWarningMsg(true);
+            return;
+        }
+
+        var tags = [];
         for(var answer in $scope.answers){
             tags = tags.concat($scope.answers[answer].tags);
         }
-        console.log(tags)
+
         StoreFactory.sendAnswers($stateParams.url,tags)
         .then(function(bestProduct){
             $state.go('foundproduct',{productId:bestProduct._id})
         })
+    }
+
+    $scope.showWarningMsg = function(bool){
+        $scope.pleaseAnswerAllMsg = bool;
     }
 
 });
