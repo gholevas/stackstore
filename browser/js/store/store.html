@@ -11,7 +11,7 @@
 
 
                     <div layout-align="center" layout="row">
-                        <md-button ng-click="selectAnswer(question,answer)" ng-class="{'md-warn' : answer.selected}" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
+                        <md-button sibs ng-click="selectAnswer(question,answer)" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
                     </div>
                     <br>
                     <div layout-align="center" layout="row">
