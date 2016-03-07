@@ -27,6 +27,15 @@ router.get('/active', function (req, res, next) {
 
 });
 
+//get store by ID
+router.get("/id/:id", function(req, res, next){
+    Store.findById(req.params.id)
+    .then(function(store){
+        res.send(store.url);
+    });
+});
+
+
 // add a store
 // req needs the _id of seller (user), [products], [questions]
 // needs to ensure the id of seller is currently logged user OR admin
@@ -99,9 +108,17 @@ router.get("/:url",function(req, res, next){
 	res.json(req.store);
 });
 
+router.get("/id/:id", function(req, res, next){
+	Store.findById(req.params.id)
+	.then(function(store){
+		res.send(store.url);
+	});
+});
+
 //save store
 router.put("/:url", function(req, res, next){
 	Store.findByIdAndUpdate(req.body._id,req.body, {new:true})
+	.populate("products seller questions orders")
 	.then(function(data){
 		res.send(data);
 	}).catch(next);

@@ -28,10 +28,19 @@ module.exports = function (app) {
         User.findOne({ email: email })
             .then(function (user) {
                 if(!user){
-                    console.log('hii',req.body)
                     User.create({email:email,password:password,isSeller:req.body.isSeller})
                     .then(function(newUser){
-                        done(null,newUser)
+                        if(newUser.isSeller === true){
+                            newUser.addStore({})
+                            .then(function(newUser){
+                                done(null,newUser)
+                            })
+                        }else{
+                            newUser.addCart({})
+                            .then(function(newUser){
+                                done(null,newUser)
+                            })
+                        }
                     })
                 }else {
                     var error = new Error('That email already exists')

@@ -54,5 +54,5 @@ app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')
     .primaryPalette('red')
     .accentPalette('red')
-    .dark();
+    // .dark();
 });
