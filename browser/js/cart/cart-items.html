@@ -6,17 +6,17 @@
                 <label>Price {{c.product.price}}</label>
                 <label>Quantity {{c.quantity}}</label>
             </div>
-            <div layout="column">
+            <div ng-if="editable" layout="column">
                 <md-select ng-model="c.quantity" aria-label="quantity" ng-change="updateCart()">
                     <md-option ng-repeat="num in getNums()" ng-value="{{num}}">
                         {{num}}
                     </md-option>
                 </md-select>
             </div>
-            <div layout="column">
+            <div ng-if="editable" layout="column">
                 <i class="material-icons" ng-click="removeProduct(c.product,$index)">clear</i>
             </div>
         </md-list-item>
     </md-card>
-    <h2>Total: {{cart.totalToPay}}</h2>
+    <h2 ng-if="editable">Total: {{cart.totalToPay}}</h2>
 </md-list>
