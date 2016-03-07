@@ -76,6 +76,12 @@ app.factory('StoreFactory', function($http) {
                     return res.data;
                 })
         },
+        getActiveStores: function() {
+            return $http.get('/api/store/active')
+                .then(function(res) {
+                    return res.data;
+                })
+        },
         sendAnswers: function(url,tags) {
             return $http.post('/api/products/store/'+url+'/tags',tags)
                 .then(function(res){
