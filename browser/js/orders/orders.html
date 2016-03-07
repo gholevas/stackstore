@@ -30,7 +30,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row ng-click="selectRow(order)" ng-class="{selected: order.confirmationNum.toString()==orderDetails.confirmationNum.toString()}" ng-repeat="order in allMyOrders | filter: filter.search | orderBy: order">
-                        <td md-cell>{{order.date | date: format}}</td>
+                        <td md-cell>{{order.date | date: "medium"}}</td>
                         <td md-cell>{{order.confirmationNum}}</td>
                         <td md-cell>{{order.totalPrice | currency: "$"}}</td>
                         <td md-cell>{{order.numItems}}</td>

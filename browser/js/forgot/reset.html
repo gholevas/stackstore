@@ -1,0 +1,15 @@
+<div layout="column" style="background-color: white">
+  <md-content layout-padding style="background-color: white">
+    <h2 style="background-color: black">Enter a new password</h2>
+    <form name="changePasswordForm" novalidate ng-submit="updatePassword(password)">
+      <md-input-container class="md-block">
+        <label>Password</label>
+        <input required name="user.password" ng-model="user.password">
+        <div ng-messages="forgotPasswordForm.user.password.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <md-button type="submit" class="md-raised md-primary">Submit</md-button>
+    </form>
+  </md-content>
+</div>

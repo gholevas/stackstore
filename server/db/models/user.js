@@ -43,7 +43,9 @@ var UserSchema = new mongoose.Schema({
     isSeller: Boolean,
     store: { type: mongoose.Schema.Types.ObjectId, ref: "Store" },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
-    cart: CartSchema
+    cart: CartSchema,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 }, {
     toObject: {
         virtuals: true
@@ -111,7 +113,7 @@ var encryptPassword = function(plainText, salt) {
 };
 
 UserSchema.pre('save', function(next) {
-
+    console.log("pre user save")
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
