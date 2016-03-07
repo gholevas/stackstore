@@ -31,10 +31,13 @@ module.exports = function (app) {
                     User.create({email:email,password:password,isSeller:req.body.isSeller})
                     .then(function(newUser){
                         if(newUser.isSeller === true){
-                            console.log('we got a seller!')
-                            newUser.addStore({});
+                            newUser.addStore({})
+                            .then(function(newUser){
+                                done(null,newUser)
+                            })
+                        }else{
+                            done(null,newUser)
                         }
-                        done(null,newUser)
                     })
                 }else {
                     var error = new Error('That email already exists')
