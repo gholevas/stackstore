@@ -15,5 +15,8 @@ module.exports = {
     "clientID": "INSERT_GOOGLE_CLIENTID_HERE",
     "clientSecret": "INSERT_GOOGLE_CLIENT_SECRET_HERE",
     "callbackURL": "INSERT_GOOGLE_CALLBACK_HERE"
+  },
+  "SENDGRID":{
+    "apikey": "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"
   }
 };

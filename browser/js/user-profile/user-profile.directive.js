@@ -4,6 +4,11 @@ app.directive('userProfile', function() {
         templateUrl: 'js/user-profile/user-profile.directive.html',        
         controller: function($scope, $mdDialog) {
             $scope.showTabDialog = function(ev) {
+            $scope.close = function(){
+                console.log('hi')
+                $mdDialog.cancel();
+            };
+
                 $mdDialog.show({
                     controller: function DialogController($scope, AuthService) {
                         AuthService.getLoggedInUser()
@@ -17,7 +22,7 @@ app.directive('userProfile', function() {
                         $scope.hide = function() {
                             $mdDialog.hide();
                         };
-                        $scope.cancel = function() {
+                        $scope.close = function() {
                             $mdDialog.cancel();
                         };
                         $scope.answer = function(answer) {

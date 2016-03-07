@@ -113,11 +113,7 @@ router.put('/store/:storeUrl/:id', function (req, res, next) {
 
 // get specific product
 router.get('/:id', function (req, res, next) {
-    res.json(req.product)
-    .catch(function(err){
-        err.status = 404;
-        next(err);
-    })
+    res.json(req.product);
 });
 
 module.exports = router;

@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var CartSchema = mongoose.model('Cart').schema;
+var Store = mongoose.model('Store');
 
 var UserSchema = new mongoose.Schema({
     email: {
@@ -50,6 +51,22 @@ var UserSchema = new mongoose.Schema({
         virtuals: true
     }
 });
+
+
+
+
+UserSchema.methods.addStore = function() {
+    console.log('addddding a storeee')
+    var theUser = this;
+    return Store.create({name:'Test Store '+Math.floor(Math.random() * 6000) + 1 })
+        .then(function(createdStore) {
+            theUser.store = createdStore._id;
+            return theUser.save();
+        });
+};
+
+
+
 
 // method to remove sensitive information from user objects before sending them out
 UserSchema.methods.sanitize = function() {

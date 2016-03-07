@@ -20,6 +20,8 @@ app.controller('HomeCtrl', function($scope, $state, stores){
 	$scope.goToStore = function (store) {
 		$state.go('store', {url: store.url});
 	};
+
+    
 });
 
 

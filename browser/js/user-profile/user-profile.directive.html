@@ -8,7 +8,7 @@
       <div class="md-toolbar-tools">
         <h2>User Profile</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="hide()">
           <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
         </md-button>
       </div>
@@ -118,7 +118,7 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button ng-click="cancel()" target="_blank" md-autofocus>
+      <md-button ng-click="close()" target="_blank" md-autofocus>
         Cancel
       </md-button>
       <span flex></span>
