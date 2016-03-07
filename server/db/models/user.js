@@ -2,7 +2,6 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-var OrderSchema = mongoose.model('Order').schema;
 var CartSchema = mongoose.model('Cart').schema;
 
 var UserSchema = new mongoose.Schema({
@@ -10,10 +9,8 @@ var UserSchema = new mongoose.Schema({
         type: String
     },
     profile: {
-        name: {
-            first: String,
-            last: String
-        },
+        firstName: String,
+        lastName: String,
         address: {
             street: String,
             apt: String,
@@ -63,8 +60,8 @@ UserSchema.methods.sanitize = function() {
 
 //virtual to get Full Name
 
-UserSchema.virtual('fullName').get(function() {
-    return this.firstName + " " + this.lastName;
+UserSchema.virtual('profile.fullName').get(function() {
+    return this.profile.firstName + " " + this.profile.lastName;
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

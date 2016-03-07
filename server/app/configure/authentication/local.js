@@ -24,22 +24,23 @@ module.exports = function (app) {
             });
     };
 
-    var strategySignUp = function (email, password, done) {
+    var strategySignUp = function (req, email, password, done) {
         User.findOne({ email: email })
             .then(function (user) {
                 if(!user){
-                    User.create({email:email,password:password})
+                    console.log('hii',req.body)
+                    User.create({email:email,password:password,isSeller:req.body.isSeller})
                     .then(function(newUser){
                         done(null,newUser)
                     })
                 }else {
                     var error = new Error('That email already exists')
-                    return next(error);
+                    return done(error);
                 }
             })
     };
 
-    passport.use('local-signup',new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, strategySignUp));
+    passport.use('local-signup',new LocalStrategy({ usernameField: 'email', passwordField: 'password', passReqToCallback: true}, strategySignUp));
     
     app.post('/signup', function(req,res,next){
 
@@ -48,7 +49,7 @@ module.exports = function (app) {
             if (err) return next(err);
 
             if (!user) {
-                var error = new Error('Invalid login credentials.');
+                var error = new Error('That email already exists.');
                 error.status = 401;
                 return next(error);
             }

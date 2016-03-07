@@ -18,7 +18,7 @@ app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo
     $scope.addToCart = function () {
         // need to change one we fix answer schema [tags]
         CartFactory.addToCart($scope.product)
-        .then(function (newCart) {
+        .then(function () {
             $scope.$emit('updateCart');
             $mdSidenav('right').open()
         })

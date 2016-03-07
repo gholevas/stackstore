@@ -32,7 +32,7 @@ router.get('/active', function (req, res, next) {
 // needs to ensure the id of seller is currently logged user OR admin
 router.post('/', function (req, res, next) {
 	if(!(req.body.sellerId===req.user._id || req.user.isAdmin))
-		next({status:401})
+		next({status:401});
 	
 	Store.create(req.body)
     .then(function(info){
@@ -53,7 +53,7 @@ router.param("url", function(req, res, next, id){
 	.catch(function(err){
 		err.status = 404;
 		next(err);
-	})
+	});
 });
 
 //add a question to a store
@@ -101,10 +101,9 @@ router.get("/:url",function(req, res, next){
 
 //save store
 router.put("/:url", function(req, res, next){
-
-	req.store.update(req.body)
+	Store.findByIdAndUpdate(req.body._id,req.body, {new:true})
 	.then(function(data){
-		res.send("data");
+		res.send(data);
 	}).catch(next);
 });
 
@@ -112,8 +111,8 @@ router.put("/:url", function(req, res, next){
 router.put("/", function(req, res, next){
 	Store.findByIdAndUpdate(req.body._id,{active:req.body.active},{new:true})
 	.then(function (newStore) {
-		res.json(newStore)
-	})
+		res.json(newStore);
+	});
 });
 
 //not neccessary since the get by id returns all of this
