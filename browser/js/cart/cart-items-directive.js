@@ -19,9 +19,9 @@ app.directive('cartItems', function(CartFactory) {
 
             scope.$watch('cart.contents', getTotal)
 
-            scope.removeProduct = function (product) {
-                scope.cart.contents.splice(scope.cart.contents.indexOf(product),1)
-                getTotal()
+            scope.removeProduct = function (product,index) {
+                scope.cart.contents.splice(index,1);
+                getTotal();
                 CartFactory.removeProduct(product).then(null,console.log)
             }
 

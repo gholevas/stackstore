@@ -125,7 +125,7 @@ router.put('/add-to-cart', ensureAuthenticatedOrGuestCart, function(req, res, ne
 
 });
 
-// creates a cart and adds the product //TODO, is this being used? guessing it can be deleted
+// creates a cart and adds the product //TODO, is this being used? yes
 router.put('/user', ensureAuthenticatedOrGuestCart, function(req, res, next) {
     Cart.findByIdAndUpdate(req.user.cart._id,req.body,{new:true})
         .then(function(cart) {
