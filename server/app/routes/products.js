@@ -87,19 +87,19 @@ router.post('/store/:url/tags', function (req, res, next) {
 
 
 //param to find product by id. sets product on request object.
-// router.param("id", function(req, res, next, id){
-//     Product.findById(id)
-//     .then(function(product){
-//         if(!product) throw Error("no such product");
-//         console.log(product);
-//         req.product = product;
-//         next();
-//     })
-//     .then(null, function(err){
-//         err.status(404);
-//         next(err);
-//     });
-// });
+router.param("id", function(req, res, next, id){
+    Product.findById(id)
+    .then(function(product){
+        if(!product) throw Error("no such product");
+        console.log(product);
+        req.product = product;
+        next();
+    })
+    .then(null, function(err){
+        err.status(404);
+        next(err);
+    });
+});
 
 // update a product (only sellers can update products)
 router.put('/store/:storeUrl/:id', function (req, res, next) {
