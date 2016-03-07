@@ -8,25 +8,33 @@
           <div class="md-toolbar-tools">
               <span>Edit Store Info</span>
           </div>
-      </md-toolbar>
+        </md-toolbar>
           <form name="userForm">
             <div layout-gt-xs="row">
               <md-input-container class="md-block" flex-gt-xs>
                 <label><strong>Store Name</strong></label>
-                <input ng-model="store.name">
+                <input required ng-model="store.name">
               </md-input-container>
             </div>
             <div layout-gt-sm="row">
               <md-input-container class="md-block" flex-gt-sm>
                 <label>Picture Url:</label>
-                <input ng-model="store.pic">
+                <input required ng-model="store.pic">
               </md-input-container>
             </div>
             <md-input-container class="md-block">
               <label>Headline</label>
               <input ng-model="store.headline">
             </md-input-container>
-          <md-button class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
+            <div layout-gt-xs="row">
+              <md-button name="save" class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
+                <div ng-show="error">
+                  <p class="error-message">Save unsuccessful!</p>
+                </div>
+                <div ng-show="success">
+                  <p class="success-message">Save successful!</p>
+                </div>
+              </div>
           </form>
         </md-content>
       </md-tab-body>
@@ -35,7 +43,6 @@
     <md-tab>
       <md-tab-label>Manage Questions</md-tab-label>
       <md-tab-body>
-          <!-- <md-card> -->
               <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
                   <div class="md-toolbar-tools">
                       <span>Questions</span>
@@ -70,7 +77,6 @@
                       </tbody>
                   </table>
               </md-table-container>
-          </md-card>
           <div flex></div>
         </md-content>
       </md-tab-body>
@@ -78,7 +84,6 @@
     <md-tab>
       <md-tab-label>Manage Products</md-tab-label>
       <md-tab-body>
-          <!-- <md-card> -->
               <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
                   <div class="md-toolbar-tools">
                       <span>Products</span>
@@ -106,17 +111,56 @@
                       <tbody md-body>
                           <tr md-row md-select="product" ng-repeat="product in store.products | filter: filter.search | orderBy: query.order">
                               <td md-cell>{{product.name}}</td>
-                              <td md-cell>${{product.price}}</td>
+                              <td md-cell>{{product.price | currency:"$"}}</td>
                               <td md-cell>{{product.tags.join(", ")}}</td>
                               <td md-cell>{{product.imgUrl}}</td>
-                              <td md-cell><md-switch ng-model="product.available" aria-label="Available Switch">
+                              <td md-cell><md-switch ng-model="product.available" aria-label="Available Switch" ng-click="saveStore()">
                               </md-switch></td>
                               <td md-cell><md-icon md-svg-icon="/icons/cancel.svg" aria-label="product" ng-click="removeProduct(product)"></md-icon></td>
                           </tr>
                       </tbody>
                   </table>
               </md-table-container>
-          </md-card>
+          <div flex></div>
+        </md-content>
+      </md-tab-body>
+    </md-tab>
+    <md-tab>
+      <md-tab-label>Orders</md-tab-label>
+      <md-tab-body>
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+          <div class="md-toolbar-tools">
+              <span>Orders</span>
+              <span flex></span>
+          </div>
+        </md-toolbar>
+        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+            <div class="md-toolbar-tools">
+                <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+            </div>
+        </md-toolbar>
+          <md-table-container>
+              <table md-table md-progress="promise">
+                  <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                      <tr md-row>
+                          <th md-column md-order-by="date"><span>Date</span></th>
+                          <th md-column md-order-by="id"><span>Confirmation #</span></th>
+                          <th md-column md-order-by="price"><span>Price</span></th>
+                          <th md-column md-order-by="numItems"><span>Num Items</span></th>
+                          <th md-column md-numeric md-order-by="status" md-desc><span>Status</span></th>
+                      </tr>
+                  </thead>
+                  <tbody md-body>
+                      <tr md-row ng-repeat="order in store.orders | filter: filter.search | orderBy: order">
+                          <td md-cell>{{order.date | date: format}}</td>
+                          <td md-cell>{{order.confirmationNum}}</td>
+                          <td md-cell>{{order.totalPrice | currency: "$"}}</td>
+                          <td md-cell>{{order.numItems}}</td>
+                          <td md-cell>{{order.status}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </md-table-container>
           <div flex></div>
         </md-content>
       </md-tab-body>

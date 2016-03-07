@@ -36,6 +36,18 @@ md-tabs.md-default-theme .md-tab, md-tabs .md-tab{
     text-shadow: 1px 1px 1px #000;
 }
 
+input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+  }
+
+.error-message{
+    color:red;
+}
+
+.success-message{
+    color:green;
+}
+
 md-table-container {
     background-color:white;
 }
