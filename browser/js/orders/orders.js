@@ -62,7 +62,7 @@ app.config(function($stateProvider) {
 app.factory('OrdersFactory', function($http) {
     return {
         getAllMyOrders: function() {
-            return $http.get('/api/my/orders')
+            return $http.get('/api/user/orders')
                 .then(function(res) {
                     return res.data;
                 })
