@@ -14,7 +14,7 @@ app.config(function($stateProvider) {
 
 app.directive('sibs', function() {
     return {
-        link: function(scope, element, attrs) {
+        link: function(scope, element) {
             element.bind('click', function() {
                 element.parent().children().removeClass('md-warn');
                 element.addClass('md-warn');

@@ -2,7 +2,7 @@ app.config(function($stateProvider) {
     $stateProvider.state('orders', {
         url: '/orders',
         templateUrl: 'js/orders/orders.html',
-        controller: function($scope,$state,allMyOrders,OrdersFactory) {
+        controller: function($scope,$state,allMyOrders) {
             $scope.allMyOrders = allMyOrders;
         },
         resolve: {
@@ -19,7 +19,7 @@ app.config(function($stateProvider) {
     $stateProvider.state('thankyou', {
         url: '/thankyou/:confirmationNum',
         templateUrl: 'js/orders/orders.html',
-        controller: function($scope,allMyOrders,orderDetails,OrdersFactory){
+        controller: function($scope,allMyOrders,orderDetails){
             $scope.allMyOrders = allMyOrders;
             $scope.orderDetails = orderDetails;
         },

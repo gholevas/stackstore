@@ -109,7 +109,11 @@ router.put('/store/:storeId/:id', ensureAdminOrSeller, function (req, res, next)
 
 // get specific product
 router.get('/:id', function (req, res, next) {
-    res.json(req.product);
+    res.json(req.product)
+    .catch(function(err){
+        err.status = 404;
+        next(err);
+    })
 });
 
 module.exports = router;
