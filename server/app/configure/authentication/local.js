@@ -34,7 +34,7 @@ module.exports = function (app) {
                     })
                 }else {
                     var error = new Error('That email already exists')
-                    return next(error);
+                    return done(error);
                 }
             })
     };
@@ -48,7 +48,7 @@ module.exports = function (app) {
             if (err) return next(err);
 
             if (!user) {
-                var error = new Error('Invalid login credentials.');
+                var error = new Error('That email already exists.');
                 error.status = 401;
                 return next(error);
             }
