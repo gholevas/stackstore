@@ -36,7 +36,7 @@ router.get('/cart', ensureAuthenticated, function(req, res) {
 	res.json(req.user.cart);
 })
 
-// update a user //is this being used?
+// update a user //is this being used? no but we will use it if we get to editing user functionality
 router.put('/:userId', ensureAuthenticated, function(req,res, next) {
 	User.findByIdAndUpdate(req.params.userId, req.body, {new:true})
 	.then(function(data){

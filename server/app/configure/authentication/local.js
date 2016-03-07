@@ -24,6 +24,50 @@ module.exports = function (app) {
             });
     };
 
+    var strategySignUp = function (email, password, done) {
+        User.findOne({ email: email })
+            .then(function (user) {
+                if(!user){
+                    User.create({email:email,password:password})
+                    .then(function(newUser){
+                        done(null,newUser)
+                    })
+                }else {
+                    var error = new Error('That email already exists')
+                    return next(error);
+                }
+            })
+    };
+
+    passport.use('local-signup',new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, strategySignUp));
+    
+    app.post('/signup', function(req,res,next){
+
+        var authCb = function (err, user) {
+
+            if (err) return next(err);
+
+            if (!user) {
+                var error = new Error('Invalid login credentials.');
+                error.status = 401;
+                return next(error);
+            }
+
+            // req.logIn will establish our session.
+            req.logIn(user, function (loginErr) {
+                if (loginErr) return next(loginErr);
+                // We respond with a response object that has user with _id and email.
+                res.status(200).send({
+                    user: user.sanitize()
+                });
+            });
+
+        };
+        
+        passport.authenticate('local-signup', authCb)(req, res, next);
+    });
+
+
     passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, strategyFn));
 
     // A POST /login route is created to handle login.
