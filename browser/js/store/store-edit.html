@@ -1,39 +1,150 @@
 <div>
-  <div style="width:50%;margin-left:10%;">
-    <h1>Edit Store</h1>
-    <form name="userForm">
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label><strong>Store Name</strong></label>
-          <input ng-model="store.name">
-        </md-input-container>
-      </div>
-      <div layout-gt-sm="row">
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>Picture Url:</label>
-          <input ng-model="store.pic">
-        </md-input-container>
-      </div>
-      <md-input-container class="md-block">
-        <label>Headline</label>
-        <input ng-model="store.headline">
-      </md-input-container>
-    <md-button class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
-    </form>
-    <div layout-gt-xs="row">
-    <md-button class="md-primary md-raised" ng-click="addQuestion($event)">Add Question</md-button>
-    <md-button class="md-primary md-raised" ng-click="manageQuestion($event)">Manage Questions</md-button>
-    </div>
-<!--     <div>
-      <h2>Manage Questions</h2>
-    </div>
-    <div style="margin:3%">
-      <table style="width:20em">
-        <tr ng-repeat="question in store.questions">
-          <td>{{question.text}}</td>
-          <td><md-icon md-svg-icon="/icons/cancel.svg" aria-label="question" ng-click="removeQuestion(question)"></md-icon></td>
-      </table>
-    </div> -->
-  </div>
+  <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
+    <md-tab>
+      <md-tab-label>Edit Store</md-tab-label>
+      <md-tab-body>
+        <form name="userForm">
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label><strong>Store Name</strong></label>
+              <input ng-model="store.name">
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Picture Url:</label>
+              <input ng-model="store.pic">
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block">
+            <label>Headline</label>
+            <input ng-model="store.headline">
+          </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="saveStore(store)">Save</md-button>
+        </form>
+      </md-tab-body>
+    </md-tab>
 
+    <md-tab>
+      <md-tab-label>Manage Questions</md-tab-label>
+      <md-tab-body>
+        <md-content flex>
+          <md-card>
+              <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+                  <div class="md-toolbar-tools">
+                      <span>Questions</span>
+                      <span flex></span>
+                      <md-button class="md-primary md-raised" ng-click="addQuestion($event)">Add Question</md-button>
+                  </div>
+              </md-toolbar>
+              <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+                  <div class="md-toolbar-tools">
+                      <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                  </div>
+              </md-toolbar>
+              <md-table-container>
+                  <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
+                      <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                          <tr md-row>
+                              <th md-column md-order-by="text"><span>Question</span></th>
+                              <th md-column md-order-by="text"><span>Answers</span></th>
+                              <th md-column md-order-by="text"><span>Remove</span></th>
+                          </tr>
+                      </thead>
+                      <tbody md-body>
+                          <tr md-row md-select="question" ng-repeat="question in store.questions | filter: filter.search | orderBy: query.order">
+                              <td md-cell contenteditable ng-model="question.text">{{question.text}}</td>
+                              <td md-cell>
+                              <ul>
+                                <li ng-repeat="answer in question.answers">Text: {{answer.text}}, Tags: {{answer.tags.join(", ")}}</li>
+                              </ul>
+                              </td>
+                              <td md-cell><md-icon md-svg-icon="/icons/cancel.svg" aria-label="question" ng-click="removeQuestion(question)"></md-icon></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </md-table-container>
+          </md-card>
+          <div flex></div>
+        </md-content>
+      </md-tab-body>
+    </md-tab>
+    <md-tab>
+      <md-tab-label>Manage Products</md-tab-label>
+      <md-tab-body>
+        <md-content flex>
+          <md-card>
+              <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+                  <div class="md-toolbar-tools">
+                      <span>Products</span>
+                      <span flex></span>
+                      <md-button class="md-primary md-raised" ng-click="addProduct($event)">Add Product</md-button>
+                  </div>
+              </md-toolbar>
+              <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+                  <div class="md-toolbar-tools">
+                      <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                  </div>
+              </md-toolbar>
+              <md-table-container>
+                  <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
+                      <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                          <tr md-row>
+                              <th md-column md-order-by="name"><span>Name</span></th>
+                              <th md-column md-order-by="price"><span>Price</span></th>
+                              <th md-column md-order-by="tags" md-desc><span>Tags</span></th>
+                              <th md-column md-order-by="imgUrl" md-desc><span>Image Url</span></th>
+                          </tr>
+                      </thead>
+                      <tbody md-body>
+                          <tr md-row md-select="product" ng-repeat="product in store.products | filter: filter.search | orderBy: query.order">
+                              <td md-cell>{{product.name}}</td>
+                              <td md-cell>{{product.price}}</td>
+                              <td md-cell>{{product.tags.join(", ")}}</td>
+                              <td md-cell>{{product.imgUrl}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </md-table-container>
+          </md-card>
+          <div flex></div>
+        </md-content>
+      </md-tab-body>
+    </md-tab>
+  </md-tabs>
 </div>
+
+<!-- <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
+            <md-tab ng-repeat="question in storeInfo.questions" id="tab1">
+                <md-tab-label>Question {{$index+1}}</md-tab-label>
+                <md-tab-body>
+                    <div layout-align="center" layout="row">
+                        <h2>{{question.text}}</h2>
+                    </div>
+                    <br>
+
+
+                    <div layout-align="center" layout="row">
+                        <md-button sibs ng-click="selectAnswer(question,answer)" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
+                    </div>
+                    <br>
+                    <div layout-align="center" layout="row">
+                        <div ng-hide="$first" layout="column">
+                            <md-button ng-click="previous()">
+                                Previous
+                            </md-button>
+                        </div>
+                        <div ng-hide="$last" layout="column">
+                            <md-button ng-click="next()">
+                                Next
+                            </md-button>
+                        </div>
+                        <div ng-show="$last" layout="column">
+                            <md-button ng-click="submitAnswers()">
+                                Submit
+                            </md-button>
+                        </div>
+                    </div>
+                </md-tab-body>
+            </md-tab>
+        < -->

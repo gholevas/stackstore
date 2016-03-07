@@ -52,6 +52,7 @@
 
         function onSuccessfulLogin(response) {
             var data = response.data;
+            console.log("onSuccessfulLogin",data);
             Session.create(data.id, data.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
@@ -69,7 +70,10 @@
         // Uses the session factory to see if an
         // authenticated user is currently registered.
         this.isAuthenticated = function () {
-            return !!Session.user;
+            return this.getLoggedInUser()
+            .then(function(){
+                return !!Session.user;
+            });
         };
 
         this.getLoggedInUser = function (fromServer) {
@@ -82,7 +86,7 @@
             // Optionally, if true is given as the fromServer parameter,
             // then this cached value will not be used.
 
-            if (this.isAuthenticated() && fromServer !== true) {
+            if (!!Session.user && fromServer !== true) {
                 return $q.when(Session.user);
             }
 

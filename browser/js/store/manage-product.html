@@ -1,0 +1,29 @@
+<md-toolbar>
+	<div class="md-toolbar-tools">
+	  <h2>Manage Products</h2>
+	  <span flex></span>
+	  <md-button class="md-icon-button" ng-click="cancel()">
+	    <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
+	  </md-button>
+	</div>
+</md-toolbar>
+<md-dialog-content style="width:80vw;max-height:80vh; ">
+	<div style="margin:3%">
+	  <table style="width:20em">
+	    <tr ng-repeat="product in store.products">
+	      <td>{{product.name}}</td>
+	      <td>{{product.price}}</td>
+	      <td>{{product.imgUrl}}</td>
+	      <td>{{product.tags}}</td>
+	      <td><md-icon md-svg-icon="/icons/cancel.svg" aria-label="question" ng-click="removeProduct(product)"></md-icon></td>
+	      </tr>
+	  </table>
+  </div>
+</md-dialog-content>
+
+<style>
+	tr:nth-child(odd) {background-color: #666}
+	table{
+		border-spacing:8px;
+	}
+</style>

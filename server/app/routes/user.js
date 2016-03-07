@@ -19,12 +19,20 @@ var ensureAdmin = function(req, res, next) {
     }
 };
 
+var ensureSeller = function(req, res, next) {
+    if (req.user.isSeller) {
+        next();
+    } else {
+        res.sendStatus(401).end();
+    }
+};
+
 // get user's own data
 router.get('/', ensureAuthenticated, function (req, res) {
     res.json(req.user);
 });
 
-router.get('/store', ensureAuthenticated, function(req, res) {
+router.get('/store', ensureAuthenticated, ensureSeller, function(req, res) {
 	res.json(req.user.store);
 })
 
