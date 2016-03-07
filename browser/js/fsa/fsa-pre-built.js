@@ -66,6 +66,13 @@
             });
         };
 
+        this.populateUser = function(){
+            return $http.get('/api/user/')
+            .then(function(response){
+                return response.data;
+            });
+        };
+
         // Uses the session factory to see if an
         // authenticated user is currently registered.
         this.isAuthenticated = function () {

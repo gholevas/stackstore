@@ -81,21 +81,25 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                 $timeout(function() {
                     $state.go('admin');
                 }, 0);
-            }
+            };
+
             scope.goToStoreEdit = function () {
                 $timeout(function() {
                     AuthService.getLoggedInUser()
                     .then(function(user){
-                        console.log(user)
-                        $state.go('storeEdit',{url:user.store.url});
+                        return AuthService.populateUser();
                     })
+                    .then(function(user){
+                        console.log("popUser is ",user);
+                        $state.go('storeEdit',{url:user.store.url});
+                    });
                 }, 0);
-            }
+            };
             
 
             var clearCart = function () {
-                scope.cart.contents = []
-            }
+                scope.cart.contents = [];
+            };
 
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
