@@ -54,6 +54,7 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
 
             scope.logout = function() {
                 AuthService.logout().then(function() {
+                    updateCart();
                     $state.go('home');
                 });
             };

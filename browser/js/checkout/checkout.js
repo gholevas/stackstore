@@ -21,15 +21,17 @@ app.controller('CheckOutCtrl', function($rootScope, $scope, $state, user, CartFa
     $scope.cart = cart;
 
     $scope.placeOrder = function() {
-
+console.log("CARTID", $scope.cart);
         CartFactory.processOrder({
             // "user": $scope.user._id, //setting this on the backend now -pm
+            "cartId": $scope.cart._id,
             "shipping": $scope.shipping,
             "billing": $scope.billing,
             "contents": $scope.cart.contents
         }).then(function (data) {
             $scope.$emit('clearCart')
-            $state.go('thankyou',data.confirmationNum)
+            $state.go('membersOnly');
+            // $state.go('thankyou',data.confirmationNum)
         }).then(null,console.log)
         
     }

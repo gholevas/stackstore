@@ -100,11 +100,19 @@ router.post('/purchase', ensureAuthenticatedOrGuestCart, function(req, res, next
                         //add to user's order history
                         user.orders.push(order);
                         // clear the user cart
-                        user.cart.contents = [];
+                        // user.cart.contents = [];
                         return user.save();
                     }).catch(console.log);
             })
         );
+
+    orderPromises.push(
+        Cart.findById(req.body.cartId)
+        .then(function(cart){
+            cart.contents = [];
+            return cart.save();
+        })
+    ); 
     
     Promise.all(orderPromises)
         .then(function(orders){
