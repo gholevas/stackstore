@@ -5,7 +5,6 @@
             <div class="md-toolbar-tools">
                 <span>Orders</span>
                 <div flex></div>
-                <md-button ng-click="loadStuff()">Async Operation</md-button>
             </div>
         </md-toolbar>
         <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
@@ -27,7 +26,7 @@
                     <tr md-row md-select="order" ng-repeat="order in orders | filter: filter.search | orderBy: query.order">
                         <td md-cell>{{order._id}}</td>
                         <td md-cell>{{order.totalPrice}}</td>
-                        <td md-cell>{{order.date}}</td>
+                        <td md-cell>{{order.date | date: "medium"}}</td>
                         <td md-cell>{{order.contents.length}}</td>
                     </tr>
                 </tbody>

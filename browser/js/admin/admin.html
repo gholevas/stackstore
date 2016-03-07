@@ -33,7 +33,7 @@
 	                    	<td md-cell>{{store.products.length}}</td>
 	                    	<td md-cell>{{store.likers.length}}</td>
 	                    	<td md-cell>
-			                    <md-switch ng-model="store.active" ng-click="updateStatus(store)" aria-label="active">
+			                    <md-switch ng-model="store.active" ng-change="updateStoreStatus(store)" aria-label="active">
 								    Active: {{ store.active }}
 								</md-switch>
 							</td>
