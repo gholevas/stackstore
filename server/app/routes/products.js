@@ -55,7 +55,7 @@ router.post('/store/:url/tags', function (req, res, next) {
     Store.findOne({url:req.params.url})
     .populate('products')
     .then(function(store){
-        console.log(store)
+        console.log("store", store);
         var topMatches = 0;
         var numMatches = 0;
         var bestProduct;
@@ -71,7 +71,7 @@ router.post('/store/:url/tags', function (req, res, next) {
             }
             numMatches = 0;
         })
-        console.log(bestProduct)
+        console.log("bestProduct", bestProduct)
         return bestProduct;
     })
     .then(function(product){

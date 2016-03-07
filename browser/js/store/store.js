@@ -48,6 +48,7 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
 
     $scope.submitAnswers = function(){
         var tags = [];
+        //TODO ensure all questions answered
         for(var answer in $scope.answers){
             tags = tags.concat($scope.answers[answer].tags);
         }

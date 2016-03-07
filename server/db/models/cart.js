@@ -8,7 +8,9 @@ var CartSchema = new mongoose.Schema({
 	contents: [{
 		product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
 		quantity: Number
-	}]
+	}],
+	isGuest: {type: Boolean, default: false},
+	guestId: {type: String, select: false}
 }, {
     toObject: {
         virtuals: true
