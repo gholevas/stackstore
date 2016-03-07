@@ -28,7 +28,8 @@ var OrderSchema = new mongoose.Schema({
     },
     contents: [{product:ProductSchema, quantity: Number}],
     date: {type: Date, default: Date.now},
-    user: {type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    confirmationNum: String
 
 });
 
@@ -36,6 +37,7 @@ OrderSchema.pre("save", function(next){
     this.totalPrice = this.contents.reduce(function(prev,curr){
         return prev + (curr.quantity * curr.product.price);
     },0);
+    this.confirmationNum = this.confirmationNum || (+new Date()).toString(36);
     next();
 })
 

@@ -22,7 +22,7 @@ app.factory('CartFactory', function ($http) {
     var processOrder = function (data) {
         return $http.post('/api/cart/purchase',data).then(function(response) {
             return response.data
-        })
+        },console.log)
     }
 
     var addToCart = function (product) {

@@ -62,6 +62,12 @@ router.post('/', ensureAuthenticatedOrGuestCart, function(req, res, next) {
 
 //aka convert to order
 router.post('/purchase', ensureAuthenticatedOrGuestCart, function(req, res, next){
+
+    if(req.body.contents.length<1){
+        res.send("no items in cart..");
+        return;
+    }
+
     var orderPromises = [];
     //organize cart contents by store
     var storeContent = {};
@@ -88,7 +94,7 @@ router.post('/purchase', ensureAuthenticatedOrGuestCart, function(req, res, next
     orderPromises.push(Order.create(req.body)
             .then(function(order){
                 userOrder = order;
-                User.findById(req.user._id)
+                return User.findById(req.user._id)
                     .then(function(user){
                         if(!user) return "nosuchuser"; //don't want an error or next
                         //add to user's order history

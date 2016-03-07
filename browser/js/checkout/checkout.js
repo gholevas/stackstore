@@ -28,9 +28,8 @@ app.controller('CheckOutCtrl', function($rootScope, $scope, $state, user, CartFa
             "billing": $scope.billing,
             "contents": $scope.cart.contents
         }).then(function (data) {
-            console.log("order processed", data)
             $scope.$emit('clearCart')
-            $state.go('membersOnly')
+            $state.go('thankyou',data.confirmationNum)
         }).then(null,console.log)
         
     }
