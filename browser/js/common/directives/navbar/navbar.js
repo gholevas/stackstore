@@ -82,7 +82,16 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                     $state.go('admin');
                 }, 0);
             }
-
+            scope.goToStoreEdit = function () {
+                $timeout(function() {
+                    AuthService.getLoggedInUser()
+                    .then(function(user){
+                        console.log(user)
+                        $state.go('storeEdit',{url:user.store.url});
+                    })
+                }, 0);
+            }
+            
 
             var clearCart = function () {
                 scope.cart.contents = []
