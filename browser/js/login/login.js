@@ -2,6 +2,9 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state,$mdDialog) {
 
     $scope.login = {};
     $scope.error = null;
+    $scope.close = function(){
+        $mdDialog.cancel();
+    }
 
     $scope.sendLogin = function (loginInfo) {
 

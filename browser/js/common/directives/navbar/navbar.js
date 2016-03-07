@@ -5,14 +5,13 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function(scope) {
-
+            console.log('state is',$state.current)
             function buildToggler(navID) {
                 return function() {
                     $mdSidenav(navID)
                         .toggle();
                 }
             }
-
             // for cart
             scope.toggleRight = buildToggler('right');
 
@@ -60,6 +59,13 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
 
             scope.user = null;
 
+            // may need to embed cart by refrence, having trouble clearing the cart even though its cleared in db.
+            var updateCart = function () {
+                CartFactory.getUserCart()
+                .then(function(cart) {
+                    scope.cart = cart
+                })
+            }
             scope.isLoggedIn = function() {
                 return AuthService.isAuthenticated();
             };
@@ -71,13 +77,12 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                 });
             };
 
-            // may need to embed cart by refrence, having trouble clearing the cart even though its cleared in db.
-            var updateCart = function () {
-                CartFactory.getUserCart()
-                .then(function(cart) {
-                    scope.cart = cart
-                })
+            scope.goToAdmin = function () {
+                $timeout(function() {
+                    $state.go('admin');
+                }, 0);
             }
+
 
             var clearCart = function () {
                 scope.cart.contents = []

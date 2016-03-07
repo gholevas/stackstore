@@ -78,8 +78,8 @@ router.post('/purchase', ensureAuthenticatedOrGuestCart, function(req, res, next
     });
 
     // //new order for every store they bought from
-    for(var storeId in storeContent){
-        var content = storeContent[storeId];
+    for(let storeId in storeContent){
+        let content = storeContent[storeId];
         orderPromises.push(Order.create({
                 contents: content,
                 shipping: req.body.shipping,

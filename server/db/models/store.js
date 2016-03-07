@@ -13,7 +13,8 @@ var StoreSchema = new mongoose.Schema({
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }],
     orders: [{type: mongoose.Schema.Types.ObjectId, ref: "Order"}],
-    likers: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
+    likers: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
+    active: {type:Boolean, default: true}
 
 }, {
     toObject: {
@@ -35,9 +36,8 @@ function convertToUrl(name) {
 StoreSchema.methods.addProduct = function(product) {
     var theStore = this;
     return Product.create(product)
-        .then(function(product) {
-            console.log(product);
-            theStore.products.addToSet(product);
+        .then(function(createdProduct) {
+            theStore.products.addToSet(createdProduct);
             return theStore.save();
         });
 };
@@ -54,8 +54,8 @@ StoreSchema.methods.removeProduct = function(product) {
 StoreSchema.methods.addQuestion = function(question) {
     var theStore = this;
     return Question.create(question)
-        .then(function(question) {
-            theStore.questions.addToSet(question);
+        .then(function(createdQuestion) {
+            theStore.questions.addToSet(createdQuestion);
             return theStore.save();
         });
 };

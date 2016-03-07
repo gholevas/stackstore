@@ -3,7 +3,7 @@
             <div class="md-toolbar-tools">
                 <h2>Signup</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
+                <md-button class="md-icon-button" ng-click="close()">
                     <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
                 </md-button>
             </div>
@@ -23,6 +23,9 @@
                     </md-input-container>
         </md-dialog-content>
         <md-dialog-actions layout="row">
+        <md-checkbox ng-model="signup.isSeller" style="color:red;" aria-label="Checkbox 1">
+           Sign up as seller?
+        </md-checkbox>
             <md-button type="submit" ng-click="cancel()" style="margin-right:20px;">
                 Signup
             </md-button>

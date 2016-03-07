@@ -23,6 +23,7 @@ var ensureAdminOrSeller = function(req, res, next) {
 // get all products (if recommending product on front end, or admin catalog screen)
 router.get('/', function (req, res, next) {
     Product.find({})
+    .populate('store')
     .then(function(info){
         res.json(info);
     })
@@ -108,7 +109,11 @@ router.put('/store/:storeId/:id', ensureAdminOrSeller, function (req, res, next)
 
 // get specific product
 router.get('/:id', function (req, res, next) {
-    res.json(req.product);
+    res.json(req.product)
+    .catch(function(err){
+        err.status = 404;
+        next(err);
+    })
 });
 
 module.exports = router;
