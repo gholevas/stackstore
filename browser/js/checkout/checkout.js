@@ -21,7 +21,7 @@ app.controller('CheckOutCtrl', function($rootScope, $scope, $state, user, CartFa
     $scope.cart = cart;
 
     $scope.placeOrder = function() {
-console.log("CARTID", $scope.cart);
+        
         CartFactory.processOrder({
             // "user": $scope.user._id, //setting this on the backend now -pm
             "cartId": $scope.cart._id,
