@@ -32,7 +32,7 @@ router.get('/', ensureAdmin, function(req, res, next) {
 
 // Get order details
 router.get('/:confirmationNum', function(req, res, next) {
-    Order.findOne({})
+    Order.findOne({confirmationNum: req.params.confirmationNum})
         .populate("contents user")
         .then(function(order) {
             res.json(order);
