@@ -17,8 +17,8 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller("OrdersCtrl", function($scope, $state, allMyOrders, orderDetails, OrdersFactory, confNum) {    
-    allMyOrders = allMyOrders.map(function(order) {
+app.controller("OrdersCtrl", function($scope, $state, allMyOrders, orderDetails, OrdersFactory, confNum, AuthService) {    
+    if(allMyOrders) allMyOrders = allMyOrders.map(function(order) {
         order.numItems = order.contents.reduce(function(prev, next) {
             return prev + next.quantity;
         }, 0);
@@ -27,6 +27,8 @@ app.controller("OrdersCtrl", function($scope, $state, allMyOrders, orderDetails,
     $scope.allMyOrders = allMyOrders;
     $scope.orderDetails = orderDetails;
     $scope.confNum = confNum;
+
+    $scope.isAuthenticated = AuthService.isAuthenticated;
 
     $scope.goHome = function(){
         $state.go("home");
