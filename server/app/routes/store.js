@@ -3,6 +3,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Store = mongoose.model("Store");
 var Question = mongoose.model('Question');
+var Product = mongoose.model('Product');
 
 // get all stores
 router.get('/', function (req, res, next) {
@@ -66,6 +67,17 @@ router.delete('/:url/question/:questId', function (req, res, next) {
 //add a product to a store
 router.post('/:url/product', function (req, res, next) {
 	req.store.addProduct(req.body)
+	.then(function(store){
+		res.send(store);
+	});
+});
+
+//delete a product from a store
+router.delete('/:url/product/:prodId', function (req, res, next) {
+	Product.findById(req.params.prodId)
+	.then(function(product){
+		return req.store.removeProduct(product);
+	})
 	.then(function(store){
 		res.send(store);
 	});
