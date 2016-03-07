@@ -18,6 +18,7 @@ app.config(function($stateProvider) {
         		StoreEditFactory.store = $scope.store;
         		return StoreEditFactory.saveStore()
         		.then(function(store){
+                    console.log(store);
 	        		$scope.store = store;
 	        		$scope.success = true;
 	        		$scope.error = false;
@@ -60,6 +61,11 @@ app.config(function($stateProvider) {
                     });
             };
 
+            $scope.updateProduct = function(product){
+                return StoreEditFactory.updateProduct(product);
+                
+
+            };
 
             $scope.addProduct = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
