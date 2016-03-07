@@ -20,7 +20,6 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
             // for admin menu
             scope.toggleLeft = buildToggler('left');
 
-
             function DialogController() {
                   scope.hide = function() {
                     $mdDialog.hide();
