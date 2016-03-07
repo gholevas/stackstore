@@ -35,9 +35,19 @@ app.config(function($stateProvider) {
 
 });
 
-app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout,stores) {
+app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout,stores,AdminFactory) {
     
     $scope.stores = stores
+
+    $scope.updateStatus = function (store) {
+        $scope.promise = $timeout(function() {
+            AdminFactory.updateStatus(store)
+            .then(function (newStore) {
+                console.log(newStore)
+            })
+        }, 500);
+    }
+
     
 });
 
@@ -97,7 +107,7 @@ app.factory('AdminFactory', function($http){
             }); 
         },
         updateStatus: function (store) {
-            return $http.put('/api/store',store).then(function (response) {
+            return $http.put('/api/store/',store).then(function (response) {
                 return response.data;
             }); 
         }
