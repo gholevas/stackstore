@@ -21,7 +21,6 @@
 	                        <th md-column md-order-by="url"><span>Url</span></th>
 	                        <th md-column md-order-by="orders"><span>Orders</span></th>
 	                        <th md-column md-order-by="prodcuts" md-desc><span>Products</span></th>
-	                        <th md-column md-order-by="likers"><span>Likers</span></th>
 	                        <th md-column md-order-by="status"><span>Status</span></th>
 	                    </tr>
 	                </thead>
@@ -31,7 +30,6 @@
 	                        <td md-cell>{{store.url}}</td>
 	                        <td md-cell>{{store.orders.length}}</td>
 	                    	<td md-cell>{{store.products.length}}</td>
-	                    	<td md-cell>{{store.likers.length}}</td>
 	                    	<td md-cell>
 			                    <md-switch ng-model="store.active" ng-change="updateStoreStatus(store)" aria-label="active"></md-switch>
 							</td>
