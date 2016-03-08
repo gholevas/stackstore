@@ -30,7 +30,7 @@ body a{
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	min-height:800px;
+	min-height:600px;
 	text-align: center;
 	padding-top: 3em;
 }
@@ -48,6 +48,7 @@ body a{
 }
 .logo {
 	float: left;
+	height:100% !important;
 }
 .menu {
 	float:right;
@@ -464,8 +465,8 @@ x:-o-prefocus, .lb-overlay img {
 }
 
 .field_content{
-	position: absolute;
-	top:21em;
+	// position: absolute;
+	margin-top:15em;
 	text-align:center;
 	left:12em;
 }

@@ -24,7 +24,7 @@ app.directive('sibs', function() {
 });
 
 
-app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$stateParams) {
+app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$stateParams,AuthService,$timeout) {
     $scope.storeInfo = storeInfo;
     
     $scope.answers = {};
@@ -36,6 +36,16 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
         //     if(question.answers[i] !== answer) question.answers.selected = false;
         // }
     }
+
+    $scope.goToStoreEdit = function () {
+                $timeout(function() {
+                    AuthService.getLoggedInUser()
+                    .then(function(user){
+                        console.log(user)
+                        $state.go('storeEdit',{url:user.store.url});
+                    })
+                }, 0);
+            }
 
     $scope.next = function() {
         $scope.showWarningMsg(false);

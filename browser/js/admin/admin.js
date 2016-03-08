@@ -63,7 +63,6 @@ app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout, 
 app.controller('AdminOrdersController', function($mdEditDialog,$filter, $q, $scope, $timeout, orders) {
 
     $scope.orders = orders;
-    console.log(orders)
 
     $scope.selected = [];
 
@@ -75,7 +74,7 @@ app.controller('AdminOrdersController', function($mdEditDialog,$filter, $q, $sco
 
     var data = {
         labels: orders.map(function (order) {
-                    return $filter('date')(order.date, "yyyy-MM-dd");
+                    return $filter('date')(order.date, "MM-dd");
                 }),
         datasets: [
             {
@@ -93,7 +92,7 @@ app.controller('AdminOrdersController', function($mdEditDialog,$filter, $q, $sco
         ]
     };
     
-    var myLineChart = new Chart(ctx).Line(data);
+    var myLineChart = new Chart(ctx).Line(data,{responsive: true});
 
 });
 
