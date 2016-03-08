@@ -14,18 +14,22 @@ app.directive('adminNav', function($mdSidenav, $state) {
 
             scope.toAdmin = function() {
                 $state.go('admin')
+                scope.toggleLeft()
             }
 
             scope.toProducts = function() {
                 $state.go('adminProducts')
+                scope.toggleLeft()
             }
 
             scope.toOrders = function() {
                 $state.go('adminOrders')
+                scope.toggleLeft()
             }
 
             scope.toUsers = function() {
                 $state.go('adminUsers')
+                scope.toggleLeft()
             }
 
         }
