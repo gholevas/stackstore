@@ -82,6 +82,7 @@ router.post('/store/:url/tags', function (req, res, next) {
         var numMatches = 0;
         var bestProduct;
         store.products.forEach(function(product){
+            if(!product.available) return;
             for(var i=0; i<product.tags.length; i++){
                 if(tags.indexOf(product.tags[i]) !== -1){
                     numMatches++;
