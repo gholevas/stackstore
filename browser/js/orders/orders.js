@@ -38,7 +38,7 @@ app.controller("OrdersCtrl", function($scope, $state, allMyOrders, orderDetails,
         $scope.orderDetails = order;
     }
 
-    scope.showSignup = function(ev) {
+    $scope.showSignup = function(ev) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && scope.customFullscreen;
         $mdDialog.show({
                 controller: DialogController,
