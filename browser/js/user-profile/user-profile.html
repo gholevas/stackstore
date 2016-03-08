@@ -74,16 +74,6 @@
   </md-tab>
   <md-tab label="Previous Orders">
 
-          <div style="text-align: center" id='confirmation' ng-if="confNum">
-          <br>
-          <h2>Thank you for your purchaise!</h2>
-          <h4>your order number is <b>{{confNum}}</b></h4>
-          <br><br>
-          <span>
-              <md-button ng-click="">Sign Up!</md-button>
-              <md-button ng-click="goHome()">Return to stores</md-button>
-          </span>
-          </div>
       <md-content flex style="background-color: white;" ng-if="isAuthenticated()">
           <md-card>
               <h2> Orders</h2>
