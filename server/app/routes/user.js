@@ -64,7 +64,6 @@ router.put('/reset', function(req, res, next) {
 });
 
 router.put('/toggle', ensureAdmin, function(req, res, next) {
-    console.log("here",req.body._id,req.body.isAdmin)
     User.findById(req.body._id)
     .then(function (user) {
         user.isAdmin = req.body.isAdmin

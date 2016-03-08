@@ -49,8 +49,8 @@ router.post('/forgot', function(req, res, next) {
     .then(function (user) {
         var mailOptions = {
             to: user.email,
-            from: 'passwordreset@demo.com',
-            subject: 'Node.js Password Reset',
+            from: 'passwordreset@logo.com',
+            subject: 'Logo Password Reset',
             text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
               'http://' + req.headers.host + '/reset/' + user.resetPasswordToken + '\n\n' +
