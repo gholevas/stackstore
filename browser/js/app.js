@@ -55,7 +55,8 @@ app.run(function ($rootScope, AuthService, $state) {
 
 app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')
-    .primaryPalette('red')
-    .accentPalette('red')
+    .primaryPalette('light-blue')
+    .accentPalette('green')
+    .warnPalette('deep-purple')
     // .dark();
 });
