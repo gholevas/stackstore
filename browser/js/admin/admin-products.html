@@ -7,9 +7,10 @@
                 <div flex></div>
             </div>
         </md-toolbar>
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-            <div class="md-toolbar-tools">
-                <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+        <md-toolbar class="md-table-toolbar alternate" ng-if="selected.length">
+            <div class="md-toolbar-tools" style="background-color: #3366cc">
+                <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected ----- </span>
+                <md-switch aria-label="toggle" ng-change="toggleAll(settings.toggle)" ng-model="settings.toggle">Toggle All</md-switch>
             </div>
         </md-toolbar>
         <md-table-container>
@@ -19,6 +20,7 @@
                         <th md-column md-order-by="name"><span>Product Name</span></th>
                         <th md-column md-order-by="price"><span>Price</span></th>
                         <th md-column md-order-by="store.name"><span>Store</span></th>
+                        <th md-column md-order-by="available"><span>Available</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
@@ -26,6 +28,9 @@
                         <td md-cell>{{product.name}}</td>
                         <td md-cell>{{product.price}}</td>
                         <td md-cell>{{product.store.name}}</td>
+                        <td md-cell>
+                            <md-switch ng-model="product.available" ng-change="updateStatus(product)" aria-label="active"></md-switch>
+                        </td>
                     </tr>
                 </tbody>
             </table>
