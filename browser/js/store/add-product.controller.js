@@ -4,7 +4,8 @@ app.controller('AddProductCtrl', function($timeout, $rootScope, $scope, $mdDialo
     var product = {};
     product.name = $scope.name;
     product.imgUrl = $scope.imgUrl;
-    product.tags = $scope.tags;
+    product.tags = $scope.tags.split(" ");
+    console.log(product.tags);
     product.price = $scope.price;
     if(!product.name || !product.price || !product.tags || !product.imgUrl) return;
     return StoreEditFactory.addProduct(product)
