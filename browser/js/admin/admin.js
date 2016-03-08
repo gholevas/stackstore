@@ -63,7 +63,6 @@ app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout, 
 app.controller('AdminOrdersController', function($mdEditDialog,$filter, $q, $scope, $timeout, orders) {
 
     $scope.orders = orders;
-    console.log(orders)
 
     $scope.selected = [];
 
