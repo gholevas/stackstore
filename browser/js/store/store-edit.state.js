@@ -18,10 +18,13 @@ app.config(function($stateProvider) {
         		StoreEditFactory.store = $scope.store;
         		return StoreEditFactory.saveStore()
         		.then(function(store){
-                    $state.go('storeEdit',{url:store.url})
-	        		// $scope.store = store;
-	        		// $scope.success = true;
-	        		// $scope.error = false;
+                    if ($scope.store.url !== store.url) {
+                        $state.go('storeEdit',{url:store.url})
+                    } else {
+    	        		$scope.store = store;
+    	        		$scope.success = true;
+    	        		$scope.error = false;
+                    }
 	        	})
 	        	.catch(function(err){
 	        		$scope.success = false;

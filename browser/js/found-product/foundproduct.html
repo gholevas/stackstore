@@ -20,14 +20,14 @@
                         </div>
                         <h2>Quick Overview:</h2>
                         <p> Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; es</p><br>
-                        <md-input-container ng-if="!isAdmin">
+                        <!-- <md-input-container ng-if="!isAdmin">
                             <label>Quantity</label>
                             <md-select ng-model="quantity" aria-label="quantity">
                                 <md-option ng-repeat="num in [1,2,3,4,5,6,7,8,9]" ng-value="num">
                                     {{num}}
                                 </md-option>
                             </md-select>
-                        </md-input-container>
+                        </md-input-container> -->
                         <br>
                         <a ng-if="!isAdmin" ng-click="addToCart()" class="btn btn-primary btn-normal btn-inline " target="_self">Add to Cart</a>
                         <a ng-click="backToQuestions()" class="btn btn-primary btn-normal btn-inline" target="_self">Find Another</a>
