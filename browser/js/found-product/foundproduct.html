@@ -1,46 +1,41 @@
-<div class="tabsdemoStaticTabs">
-<md-content>
-    <md-tabs class="md-accent storeQuestions" md-selected="data.selectedIndex" md-align-tabs="top">
-        <md-tab id="tab1">
-            <md-tab-body>
-                <div layout-align="center" layout="row">
-                    <h2>We found the perfect product!</h2>
-                </div>
-                <br>
-                <div layout-align="center" layout="row">
-                    <div layout-align="center" layout="row">
-                        <div layout="column">
-                            <div class="single_left">
-                                <div class="labout span_1_of_a1">
-                                    <img src="{{product.imgUrl}}" class="img-responsive" />
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div>
-                                    <h2>{{product.name}}</h1>
-                                    <p>Availability: <span class="color">In stock</span></p>
-                                    <div class="price_single">
-                                        <span class="actual">{{product.price | currency:"$"}}</span>
-                                    </div>
-                                    <h2>Quick Overview:</h2>
-                                    <p> Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; es</p><br>
-                                    <md-input-container ng-if="!isAdmin">
-                                        <label>Quantity</label>
-                                        <md-select ng-model="quantity" aria-label="quantity">
-                                            <md-option ng-repeat="num in [1,2,3,4,5,6,7,8,9]" ng-value="num">
-                                                {{num}}
-                                            </md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                    <br>
-                                    <a ng-if="!isAdmin" ng-click="addToCart()" class="btn btn-primary btn-normal btn-inline " target="_self">Add to Cart</a>
-                                    <a ng-click="backToQuestions()" class="btn btn-primary btn-normal btn-inline" target="_self">Find Another</a>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        </div>
+<div style="background-color:#666">
+    <div class="md-toolbar-tools">
+        <span style="color:white">This product was made for you.</span>
+    </div>
+    <md-card>
+    <br>
+    <div layout-align="center" layout="row">
+        <div layout-align="center" layout="row">
+            <div layout="column">
+                <div class="single_left">
+                    <div class="labout span_1_of_a1">
+                        <img src="{{product.imgUrl}}" class="img-responsive" />
+                        <div class="clearfix"></div>
                     </div>
-            </md-tab-body>
-        </md-tab>
-    </md-tabs>
-</md-content>
+                    <div>
+                        <h2>{{product.name}}</h2>
+                        <p>Availability: <span class="color">In stock</span></p>
+                        <div class="price_single">
+                            <span class="actual">{{product.price | currency:"$"}}</span>
+                        </div>
+                        <h2>Quick Overview:</h2>
+                        <p> Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; es</p><br>
+                        <md-input-container ng-if="!isAdmin">
+                            <label>Quantity</label>
+                            <md-select ng-model="quantity" aria-label="quantity">
+                                <md-option ng-repeat="num in [1,2,3,4,5,6,7,8,9]" ng-value="num">
+                                    {{num}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <br>
+                        <a ng-if="!isAdmin" ng-click="addToCart()" class="btn btn-primary btn-normal btn-inline " target="_self">Add to Cart</a>
+                        <a ng-click="backToQuestions()" class="btn btn-primary btn-normal btn-inline" target="_self">Find Another</a>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </md-card>
 </div>
