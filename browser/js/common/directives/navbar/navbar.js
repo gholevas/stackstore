@@ -11,6 +11,12 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                         .toggle();
                 }
             }
+
+            // hide logo if small screen
+            scope.$watch(function() { return $mdMedia('(min-width: 804px)'); }, function(big) {
+                scope.bigScreen = big;
+            });
+
             // for cart
             scope.toggleRight = buildToggler('right');
 
