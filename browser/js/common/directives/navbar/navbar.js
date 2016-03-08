@@ -5,7 +5,6 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function(scope) {
-            console.log('state is',$state.current)
             function buildToggler(navID) {
                 return function() {
                     $mdSidenav(navID)
@@ -89,7 +88,6 @@ app.directive('navbar', function($rootScope, $location,AuthService, AUTH_EVENTS,
                         return AuthService.populateUser();
                     })
                     .then(function(user){
-                        console.log("popUser is ",user);
                         $state.go('storeEdit',{url:user.store.url});
                     });
                 }, 0);
