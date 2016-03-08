@@ -117,10 +117,16 @@ router.get("/id/:id", function(req, res, next){
 
 //save store
 router.put("/:url", function(req, res, next){
-	Store.findByIdAndUpdate(req.body._id,req.body, {new:true})
-	.populate("products seller questions orders")
-	.then(function(data){
-		res.send(data);
+	Store.findById(req.body._id)
+	.then(function (store) {
+		store.name =  req.body.name
+	    store.pic = req.body.pic
+	    store.headline = req.body.headline
+		return store.save()
+	})
+	.then(function(store){
+		store.populate('orders questions products')
+		res.send(store);
 	}).catch(next);
 });
 
@@ -130,16 +136,6 @@ router.put("/", function(req, res, next){
 	.then(function (newStore) {
 		res.json(newStore);
 	});
-});
-
-router.put('/toggle', ensureAdmin, function(req, res, next) {
-    User.findById(req.body._id)
-    .then(function (user) {
-        user.isAdmin = req.body.isAdmin
-        user.save()
-        res.json(user)
-    })
-    .then(null,next)
 });
 
 //not neccessary since the get by id returns all of this
