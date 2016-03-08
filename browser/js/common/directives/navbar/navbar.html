@@ -14,7 +14,7 @@
                 <li ng-show="!user" ng-click="showSignup($event)"><a class="color8" >Signup</a></li>
                 <li ng-show="user" ng-click="logout()"><a class="color7">Logout</a></li>
 
-                <li ng-click="toggleRight()" ng-hide="state.current.name === 'checkout'" ng-hide="isOpenRight() || user.isSeller || user.isAdmin"><a class="color7">Cart <span ng-show="cart.contents.length">({{cart.contents.length}})</span></a></li>
+                <li ng-click="toggleRight()" ng-hide="state.current.name === 'checkout' || isOpenRight() || user.isSeller || user.isAdmin"><a class="color7">Cart <span ng-show="cart.contents.length">({{cart.contents.length}})</span></a></li>
                 <li ng-hide="!user || user.isSeller || user.isAdmin"><a class="color6" ui-sref="profile"><md-icon md-svg-icon="/icons/cog.svg" ></md-icon></a></li>
                 <li ng-if="user.isAdmin"><a class="color6" ng-click="toggleLeft()"><md-icon md-svg-icon="/icons/menu.svg" style="fill:#fff;"></md-icon></a></li>
                 <div class="clearfix"> </div>
