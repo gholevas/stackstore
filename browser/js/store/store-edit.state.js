@@ -14,6 +14,17 @@ app.config(function($stateProvider) {
         	$scope.success = false;
         	$scope.error = false;
 
+            if(store.orders) store.orders = store.orders.map(function(order) {
+                order.numItems = order.contents.reduce(function(prev, next) {
+                    return prev + next.quantity;
+                }, 0);
+                return order;
+            });
+
+            $scope.selectRow = function(order){
+                $scope.orderDetails = order;
+            }
+
         	$scope.saveStore = function(){
         		StoreEditFactory.store = $scope.store;
         		return StoreEditFactory.saveStore()

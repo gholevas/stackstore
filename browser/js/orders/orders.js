@@ -17,7 +17,7 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller("OrdersCtrl", function($scope, $state, allMyOrders, orderDetails, OrdersFactory, confNum, AuthService) {    
+app.controller("OrdersCtrl", function($scope, $state, allMyOrders, orderDetails, OrdersFactory, confNum, AuthService,$mdDialog,$mdMedia) {    
     if(allMyOrders) allMyOrders = allMyOrders.map(function(order) {
         order.numItems = order.contents.reduce(function(prev, next) {
             return prev + next.quantity;
@@ -37,18 +37,28 @@ app.controller("OrdersCtrl", function($scope, $state, allMyOrders, orderDetails,
     $scope.selectRow = function(order){
         $scope.orderDetails = order;
     }
-
-    $scope.showSignup = function(ev) {
-        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && scope.customFullscreen;
-        $mdDialog.show({
-                controller: DialogController,
-                templateUrl: 'js/signup/signup.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                fullscreen: useFullScreen
-            })
-    };
+    // function DialogController() {
+    //       $scope.hide = function() {
+    //         $mdDialog.hide();
+    //       };
+    //       $scope.cancel = function() {
+    //         $mdDialog.cancel();
+    //       };
+    //       $scope.answer = function(answer) {
+    //         $mdDialog.hide(answer);
+    //       };
+    // }
+    // $scope.showSignup = function(ev) {
+    //     var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
+    //     $mdDialog.show({
+    //             controller: DialogController,
+    //             templateUrl: 'js/signup/signup.html',
+    //             parent: angular.element(document.body),
+    //             targetEvent: ev,
+    //             clickOutsideToClose: true,
+    //             fullscreen: useFullScreen
+    //         })
+    // };
 });
 
 app.config(function($stateProvider) {
