@@ -14,34 +14,35 @@
             <md-tab ng-repeat="question in storeInfo.questions" id="tab1" ng-click="showWarningMsg(false)">
                 <md-tab-label>Question {{$index+1}}</md-tab-label>
                 <md-tab-body>
-                    <div layout-align="center" layout="row">
-                        <img src="http://lorempixel.com/1200/400/">
-                    </div>
-                    <div layout-align="center" layout="row">
-                        <h2>{{question.text}}</h2>
-                    </div>
-                    <br>
-                    <div layout-align="center" layout="row">
-                        <md-button sibs ng-click="selectAnswer(question,answer)" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
-                    </div>
-                    <br>
-                    <div layout-align="center" layout="row">
-                        <div ng-hide="$first" layout="column">
-                            <md-button ng-click="previous()">
-                                Previous
-                            </md-button>
+                    <md-card>
+                        <div layout-align="center" layout="row">
+                            <h2>{{question.text}}</h2>
                         </div>
-                        <div ng-hide="$last" layout="column">
-                            <md-button ng-click="next()">
-                                Next
-                            </md-button>
+                        <br>
+
+
+                        <div layout-align="center" layout="row">
+                            <md-button sibs ng-click="selectAnswer(question,answer)" ng-repeat="answer in question.answers">{{answer.text}}</md-button>
                         </div>
-                        <div ng-show="$last" layout="column">
-                            <md-button ng-click="submitAnswers()">
-                                Submit
-                            </md-button>
+                        <br>
+                        <div layout-align="center" layout="row">
+                            <div ng-hide="$first" layout="column">
+                                <md-button ng-click="previous()">
+                                    Previous
+                                </md-button>
+                            </div>
+                            <div ng-hide="$last" layout="column">
+                                <md-button ng-click="next()">
+                                    Next
+                                </md-button>
+                            </div>
+                            <div ng-show="$last" layout="column">
+                                <md-button ng-click="submitAnswers()">
+                                    Submit
+                                </md-button>
+                            </div>
                         </div>
-                    </div>
+                    </md-card>
                     <div layout-align="center" layout="row">
                         <h4 ng-show="pleaseAnswerAllMsg">Please answer all the questions!</h4>
                     </div>
