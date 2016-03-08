@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo,CartFactory, AuthService) {
+app.controller('FoundProductController', function ($state,$mdSidenav,$scope,productInfo,CartFactory, AuthService, StoreFactory) {
 	$scope.product = productInfo;
     $scope.quantity = 1;
     AuthService.getLoggedInUser(false).then(function(user){
@@ -27,6 +27,12 @@ app.controller('FoundProductController', function ($mdSidenav,$scope,productInfo
             $scope.$emit('updateCart');
             $mdSidenav('right').open()
         })
+    }
+    $scope.backToQuestions = function(){
+        StoreFactory.getStoreById(productInfo.store)
+        .then(function(storeUrl){
+            $state.go("store",{url:storeUrl.data});
+        }); 
     }
 
 });
