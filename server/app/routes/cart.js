@@ -134,7 +134,26 @@ router.post('/purchase', ensureAuthenticatedOrGuestCart, function(req, res, next
 
 // creates a cart and adds the product
 router.put('/add-to-cart', ensureAuthenticatedOrGuestCart, function(req, res, next) {
-    Cart.findById(req.user.cart._id)
+    console.log("user>?",req.user.toString())
+    if (!req.user.cart) {
+        /// Create A cart for the user user.findbyid then 
+        User.findById(req.user._id)
+        .then(function (user) {
+            return user.addCart({isGuest:false})
+        })
+        .then(function(newUser){
+            Cart.findById(newUser.cart._id)
+            .then(function(cart) {
+                return cart.addProduct(req.body.product, req.body.quantity)
+            })
+            .then(function (cart) {
+                res.json(cart)
+            })
+            .then(null, next);
+        })
+        .then(null, next);
+    } else {  
+        Cart.findById(req.user.cart._id)
         .then(function(cart) {
             return cart.addProduct(req.body.product, req.body.quantity)
         })
@@ -142,6 +161,7 @@ router.put('/add-to-cart', ensureAuthenticatedOrGuestCart, function(req, res, ne
             res.json(cart)
         })
         .then(null, next);
+    }
 
 });
 
