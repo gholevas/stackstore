@@ -12,6 +12,14 @@ var ensureAuthenticated = function(req, res, next) {
     } 
 };
 
+var ensureAdmin = function(req, res, next) {
+    if (req.user.isAdmin) {
+        next();
+    } else {
+        res.sendStatus(401).end();
+    }
+};
+
 var ensureAdminOrSeller = function(req, res, next) {
     Store.find({url:req.params.storeUrl})
     .then(function(store){
@@ -33,6 +41,15 @@ router.get('/', function (req, res, next) {
     })
     .then(null,next);
 
+});
+
+// update a product admins
+router.put('/:id', ensureAdmin, function (req, res, next) {
+    Product.findByIdAndUpdate(req.params.id, req.body)
+    .then(function(updated){
+        res.json(updated);
+    })
+    .then(null,next);
 });
 
 

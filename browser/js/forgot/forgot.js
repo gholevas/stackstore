@@ -31,7 +31,7 @@ app.controller('ForgotController', function($scope,AuthService){
 app.controller('ResetController', function($state,$scope,AuthService,user){
     
     $scope.user = user;
-    $scope.user.password = ""
+    $scope.user.password = "";
 
     $scope.updatePassword = function () {
         console.log($scope.user)

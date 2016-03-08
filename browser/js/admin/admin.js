@@ -60,9 +60,10 @@ app.controller('AdminController', function($mdEditDialog, $q, $scope, $timeout, 
 
 });
 
-app.controller('AdminOrdersController', function($mdEditDialog, $q, $scope, $timeout, orders) {
+app.controller('AdminOrdersController', function($mdEditDialog,$filter, $q, $scope, $timeout, orders) {
 
     $scope.orders = orders;
+    console.log(orders)
 
     $scope.selected = [];
 
@@ -70,27 +71,77 @@ app.controller('AdminOrdersController', function($mdEditDialog, $q, $scope, $tim
         return ['unpaid', 'shipping info', 'complete'];
     };
 
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    var data = {
+        labels: orders.map(function (order) {
+                    return $filter('date')(order.date, "yyyy-MM-dd");
+                }),
+        datasets: [
+            {
+                label: "Orders",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: orders.map(function (order) {
+                    return order.totalPrice
+                })
+            }
+        ]
+    };
+    
+    var myLineChart = new Chart(ctx).Line(data);
+
 });
 
 
-app.controller('AdminProductsController', function($mdEditDialog, $q, $scope, $timeout, products) {
+app.controller('AdminProductsController', function($mdEditDialog, $q, $scope, $timeout, products, AdminFactory) {
 
     $scope.products = products;
 
     $scope.selected = [];
 
+    $scope.toggle = false;
+
+    $scope.toggleAll = function (to) {
+        $scope.products = $scope.selected.map(function (item) {
+            item.available = to;
+            return item
+        })
+
+        $scope.products.forEach(function (prod) {
+            AdminFactory.updateProduct(prod)
+            .then(null,console.log)
+        })
+    }
 
 });
 
-app.controller('AdminUsersController', function($mdEditDialog, $q, $scope, $timeout, users, AuthService) {
+app.controller('AdminUsersController', function($mdEditDialog, $q, $scope, $timeout, users, AuthService, AdminFactory) {
 
     $scope.users = users
 
     $scope.selected = [];
 
     $scope.resetPassword = function(user) {
-        $scope.promise = AuthService.resetPassword(user.email)
+        $scope.promise = $timeout(function() {
+            AuthService.resetPassword(user.email)
             .then(function() {})
+        }, 500);
+    }
+
+    $scope.toggleAdmin = function(user) {
+
+        $scope.promise = $timeout(function() {
+            AdminFactory.toggleAdmin(user)
+            .then(function(data) {
+                console.log(data)
+            })
+        }, 500);
+        
     }
 
 
@@ -119,8 +170,19 @@ app.factory('AdminFactory', function($http) {
                 return response.data;
             });
         },
+        toggleAdmin: function(user) {
+            console.log("here")
+            return $http.put('/api/user/toggle',user).then(function(response) {
+                return response.data;
+            });
+        },
         updateStoreStatus: function(store) {
             return $http.put('/api/store/', store).then(function(response) {
+                return response.data;
+            });
+        },
+        updateProduct: function(product) {
+            return $http.put('/api/products/'+product._id, product).then(function(response) {
                 return response.data;
             });
         }

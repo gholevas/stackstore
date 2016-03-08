@@ -24,60 +24,6 @@ module.exports = function (app) {
             });
     };
 
-    var strategySignUp = function (req, email, password, done) {
-        User.findOne({ email: email })
-            .then(function (user) {
-                if(!user){
-                    User.create({email:email,password:password,isSeller:req.body.isSeller})
-                    .then(function(newUser){
-                        if(newUser.isSeller === true){
-                            newUser.addStore({})
-                            .then(function(newUser){
-                                done(null,newUser)
-                            })
-                        }else{
-                            newUser.addCart({})
-                            .then(function(newUser){
-                                done(null,newUser)
-                            })
-                        }
-                    })
-                }else {
-                    var error = new Error('That email already exists')
-                    return done(error);
-                }
-            })
-    };
-
-    passport.use('local-signup',new LocalStrategy({ usernameField: 'email', passwordField: 'password', passReqToCallback: true}, strategySignUp));
-    
-    app.post('/signup', function(req,res,next){
-
-        var authCb = function (err, user) {
-
-            if (err) return next(err);
-
-            if (!user) {
-                var error = new Error('That email already exists.');
-                error.status = 401;
-                return next(error);
-            }
-
-            // req.logIn will establish our session.
-            req.logIn(user, function (loginErr) {
-                if (loginErr) return next(loginErr);
-                // We respond with a response object that has user with _id and email.
-                res.status(200).send({
-                    user: user.sanitize()
-                });
-            });
-
-        };
-        
-        passport.authenticate('local-signup', authCb)(req, res, next);
-    });
-
-
     passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, strategyFn));
 
     // A POST /login route is created to handle login.
@@ -96,7 +42,6 @@ module.exports = function (app) {
             // req.logIn will establish our session.
             req.logIn(user, function (loginErr) {
                 if (loginErr) return next(loginErr);
-                // We respond with a response object that has user with _id and email.
                 res.status(200).send({
                     user: user.sanitize()
                 });
@@ -107,5 +52,39 @@ module.exports = function (app) {
         passport.authenticate('local', authCb)(req, res, next);
 
     });
+
+    app.post('/signup', function (req, res, next) {
+        User.findOne({ email: req.body.email })
+        .then(function (user) {
+            if(!user){
+                    User.create({email: req.body.email,password:req.body.password,isSeller:req.body.isSeller})
+                    .then(function(newUser){
+                        if(newUser.isSeller === true){
+                            newUser.addStore({})
+                            .then(function(newUser){
+                                req.logIn(newUser, function (loginErr) {
+                                if (loginErr) return next(loginErr);
+                                    res.status(201).send({ user: newUser.sanitize()});
+                                });
+                            })
+                        }else{
+                            newUser.addCart({isGuest:false})
+                            .then(function(newUser){
+                                req.logIn(newUser, function (loginErr) {
+                                if (loginErr) return next(loginErr);
+                                    res.status(201).send({ user: newUser.sanitize()});
+                                });
+                            })
+                        }
+                    })
+                }else {
+                    console.log('hii')
+                    res.status(401).send('That email already exists');
+                }
+            })
+
+
+    });
+
 
 };

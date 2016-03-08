@@ -5,7 +5,6 @@
             <div class="md-toolbar-tools">
                 <span>Orders</span>
                 <div flex></div>
-                <md-button ng-click="loadStuff()">Async Operation</md-button>
             </div>
         </md-toolbar>
         <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
@@ -27,8 +26,14 @@
                     <tr md-row md-select="user" ng-repeat="user in users | filter: filter.search | orderBy: query.order">
                         <td md-cell>{{user._id}}</td>
                         <td md-cell>{{user.email}}</td>
-                        <td md-cell>{{user.isAdmin}}</td>
-                        <td md-cell>{{user.isSeller}}</td>
+                        <td md-cell>
+                            <md-switch class="md-primary" ng-model="user.isAdmin" ng-disabled="user.email === 'admin@gmail.com'" ng-change="toggleAdmin(user)" aria-label="active">
+                            </md-switch>
+                        </td>
+                        <td md-cell>
+                            <md-switch ng-model="user.isSeller" ng-disabled="true" ng-change="updateUserStatus(user)" aria-label="active">
+                            </md-switch>
+                        </td>
                         <td md-cell><md-button class="md-raised md-warn" ng-click="resetPassword(user)">Reset Password</md-button></td>
                     </tr>
                 </tbody>

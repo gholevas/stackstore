@@ -63,6 +63,17 @@ router.put('/reset', function(req, res, next) {
     .then(null,next)
 });
 
+router.put('/toggle', ensureAdmin, function(req, res, next) {
+    console.log("here",req.body._id,req.body.isAdmin)
+    User.findById(req.body._id)
+    .then(function (user) {
+        user.isAdmin = req.body.isAdmin
+        user.save()
+        res.json(user)
+    })
+    .then(null,next)
+});
+
 // update a user
 router.put('/:userId', ensureAuthenticated, function(req,res, next) {
 	User.findByIdAndUpdate(req.params.userId, req.body, {new:true})
