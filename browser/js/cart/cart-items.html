@@ -18,5 +18,5 @@
             </div>
         </md-list-item>
     </md-card>
-    <h2 ng-if="editable">Total: {{cart.totalToPay}}</h2>
+    <h2 ng-if="editable">Total: {{cart.totalToPay | currency: "$"}}</h2>
 </md-list>
