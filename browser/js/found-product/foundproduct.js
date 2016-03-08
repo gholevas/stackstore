@@ -18,6 +18,7 @@ app.controller('FoundProductController', function ($state,$mdSidenav,$scope,prod
     AuthService.getLoggedInUser(false).then(function(user){
         if(!user) return;
         $scope.isAdmin = user.isAdmin;
+        $scope.isSeller = user.isSeller;
     });
     $scope.addToCart = function () {
         // need to change one we fix answer schema [tags]

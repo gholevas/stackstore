@@ -1,15 +1,10 @@
-<style>
-.selected {
-    background-color: #da430f;
-} 
-</style>
 <div style="text-align: center" id='confirmation' ng-if="confNum">
     <br>
     <h2>Thank you for your purchaise!</h2>
     <h4>your order number is <b>{{confNum}}</b></h4>
     <br><br>
     <span>
-        <md-button ng-click="">Sign Up!</md-button>
+        <md-button ng-click="showSignup($event)">Sign Up!</md-button>
         <md-button ng-click="goHome()">Return to stores</md-button>
     </span>
 </div>
@@ -29,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row ng-click="selectRow(order)" ng-class="{selected: order.confirmationNum.toString()==orderDetails.confirmationNum.toString()}" ng-repeat="order in allMyOrders | filter: filter.search | orderBy: order">
+                    <tr md-row ng-click="selectRow(order)" ng-class="{rowselectedorange: order.confirmationNum.toString()==orderDetails.confirmationNum.toString()}" ng-repeat="order in allMyOrders | filter: filter.search | orderBy: order">
                         <td md-cell>{{order.date | date: "medium"}}</td>
                         <td md-cell>{{order.confirmationNum}}</td>
                         <td md-cell>{{order.totalPrice | currency: "$"}}</td>

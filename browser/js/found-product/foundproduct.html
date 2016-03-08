@@ -32,7 +32,7 @@
                                         </md-select>
                                     </md-input-container>
                                     <br>
-                                    <a ng-if="!isAdmin" ng-click="addToCart()" class="btn btn-primary btn-normal btn-inline " target="_self">Add to Cart</a>
+                                    <a ng-if="!isAdmin && !isSeller" ng-click="addToCart()" class="btn btn-primary btn-normal btn-inline " target="_self">Add to Cart</a>
                                     <a ng-click="backToQuestions()" class="btn btn-primary btn-normal btn-inline" target="_self">Find Another</a>
                                 </div>
                                 <div class="clearfix"> </div>
