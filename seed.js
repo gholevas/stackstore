@@ -27,16 +27,35 @@ var seedUsers = function() {
 
     var users = [{
         email: 'user@gmail.com',
-        password: 'user'
+        password: 'user',
+        profile: {
+            firstName: "Big",
+            lastName: "McLarge"
+        },
+        address: {
+            street: "Street",
+            apt: "1",
+            city: "place town",
+            state: "GO",
+            zip: "12112"
+        },
+        isAdmin: false,
+        isSeller: false,
+        // orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+        // cart:
     }, {
         email: 'admin@gmail.com',
         password: 'admin',
         isAdmin: true
-    }, {
-        email: 'seller@gmail.com',
-        password: 'seller',
-        isSeller: true
     }];
+
+    for(var i=1;i<=2;i++){
+        users.push({
+            email: "seller"+i+"@gmail.com",
+            password: 'seller',
+            isSeller: true
+        });
+    }
 
     return User.createAsync(users);
 
@@ -49,13 +68,40 @@ var dropUsers = function() {
 var seedProducts = function() {
 
     var products = [{
-        name: 'p1',
-        price: 100,
-        tags: ["preteen","EDM","rave"]
+        name: 'Bar Soap',
+        price: 40,
+        imgUrl: "http://food.unl.edu/documents/hand-nuts-690-2.png",
+        tags: ["home","health","soap"]
     }, {
-        name: 'p2',
-        price: 60,
-        tags: ["outdoors","food","trees"]
+        name: 'Mobile Phone',
+        price: 40,
+        imgUrl: "http://food.unl.edu/documents/hand-nuts-690-2.png",
+        tags: ["phone","tech","wireless"]
+    }, {
+        name: 'Mixed Nuts',
+        price: 40,
+        imgUrl: "http://food.unl.edu/documents/hand-nuts-690-2.png",
+        tags: ["outdoors","food","health"]
+    }, {
+        name: 'Salted Nuts',
+        price: 40,
+        imgUrl: "http://food.unl.edu/documents/hand-nuts-690-2.png",
+        tags: ["nuts","food","snack"]
+    }, {
+        name: 'Pea Nuts',
+        price: 40,
+        imgUrl: "http://food.unl.edu/documents/hand-nuts-690-2.png",
+        tags: ["ground","snack","nuts"]
+    }, {
+        name: 'Doze Nuts',
+        price: 40,
+        imgUrl: "http://food.unl.edu/documents/hand-nuts-690-2.png",
+        tags: ["snack","food","trees"]
+    }, {
+        name: 'Deez Nuts',
+        price: 40,
+        imgUrl: "http://food.unl.edu/documents/hand-nuts-690-2.png",
+        tags: ["health","food","tech"]
     }];
 
     return Product.createAsync(products);
@@ -66,45 +112,37 @@ var dropProducts = function() {
     return Product.remove({});
 };
 
-var QuestionSchema = new mongoose.Schema({
-    text: String,
-    answers: [{
-        text: String,
-        tags: [String]
-    }]
-});
-
 var seedQuestions = function() {
 
     var questions = [{
-        text: 'who is your your daddy?',
+        text: 'What is your favorite food?',
         answers: [{
-                text: 'arnoldy',
-                tags: ["EDM","rave"]
+                text: 'Nuts',
+                tags: ["nuts"]
             }, {
-                text: 'freddy',
-                tags: ["outdoors","trees"]
+                text: 'Peanuts',
+                tags: ["ground"]
             }, {
-                text: 'bobby',
-                tags: ["preteen","rave"]
+                text: 'Spaghetti',
+                tags: ["soap"]
             }, {
-                text: 'joey',
-                tags: ["EDM","rave"]
+                text: 'Cereal',
+                tags: ["tech"]
             }]
         }, {
-        text: 'who is your your momma?',
+        text: 'What is your dream vacation?',
         answers: [{
-                text: 'arnoldya',
-                tags: ["food","rave"]
+                text: 'Camping',
+                tags: ["outdoors","food"]
             }, {
-                text: 'freddya',
-                tags: ["preteen","rave"]
+                text: 'Hiking',
+                tags: ["nuts","snack"]
             }, {
-                text: 'bobbya',
-                tags: ["preteen","rave"]
+                text: 'Staycation',
+                tags: ["health","food"]
             }, {
-                text: 'joeya',
-                tags: ["EDM","rave"]
+                text: 'Beach',
+                tags: ["health","outdoors"]
             }]
     }];
 
@@ -145,8 +183,10 @@ var dropCarts = function() {
     return Cart.remove({});
 };
 
-var seedStores = function(name) {
-    var userA;
+var numPrdPerStore = 2;
+
+var seedStores = function() {
+    var seller;
     var prodIds;
     var products;
     return Product.find({})
@@ -160,23 +200,45 @@ var seedStores = function(name) {
         var questIds = questions.map(function (el) {
             return el._id
         })
-        return User.findOne({ isSeller: true })
+        return User.findOne({ email: "seller1@gmail.com" })
         .then(function(user) {
-            userA = user
+            seller = user
             var stores = [{
-                name: name,
+                name: "40 Dollars and Less",
                 seller: user._id,
                 products: prodIds,
-                questions: questIds
+                questions: questIds,
+                pic: "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/5/19/1400507865646/Dollars-009.jpg"
             }];
             return Store.createAsync(stores);
         }).then(function(stores) {
-            userA.store = stores[0]._id
+            seller.store = stores[0]._id
             products.forEach(function(product){
                 product.store = stores[0]._id;
                 product.save();
             })
-            return userA.save()
+            return seller.save()
+        })
+        .then(function(){
+            return User.findOne({ email: "seller2@gmail.com" })
+        })
+        .then(function(user) {
+            seller = user
+            var stores = [{
+                name: "GoNuts",
+                seller: user._id,
+                products: prodIds,
+                questions: questIds,
+                pic: "http://luxurywayofliving.com/wp-content/uploads/2016/01/Nuts2.jpg"
+            }];
+            return Store.createAsync(stores);
+        }).then(function(stores) {
+            seller.store = stores[0]._id
+            products.forEach(function(product){
+                product.store = stores[0]._id;
+                product.save();
+            })
+            return seller.save()
         }).catch(console.error)
         
     })
@@ -197,20 +259,11 @@ connectToDb.then(function() {
         seedQuestions(),
         seedProducts(),
         seedUsers(),
-        seedCarts(),
-        seedStores("Store 1"),
-        seedStores("Store 2"),
-        seedStores("Store 3"),
-        seedStores("Store 4"),
-        seedStores("Store 5"),
-        seedStores("Store 6"),
-        seedStores("Store 7"),
-        seedStores("Store 8")
+        // seedCarts(),
+        seedStores()
     ]
 
-    Promise.each(seedyThings, function(element) {
-            return element + '.';
-        })
+    Promise.each(seedyThings, function(){})
         .then(function() {
             console.log(chalk.green('Seed successful!'));
             process.kill(0);

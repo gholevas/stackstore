@@ -117,16 +117,22 @@ router.get("/id/:id", function(req, res, next){
 
 //save store
 router.put("/:url", function(req, res, next){
-	Store.findByIdAndUpdate(req.body._id,req.body, {new:true})
-	.populate("products seller questions orders")
-	.then(function(data){
-		res.send(data);
+	Store.findById(req.body._id)
+	.then(function (store) {
+		store.name =  req.body.name
+	    store.pic = req.body.pic
+	    store.headline = req.body.headline
+		return store.save()
+	})
+	.then(function(store){
+		store.populate('orders questions products')
+		res.send(store);
 	}).catch(next);
 });
 
 //save store alternate
 router.put("/", function(req, res, next){
-	Store.findByIdAndUpdate(req.body._id,{active:req.body.active},{new:true})
+	Store.findByIdAndUpdate(req.body._id,{active:req.body.active},{new:true, runValidators: true})
 	.then(function (newStore) {
 		res.json(newStore);
 	});

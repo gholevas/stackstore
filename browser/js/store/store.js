@@ -107,6 +107,9 @@ app.factory('StoreFactory', function($http) {
                 .then(function(res){
                     return res.data
                 })
+        },
+        getStoreById: function(id){
+            return $http.get('/api/store/id/'+id);
         }
     };
 });
