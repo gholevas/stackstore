@@ -1,6 +1,6 @@
 <div class="banner">
     <div class="container" style="height:100%">
-        <div class="logo">
+        <div class="logo" ng-if="bigScreen">
             <a ui-sref="home" style="height:100%"><img src="LOGO.png" style="height:100%"/></a>
         </div>
         <div class="menu">
@@ -20,10 +20,10 @@
                 <div class="clearfix"> </div>
             </ul>
         </div>
-        <div class="clearfix"> </div>
-        <div class="header_arrow">
+       <!--  <div class="clearfix"> </div> -->
+       <!--  <div class="header_arrow">
             <a href="#arrow" class="scroll"><span> </span></a>
-        </div>
+        </div> -->
     </div>
 </div>
 <cart ng-hide="state.current.name === 'checkout'" cart="cart"></cart>
