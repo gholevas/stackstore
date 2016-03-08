@@ -11,7 +11,7 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function($scope, $state, stores){
+app.controller('HomeCtrl', function($scope, $state, stores, $location, $anchorScroll){
 	
     $scope.stores = stores;
 
@@ -21,6 +21,10 @@ app.controller('HomeCtrl', function($scope, $state, stores){
 		$state.go('store', {url: store.url});
 	};
 
+    $scope.scrollToStores = function () {
+        $location.hash('stores'); 
+        $anchorScroll();
+    };
     
 });
 
