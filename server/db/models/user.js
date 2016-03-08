@@ -39,8 +39,8 @@ var UserSchema = new mongoose.Schema({
     google: {
         id: String
     },
-    isAdmin: Boolean,
-    isSeller: Boolean,
+    isAdmin: {type: Boolean, default: false},
+    isSeller: {type: Boolean, default: false},
     store: { type: mongoose.Schema.Types.ObjectId, ref: "Store" },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
     cart: CartSchema,
