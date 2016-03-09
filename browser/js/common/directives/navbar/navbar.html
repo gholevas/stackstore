@@ -5,6 +5,7 @@
         </div>
         <div class="menu">
             <ul class="megamenu skyblue">
+            <li ng-if="!bigScreen"><a ui-sref="home" style="height:100%">Home</a></li>
                 <li ng-if="user.isAdmin && state.current.name.indexOf('admin') > -1"><a class="color6" ng-click="toggleLeft()"><md-icon md-svg-icon="/icons/menu.svg" style="fill:#fff;"></md-icon></a></li>
                 <li ng-click="goToAdmin()" aria-label="admin" ng-if="user && user.isAdmin"><a class="color2">Admin</a>
                 </li>
