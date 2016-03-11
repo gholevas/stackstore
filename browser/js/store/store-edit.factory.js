@@ -2,6 +2,12 @@ app.factory('StoreEditFactory', function($http){
 
 	var factory = {};
 
+  /*
+    TMK: Right idea, but by having this on the factory as a property, anyone can access
+    it and mutate it however they want! Instead, store it in a variable - that
+    way, your methods have closure over it, but the outside world can only access it
+    through the API you expose
+  */
 	factory.store = {};
 
 	factory.returnStore = function(){

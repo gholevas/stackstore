@@ -15,6 +15,7 @@ app.config(function ($stateProvider) {
 app.controller('FoundProductController', function ($state,$mdSidenav,$scope,productInfo,CartFactory, AuthService, StoreFactory) {
 	$scope.product = productInfo;
     $scope.quantity = 1;
+    /* TMK: Why not resolve this? */
     AuthService.getLoggedInUser(false).then(function(user){
         if(!user) return;
         $scope.isAdmin = user.isAdmin;
@@ -33,7 +34,7 @@ app.controller('FoundProductController', function ($state,$mdSidenav,$scope,prod
         StoreFactory.getStoreById(productInfo.store)
         .then(function(storeUrl){
             $state.go("store",{url:storeUrl.data});
-        }); 
+        });
     }
 
 });
