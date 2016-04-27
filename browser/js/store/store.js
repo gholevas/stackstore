@@ -38,7 +38,6 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
                 $timeout(function() {
                     AuthService.getLoggedInUser()
                     .then(function(user){
-                        console.log(user)
                         $state.go('storeEdit',{url:user.store.url});
                     })
                 }, 0);
