@@ -32,9 +32,6 @@ app.controller('StoreCtrl', function($scope,storeInfo,StoreFactory,$state,$state
     $scope.selectAnswer = function(question,answer){
         $scope.answers[question._id] = answer;
         $scope.answers[question._id].selected = true;
-        // for(var i=0; i<question.answers.length; i++){
-        //     if(question.answers[i] !== answer) question.answers.selected = false;
-        // }
     }
 
     $scope.goToStoreEdit = function () {
