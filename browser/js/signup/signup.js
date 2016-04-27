@@ -8,11 +8,9 @@ app.controller('SignupCtrl', function($scope, AuthService, $state, $mdDialog,Sto
 
     $scope.sendSignup = function(signupInfo) {
         AuthService.signup(signupInfo).then(function(signedUp) {
-            console.log('look who just signed up', signedUp)
             $mdDialog.cancel();
             StoreUrlFactory.getStoreUrl(signedUp.store)
             .then(function(url){
-                console.log(url)
                 $state.go('storeEdit', { url: url });
             })
         }).catch(function() {
